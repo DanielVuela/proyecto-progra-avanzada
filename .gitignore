@@ -42,7 +42,6 @@ x86/
 *.pdb
 *.exe
 *.dll
-*.config
 *.manifest
 *.compiled
 [Tt]emp/
