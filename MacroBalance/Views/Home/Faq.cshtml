@@ -1,0 +1,71 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "FAQ";
+}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>F.A.Q</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li class="breadcrumb-item active">F.A.Q</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section faq">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Preguntas Generales</h5>
+
+                        <div class="accordion" id="faq-general">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true">
+                                        ¿Cómo puedo registrarme?
+                                    </button>
+                                </h2>
+                                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faq-general">
+                                    <div class="accordion-body">
+                                        Puedes registrarte en la página principal haciendo clic en "Registro" y completando el formulario.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false">
+                                        ¿Dónde puedo cambiar mi contraseña?
+                                    </button>
+                                </h2>
+                                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faq-general">
+                                    <div class="accordion-body">
+                                        Puedes cambiar tu contraseña desde el menú "Perfil" en la sección de configuración.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false">
+                                        ¿Cómo contacto al soporte?
+                                    </button>
+                                </h2>
+                                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faq-general">
+                                    <div class="accordion-body">
+                                        Puedes contactar al soporte a través del formulario en la sección "Contacto".
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main><!-- End Main -->

@@ -31,5 +31,19 @@ namespace MacroBalance.Controllers
         {
             return View("~/Views/Login/Login.cshtml"); 
         }
+
+        public ActionResult Faq() 
+        {
+            return View();
+        }
+        public ActionResult RecuperarContrasena()
+        {
+            return View();
+        }
+
+        public ActionResult AjustesCuenta()
+        {
+            return View();
+        }
     }
 }

@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Perfil de Usuario";
+}
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Perfil de Usuario</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li class="breadcrumb-item active">Perfil de Usuario</li>
+            </ol>
+        </nav>
+    </div>
+    <section class="section profile">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <img src="@Url.Content("~/assets/img/profile-img.jpg")" alt="Profile Image" class="rounded-circle mb-3" width="120">
+                        <h5 class="card-title">Kevin Anderson</h5>
+                        <p>Web Designer</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Información Personal</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Nombre:</strong> Kevin Anderson</p>
+                                <p><strong>Email:</strong> kevin.anderson@example.com</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Teléfono:</strong> +123 456 7890</p>
+                                <p><strong>Dirección:</strong> 1234 Main St, Ciudad</p>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <a href="@Url.Action("AjustesCuenta", "Account")" class="btn btn-primary">Editar Perfil</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
