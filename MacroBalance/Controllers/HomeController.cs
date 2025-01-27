@@ -26,5 +26,10 @@ namespace MacroBalance.Controllers
 
             return View();
         }
+
+        public ActionResult Login()
+        {
+            return View("~/Views/Login/Login.cshtml"); 
+        }
     }
 }
