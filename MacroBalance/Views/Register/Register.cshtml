@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
+    <title>Registro</title>
 
     <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -19,19 +19,27 @@
             <div class="col-lg-6 col-md-8">
                 <div class="card shadow">
                     <div class="card-header bg-primary text-white text-center">
-                        <h2>Iniciar Sesión</h2>
+                        <h2>Registro de Usuario</h2>
                     </div>
                     <div class="card-body">
                         <form>
                             <div class="form-group mb-3">
-                                <label for="username" class="form-label">Usuario</label>
+                                <label for="name" class="form-label">Nombre</label>
                                 <input type="text"
-                                       id="username"
+                                       id="name"
                                        class="form-control"
-                                       placeholder="Ingresa tu usuario"
+                                       placeholder="Ingresa tu nombre"
                                        required>
                             </div>
-                            <div class="form-group mb-4">
+                            <div class="form-group mb-3">
+                                <label for="email" class="form-label">Correo Electrónico</label>
+                                <input type="email"
+                                       id="email"
+                                       class="form-control"
+                                       placeholder="Ingresa tu correo"
+                                       required>
+                            </div>
+                            <div class="form-group mb-3">
                                 <label for="password" class="form-label">Contraseña</label>
                                 <input type="password"
                                        id="password"
@@ -41,21 +49,17 @@
                             </div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary btn-block">
-                                    <i class="bi bi-box-arrow-in-right"></i> Ingresar
+                                    <i class="bi bi-person-plus-fill"></i> Registrarse
                                 </button>
                             </div>
                         </form>
                     </div>
-                  
-                    <div class="card-footer text-center text-muted">
-                        <small>¿No tienes una cuenta? <a href="/Register/Register">Registrate aquí</a></small>
-                    </div>
+                    
                 </div>
             </div>
         </div>
     </div>
 
-  
     <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
