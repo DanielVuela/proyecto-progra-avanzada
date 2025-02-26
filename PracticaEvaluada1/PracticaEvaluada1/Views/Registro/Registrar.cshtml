@@ -4,7 +4,7 @@
     ViewBag.Title = "RegistrarCursos";
 }
 
-<h2>TITULO</h2>
+<h2>Caso 1</h2>
 
 @using (Html.BeginForm())
 {
@@ -37,9 +37,16 @@
             @Html.LabelFor(model => model.InfoDeEstudiante.TipoCurso, "Tipo de Curso", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.InfoDeEstudiante.TipoCurso, Model.TiposDeCurso, "-- Seleccione --", new { @class = "form-control" })
-                @*@Html.ValidationMessageFor(model => model.InfoDeEstudiante.TipoCurso)*@
+                @Html.ValidationMessageFor(model => model.InfoDeEstudiante.TipoCurso)
             </div>
         </div>
+
+        @if (!string.IsNullOrEmpty(ViewBag.MensajeExito))
+        {
+            <div class="alert alert-success" role="alert">
+                @ViewBag.MensajeExito
+            </div>
+        }
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

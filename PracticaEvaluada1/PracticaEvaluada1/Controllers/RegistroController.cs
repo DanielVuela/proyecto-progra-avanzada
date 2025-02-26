@@ -30,7 +30,6 @@ namespace TuProyecto.Controllers
                 {
                     if (!ModelState.IsValid)
                     {
-                        // Recargar la lista de cursos si hay errores en el formulario
                         model.TiposDeCurso = db.TiposCursos.Select(tc => new SelectListItem
                         {
                             Value = tc.TipoCurso.ToString(),
@@ -59,7 +58,17 @@ namespace TuProyecto.Controllers
 
                 db.Estudiantes.Add(model.InfoDeEstudiante);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Estudiantes");
+
+                ViewBag.MensajeExito = "Matricula guardada~";
+
+                model.TiposDeCurso = db.TiposCursos.Select(tc => new SelectListItem
+                {
+                    Value = tc.TipoCurso.ToString(),
+                    Text = tc.DescripcionTipoCurso
+                }).ToList();
+                ViewBag.TiposDeCurso = new SelectList(model.TiposDeCurso, "Value", "Text");
+                return View(model);
+
             }
             catch (Exception ex)
             {

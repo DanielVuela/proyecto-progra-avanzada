@@ -10,5 +10,7 @@ namespace TuProyecto.Models
         public Estudiante InfoDeEstudiante { get; set; }
 
         public List<SelectListItem> TiposDeCurso { get; set; }
+
+        public string MensajeExito { get; set; }
     }
 }
