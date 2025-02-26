@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CasoEstudioModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Estudiantes">
+          <Key>
+            <PropertyRef Name="Consecutivo" />
+          </Key>
+          <Property Name="Consecutivo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Monto" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="TipoCurso" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TiposCursos">
+          <Key>
+            <PropertyRef Name="TipoCurso" />
+          </Key>
+          <Property Name="TipoCurso" Type="int" Nullable="false" />
+          <Property Name="DescripcionTipoCurso" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Estudiantes_TiposCursos">
+          <End Role="TiposCursos" Type="Self.TiposCursos" Multiplicity="1" />
+          <End Role="Estudiantes" Type="Self.Estudiantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposCursos">
+              <PropertyRef Name="TipoCurso" />
+            </Principal>
+            <Dependent Role="Estudiantes">
+              <PropertyRef Name="TipoCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CasoEstudioModelStoreContainer">
+          <EntitySet Name="Estudiantes" EntityType="Self.Estudiantes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposCursos" EntityType="Self.TiposCursos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Estudiantes_TiposCursos" Association="Self.FK_Estudiantes_TiposCursos">
+            <End Role="TiposCursos" EntitySet="TiposCursos" />
+            <End Role="Estudiantes" EntitySet="Estudiantes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CasoEstudioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Estudiante">
+          <Key>
+            <PropertyRef Name="Consecutivo" />
+          </Key>
+          <Property Name="Consecutivo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Monto" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="TipoCurso" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TiposCurso" Relationship="Self.FK_Estudiantes_TiposCursos" FromRole="Estudiantes" ToRole="TiposCursos" />
+        </EntityType>
+        <EntityType Name="TiposCurso">
+          <Key>
+            <PropertyRef Name="TipoCurso" />
+          </Key>
+          <Property Name="TipoCurso" Type="Int32" Nullable="false" />
+          <Property Name="DescripcionTipoCurso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Estudiantes" Relationship="Self.FK_Estudiantes_TiposCursos" FromRole="TiposCursos" ToRole="Estudiantes" />
+        </EntityType>
+        <Association Name="FK_Estudiantes_TiposCursos">
+          <End Role="TiposCursos" Type="Self.TiposCurso" Multiplicity="1" />
+          <End Role="Estudiantes" Type="Self.Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposCursos">
+              <PropertyRef Name="TipoCurso" />
+            </Principal>
+            <Dependent Role="Estudiantes">
+              <PropertyRef Name="TipoCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CasoEstudioEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Estudiantes" EntityType="Self.Estudiante" />
+          <EntitySet Name="TiposCursos" EntityType="Self.TiposCurso" />
+          <AssociationSet Name="FK_Estudiantes_TiposCursos" Association="Self.FK_Estudiantes_TiposCursos">
+            <End Role="TiposCursos" EntitySet="TiposCursos" />
+            <End Role="Estudiantes" EntitySet="Estudiantes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CasoEstudioModelStoreContainer" CdmEntityContainer="CasoEstudioEntities">
+          <EntitySetMapping Name="Estudiantes">
+            <EntityTypeMapping TypeName="CasoEstudioModel.Estudiante">
+              <MappingFragment StoreEntitySet="Estudiantes">
+                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="TipoCurso" ColumnName="TipoCurso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposCursos">
+            <EntityTypeMapping TypeName="CasoEstudioModel.TiposCurso">
+              <MappingFragment StoreEntitySet="TiposCursos">
+                <ScalarProperty Name="TipoCurso" ColumnName="TipoCurso" />
+                <ScalarProperty Name="DescripcionTipoCurso" ColumnName="DescripcionTipoCurso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

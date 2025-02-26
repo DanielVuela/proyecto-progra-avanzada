@@ -1,0 +1,54 @@
+﻿@model TuProyecto.Models.RegistroModel
+
+@{
+    ViewBag.Title = "RegistrarCursos";
+}
+
+<h2>TITULO</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.InfoDeEstudiante.Nombre, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.InfoDeEstudiante.Nombre, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.InfoDeEstudiante.Nombre)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.InfoDeEstudiante.Fecha, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.InfoDeEstudiante.Fecha, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(model => model.InfoDeEstudiante.Fecha)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.InfoDeEstudiante.Monto, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.InfoDeEstudiante.Monto, new { @class = "form-control", type = "number", step = "0.01" })
+                @Html.ValidationMessageFor(model => model.InfoDeEstudiante.Monto)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.InfoDeEstudiante.TipoCurso, "Tipo de Curso", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.InfoDeEstudiante.TipoCurso, Model.TiposDeCurso, "-- Seleccione --", new { @class = "form-control" })
+                @*@Html.ValidationMessageFor(model => model.InfoDeEstudiante.TipoCurso)*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="@Url.Action("Index")">Volver a la lista</a>
+</div>
