@@ -21,6 +21,25 @@ namespace TuProyecto.Controllers
             return View(new RegistroModel { TiposDeCurso = data });
         }
 
+        [HttpGet]
+        public ActionResult Consultar()
+        {
+            var matriculas = db.Estudiantes
+                .Join(db.TiposCursos,
+                    est => est.TipoCurso,
+                    tipo => tipo.TipoCurso,
+                    (est, tipo) => new MatriculaViewModel
+                    {
+                        Fecha = est.Fecha,
+                        Monto = est.Monto,
+                        DescripcionTipoCurso = tipo.DescripcionTipoCurso,
+                        NombreEstudiante = est.Nombre
+                    })
+                .ToList();
+
+            return View(matriculas);
+        }
+
         [HttpPost]
         public ActionResult Registrar(RegistroModel model)
         {
@@ -73,7 +92,12 @@ namespace TuProyecto.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", "Ocurrió un error al registrar la matrícula: " + ex.Message);
-                ViewBag.TipoCursos = new SelectList(db.TiposCursos, "TipoCurso", "DescripcionTipoCurso", model.InfoDeEstudiante.TipoCurso);
+                model.TiposDeCurso = db.TiposCursos.Select(tc => new SelectListItem
+                {
+                    Value = tc.TipoCurso.ToString(),
+                    Text = tc.DescripcionTipoCurso
+                }).ToList();
+                ViewBag.TiposDeCurso = new SelectList(model.TiposDeCurso, "Value", "Text");
                 return View(model);
             }
         }

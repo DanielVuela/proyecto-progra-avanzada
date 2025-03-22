@@ -1,0 +1,38 @@
+﻿@model List<TuProyecto.Models.MatriculaViewModel>
+
+@{
+    ViewBag.Title = "Consultar Matrículas";
+}
+
+<h2>Consultar Matriculas</h2>
+
+@if (Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Monto</th>
+                <th>Tipo de Curso</th>
+                <th>Nombre del Estudiante</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var matricula in Model)
+            {
+                <tr>
+                    <td>@matricula.Fecha.ToString("yyyy-MM-dd HH:mm")</td>
+                    <td>@matricula.Monto.ToString("C")</td>
+                    <td>@matricula.DescripcionTipoCurso</td>
+                    <td>@matricula.NombreEstudiante</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">
+        No hay matrículas registradas.
+    </div>
+}

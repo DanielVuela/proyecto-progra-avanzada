@@ -1,0 +1,988 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MacroBalanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Alimento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+          <Property Name="Calorias" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="Proteina" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Carbohidratos" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Grasas" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="Alimento_Dieta">
+          <Key>
+            <PropertyRef Name="DietaId" />
+            <PropertyRef Name="AlimentoId" />
+          </Key>
+          <Property Name="DietaId" Type="int" Nullable="false" />
+          <Property Name="AlimentoId" Type="int" Nullable="false" />
+          <Property Name="CantidadDiaria" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="Dieta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Ejercicio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+          <Property Name="CaloriasQuemadas" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="EjercicioRealizado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" />
+          <Property Name="EjercicioId" Type="int" />
+          <Property Name="Fecha" Type="date" />
+        </EntityType>
+        <EntityType Name="EstadoEmocional">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+          <Property Name="Estado" Type="nvarchar" MaxLength="100" />
+          <Property Name="Fecha" Type="date" />
+        </EntityType>
+        <EntityType Name="LogErrores">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaHora" Type="datetime" />
+          <Property Name="UsuarioId" Type="int" />
+          <Property Name="Modulo" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MensajeError" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Stacktrace" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Objetivo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" />
+          <Property Name="NombreObjetivo" Type="nvarchar" MaxLength="100" />
+          <Property Name="PesoObjetivo" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="PreferenciaAlimenticia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" />
+          <Property Name="Preferencia" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Progreso">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="Peso" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Cintura" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Cadera" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Pecho" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="Recordatorios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" />
+          <Property Name="Frecuencia" Type="nvarchar" MaxLength="50" />
+          <Property Name="Hora" Type="time" Precision="7" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="RegistroAlimento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DietaId" Type="int" />
+          <Property Name="AlimentoId" Type="int" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="Cantidad" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="Sugerencia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EstadoId" Type="int" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+          <Property Name="Apellidos" Type="nvarchar" MaxLength="100" />
+          <Property Name="FotoDePerfilUrl" Type="nvarchar" MaxLength="255" />
+          <Property Name="FechaDeNacimiento" Type="date" />
+          <Property Name="Peso" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Altura" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="CorreoElectronico" Type="nvarchar" MaxLength="100" />
+          <Property Name="Contrasena" Type="nvarchar" MaxLength="255" />
+          <Property Name="Rol" Type="nvarchar" MaxLength="50" />
+          <Property Name="NivelActividadFisica" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Alimento___Alime__571DF1D5">
+          <End Role="Alimento" Type="Self.Alimento" Multiplicity="1" />
+          <End Role="Alimento_Dieta" Type="Self.Alimento_Dieta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alimento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Alimento_Dieta">
+              <PropertyRef Name="AlimentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Alimento___Dieta__5629CD9C">
+          <End Role="Dieta" Type="Self.Dieta" Multiplicity="1" />
+          <End Role="Alimento_Dieta" Type="Self.Alimento_Dieta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dieta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Alimento_Dieta">
+              <PropertyRef Name="DietaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Dieta__IdUsuario__5165187F">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Dieta" Type="Self.Dieta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Dieta">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ejercicio__Ejerc__48CFD27E">
+          <End Role="Ejercicio" Type="Self.Ejercicio" Multiplicity="0..1" />
+          <End Role="EjercicioRealizado" Type="Self.EjercicioRealizado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ejercicio">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EjercicioRealizado">
+              <PropertyRef Name="EjercicioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ejercicio__Usuar__47DBAE45">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="EjercicioRealizado" Type="Self.EjercicioRealizado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EjercicioRealizado">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EstadoEmo__Usuar__3A81B327">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="EstadoEmocional" Type="Self.EstadoEmocional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EstadoEmocional">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Objetivo__Usuari__4E88ABD4">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Objetivo" Type="Self.Objetivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Objetivo">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Preferenc__Usuar__4BAC3F29">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="PreferenciaAlimenticia" Type="Self.PreferenciaAlimenticia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PreferenciaAlimenticia">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Progreso__Usuari__4316F928">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Progreso" Type="Self.Progreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Progreso">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recordato__Usuar__403A8C7D">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Recordatorios" Type="Self.Recordatorios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recordatorios">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RegistroA__Alime__5AEE82B9">
+          <End Role="Alimento" Type="Self.Alimento" Multiplicity="0..1" />
+          <End Role="RegistroAlimento" Type="Self.RegistroAlimento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alimento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RegistroAlimento">
+              <PropertyRef Name="AlimentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RegistroA__Dieta__59FA5E80">
+          <End Role="Dieta" Type="Self.Dieta" Multiplicity="0..1" />
+          <End Role="RegistroAlimento" Type="Self.RegistroAlimento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dieta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RegistroAlimento">
+              <PropertyRef Name="DietaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sugerenci__Estad__3D5E1FD2">
+          <End Role="EstadoEmocional" Type="Self.EstadoEmocional" Multiplicity="0..1" />
+          <End Role="Sugerencia" Type="Self.Sugerencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoEmocional">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sugerencia">
+              <PropertyRef Name="EstadoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MacroBalanceModelStoreContainer">
+          <EntitySet Name="Alimento" EntityType="Self.Alimento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Alimento_Dieta" EntityType="Self.Alimento_Dieta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dieta" EntityType="Self.Dieta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ejercicio" EntityType="Self.Ejercicio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EjercicioRealizado" EntityType="Self.EjercicioRealizado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstadoEmocional" EntityType="Self.EstadoEmocional" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LogErrores" EntityType="Self.LogErrores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Objetivo" EntityType="Self.Objetivo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PreferenciaAlimenticia" EntityType="Self.PreferenciaAlimenticia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Progreso" EntityType="Self.Progreso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recordatorios" EntityType="Self.Recordatorios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegistroAlimento" EntityType="Self.RegistroAlimento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sugerencia" EntityType="Self.Sugerencia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Alimento___Alime__571DF1D5" Association="Self.FK__Alimento___Alime__571DF1D5">
+            <End Role="Alimento" EntitySet="Alimento" />
+            <End Role="Alimento_Dieta" EntitySet="Alimento_Dieta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Alimento___Dieta__5629CD9C" Association="Self.FK__Alimento___Dieta__5629CD9C">
+            <End Role="Dieta" EntitySet="Dieta" />
+            <End Role="Alimento_Dieta" EntitySet="Alimento_Dieta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Dieta__IdUsuario__5165187F" Association="Self.FK__Dieta__IdUsuario__5165187F">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Dieta" EntitySet="Dieta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ejercicio__Ejerc__48CFD27E" Association="Self.FK__Ejercicio__Ejerc__48CFD27E">
+            <End Role="Ejercicio" EntitySet="Ejercicio" />
+            <End Role="EjercicioRealizado" EntitySet="EjercicioRealizado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ejercicio__Usuar__47DBAE45" Association="Self.FK__Ejercicio__Usuar__47DBAE45">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="EjercicioRealizado" EntitySet="EjercicioRealizado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EstadoEmo__Usuar__3A81B327" Association="Self.FK__EstadoEmo__Usuar__3A81B327">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="EstadoEmocional" EntitySet="EstadoEmocional" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Objetivo__Usuari__4E88ABD4" Association="Self.FK__Objetivo__Usuari__4E88ABD4">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Objetivo" EntitySet="Objetivo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Preferenc__Usuar__4BAC3F29" Association="Self.FK__Preferenc__Usuar__4BAC3F29">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="PreferenciaAlimenticia" EntitySet="PreferenciaAlimenticia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Progreso__Usuari__4316F928" Association="Self.FK__Progreso__Usuari__4316F928">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Progreso" EntitySet="Progreso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recordato__Usuar__403A8C7D" Association="Self.FK__Recordato__Usuar__403A8C7D">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Recordatorios" EntitySet="Recordatorios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RegistroA__Alime__5AEE82B9" Association="Self.FK__RegistroA__Alime__5AEE82B9">
+            <End Role="Alimento" EntitySet="Alimento" />
+            <End Role="RegistroAlimento" EntitySet="RegistroAlimento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RegistroA__Dieta__59FA5E80" Association="Self.FK__RegistroA__Dieta__59FA5E80">
+            <End Role="Dieta" EntitySet="Dieta" />
+            <End Role="RegistroAlimento" EntitySet="RegistroAlimento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sugerenci__Estad__3D5E1FD2" Association="Self.FK__Sugerenci__Estad__3D5E1FD2">
+            <End Role="EstadoEmocional" EntitySet="EstadoEmocional" />
+            <End Role="Sugerencia" EntitySet="Sugerencia" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MacroBalanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Alimento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Calorias" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="Proteina" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Carbohidratos" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Grasas" Type="Decimal" Precision="5" Scale="2" />
+          <NavigationProperty Name="Alimento_Dieta" Relationship="Self.FK__Alimento___Alime__571DF1D5" FromRole="Alimento" ToRole="Alimento_Dieta" />
+          <NavigationProperty Name="RegistroAlimentoes" Relationship="Self.FK__RegistroA__Alime__5AEE82B9" FromRole="Alimento" ToRole="RegistroAlimento" />
+        </EntityType>
+        <EntityType Name="Alimento_Dieta">
+          <Key>
+            <PropertyRef Name="DietaId" />
+            <PropertyRef Name="AlimentoId" />
+          </Key>
+          <Property Name="DietaId" Type="Int32" Nullable="false" />
+          <Property Name="AlimentoId" Type="Int32" Nullable="false" />
+          <Property Name="CantidadDiaria" Type="Decimal" Precision="5" Scale="2" />
+          <NavigationProperty Name="Alimento" Relationship="Self.FK__Alimento___Alime__571DF1D5" FromRole="Alimento_Dieta" ToRole="Alimento" />
+          <NavigationProperty Name="Dieta" Relationship="Self.FK__Alimento___Dieta__5629CD9C" FromRole="Alimento_Dieta" ToRole="Dieta" />
+        </EntityType>
+        <EntityType Name="Dieta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Alimento_Dieta" Relationship="Self.FK__Alimento___Dieta__5629CD9C" FromRole="Dieta" ToRole="Alimento_Dieta" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Dieta__IdUsuario__5165187F" FromRole="Dieta" ToRole="Usuario" />
+          <NavigationProperty Name="RegistroAlimentoes" Relationship="Self.FK__RegistroA__Dieta__59FA5E80" FromRole="Dieta" ToRole="RegistroAlimento" />
+        </EntityType>
+        <EntityType Name="Ejercicio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CaloriasQuemadas" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EjercicioRealizadoes" Relationship="Self.FK__Ejercicio__Ejerc__48CFD27E" FromRole="Ejercicio" ToRole="EjercicioRealizado" />
+        </EntityType>
+        <EntityType Name="EjercicioRealizado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioId" Type="Int32" />
+          <Property Name="EjercicioId" Type="Int32" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Ejercicio" Relationship="Self.FK__Ejercicio__Ejerc__48CFD27E" FromRole="EjercicioRealizado" ToRole="Ejercicio" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Ejercicio__Usuar__47DBAE45" FromRole="EjercicioRealizado" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="EstadoEmocional">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioId" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__EstadoEmo__Usuar__3A81B327" FromRole="EstadoEmocional" ToRole="Usuario" />
+          <NavigationProperty Name="Sugerencias" Relationship="Self.FK__Sugerenci__Estad__3D5E1FD2" FromRole="EstadoEmocional" ToRole="Sugerencia" />
+        </EntityType>
+        <EntityType Name="LogErrore">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaHora" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioId" Type="Int32" />
+          <Property Name="Modulo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MensajeError" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Stacktrace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Objetivo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioId" Type="Int32" />
+          <Property Name="NombreObjetivo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PesoObjetivo" Type="Decimal" Precision="5" Scale="2" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Objetivo__Usuari__4E88ABD4" FromRole="Objetivo" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="PreferenciaAlimenticia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioId" Type="Int32" />
+          <Property Name="Preferencia" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Preferenc__Usuar__4BAC3F29" FromRole="PreferenciaAlimenticia" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Progreso">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioId" Type="Int32" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="Peso" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Cintura" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Cadera" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Pecho" Type="Decimal" Precision="5" Scale="2" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Progreso__Usuari__4316F928" FromRole="Progreso" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Recordatorio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioId" Type="Int32" />
+          <Property Name="Frecuencia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Hora" Type="Time" Precision="7" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Recordato__Usuar__403A8C7D" FromRole="Recordatorios" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="RegistroAlimento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DietaId" Type="Int32" />
+          <Property Name="AlimentoId" Type="Int32" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="Cantidad" Type="Decimal" Precision="5" Scale="2" />
+          <NavigationProperty Name="Alimento" Relationship="Self.FK__RegistroA__Alime__5AEE82B9" FromRole="RegistroAlimento" ToRole="Alimento" />
+          <NavigationProperty Name="Dieta" Relationship="Self.FK__RegistroA__Dieta__59FA5E80" FromRole="RegistroAlimento" ToRole="Dieta" />
+        </EntityType>
+        <EntityType Name="Sugerencia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EstadoId" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EstadoEmocional" Relationship="Self.FK__Sugerenci__Estad__3D5E1FD2" FromRole="Sugerencia" ToRole="EstadoEmocional" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FotoDePerfilUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FechaDeNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="Peso" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Altura" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="CorreoElectronico" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Contrasena" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Rol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NivelActividadFisica" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dietas" Relationship="Self.FK__Dieta__IdUsuario__5165187F" FromRole="Usuario" ToRole="Dieta" />
+          <NavigationProperty Name="EjercicioRealizadoes" Relationship="Self.FK__Ejercicio__Usuar__47DBAE45" FromRole="Usuario" ToRole="EjercicioRealizado" />
+          <NavigationProperty Name="EstadoEmocionals" Relationship="Self.FK__EstadoEmo__Usuar__3A81B327" FromRole="Usuario" ToRole="EstadoEmocional" />
+          <NavigationProperty Name="Objetivoes" Relationship="Self.FK__Objetivo__Usuari__4E88ABD4" FromRole="Usuario" ToRole="Objetivo" />
+          <NavigationProperty Name="PreferenciaAlimenticias" Relationship="Self.FK__Preferenc__Usuar__4BAC3F29" FromRole="Usuario" ToRole="PreferenciaAlimenticia" />
+          <NavigationProperty Name="Progresoes" Relationship="Self.FK__Progreso__Usuari__4316F928" FromRole="Usuario" ToRole="Progreso" />
+          <NavigationProperty Name="Recordatorios" Relationship="Self.FK__Recordato__Usuar__403A8C7D" FromRole="Usuario" ToRole="Recordatorios" />
+        </EntityType>
+        <Association Name="FK__Alimento___Alime__571DF1D5">
+          <End Role="Alimento" Type="Self.Alimento" Multiplicity="1" />
+          <End Role="Alimento_Dieta" Type="Self.Alimento_Dieta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alimento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Alimento_Dieta">
+              <PropertyRef Name="AlimentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RegistroA__Alime__5AEE82B9">
+          <End Role="Alimento" Type="Self.Alimento" Multiplicity="0..1" />
+          <End Role="RegistroAlimento" Type="Self.RegistroAlimento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alimento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RegistroAlimento">
+              <PropertyRef Name="AlimentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Alimento___Dieta__5629CD9C">
+          <End Role="Dieta" Type="Self.Dieta" Multiplicity="1" />
+          <End Role="Alimento_Dieta" Type="Self.Alimento_Dieta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dieta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Alimento_Dieta">
+              <PropertyRef Name="DietaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Dieta__IdUsuario__5165187F">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Dieta" Type="Self.Dieta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Dieta">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RegistroA__Dieta__59FA5E80">
+          <End Role="Dieta" Type="Self.Dieta" Multiplicity="0..1" />
+          <End Role="RegistroAlimento" Type="Self.RegistroAlimento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dieta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RegistroAlimento">
+              <PropertyRef Name="DietaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ejercicio__Ejerc__48CFD27E">
+          <End Role="Ejercicio" Type="Self.Ejercicio" Multiplicity="0..1" />
+          <End Role="EjercicioRealizado" Type="Self.EjercicioRealizado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ejercicio">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EjercicioRealizado">
+              <PropertyRef Name="EjercicioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ejercicio__Usuar__47DBAE45">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="EjercicioRealizado" Type="Self.EjercicioRealizado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EjercicioRealizado">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EstadoEmo__Usuar__3A81B327">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="EstadoEmocional" Type="Self.EstadoEmocional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EstadoEmocional">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sugerenci__Estad__3D5E1FD2">
+          <End Role="EstadoEmocional" Type="Self.EstadoEmocional" Multiplicity="0..1" />
+          <End Role="Sugerencia" Type="Self.Sugerencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoEmocional">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sugerencia">
+              <PropertyRef Name="EstadoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Objetivo__Usuari__4E88ABD4">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Objetivo" Type="Self.Objetivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Objetivo">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Preferenc__Usuar__4BAC3F29">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="PreferenciaAlimenticia" Type="Self.PreferenciaAlimenticia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PreferenciaAlimenticia">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Progreso__Usuari__4316F928">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Progreso" Type="Self.Progreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Progreso">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recordato__Usuar__403A8C7D">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Recordatorios" Type="Self.Recordatorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recordatorios">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MacroBalanceEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alimentoes" EntityType="Self.Alimento" />
+          <EntitySet Name="Alimento_Dieta" EntityType="Self.Alimento_Dieta" />
+          <EntitySet Name="Dietas" EntityType="Self.Dieta" />
+          <EntitySet Name="Ejercicios" EntityType="Self.Ejercicio" />
+          <EntitySet Name="EjercicioRealizadoes" EntityType="Self.EjercicioRealizado" />
+          <EntitySet Name="EstadoEmocionals" EntityType="Self.EstadoEmocional" />
+          <EntitySet Name="LogErrores" EntityType="Self.LogErrore" />
+          <EntitySet Name="Objetivoes" EntityType="Self.Objetivo" />
+          <EntitySet Name="PreferenciaAlimenticias" EntityType="Self.PreferenciaAlimenticia" />
+          <EntitySet Name="Progresoes" EntityType="Self.Progreso" />
+          <EntitySet Name="Recordatorios" EntityType="Self.Recordatorio" />
+          <EntitySet Name="RegistroAlimentoes" EntityType="Self.RegistroAlimento" />
+          <EntitySet Name="Sugerencias" EntityType="Self.Sugerencia" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__Alimento___Alime__571DF1D5" Association="Self.FK__Alimento___Alime__571DF1D5">
+            <End Role="Alimento" EntitySet="Alimentoes" />
+            <End Role="Alimento_Dieta" EntitySet="Alimento_Dieta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RegistroA__Alime__5AEE82B9" Association="Self.FK__RegistroA__Alime__5AEE82B9">
+            <End Role="Alimento" EntitySet="Alimentoes" />
+            <End Role="RegistroAlimento" EntitySet="RegistroAlimentoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Alimento___Dieta__5629CD9C" Association="Self.FK__Alimento___Dieta__5629CD9C">
+            <End Role="Dieta" EntitySet="Dietas" />
+            <End Role="Alimento_Dieta" EntitySet="Alimento_Dieta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Dieta__IdUsuario__5165187F" Association="Self.FK__Dieta__IdUsuario__5165187F">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Dieta" EntitySet="Dietas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RegistroA__Dieta__59FA5E80" Association="Self.FK__RegistroA__Dieta__59FA5E80">
+            <End Role="Dieta" EntitySet="Dietas" />
+            <End Role="RegistroAlimento" EntitySet="RegistroAlimentoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ejercicio__Ejerc__48CFD27E" Association="Self.FK__Ejercicio__Ejerc__48CFD27E">
+            <End Role="Ejercicio" EntitySet="Ejercicios" />
+            <End Role="EjercicioRealizado" EntitySet="EjercicioRealizadoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ejercicio__Usuar__47DBAE45" Association="Self.FK__Ejercicio__Usuar__47DBAE45">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="EjercicioRealizado" EntitySet="EjercicioRealizadoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EstadoEmo__Usuar__3A81B327" Association="Self.FK__EstadoEmo__Usuar__3A81B327">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="EstadoEmocional" EntitySet="EstadoEmocionals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sugerenci__Estad__3D5E1FD2" Association="Self.FK__Sugerenci__Estad__3D5E1FD2">
+            <End Role="EstadoEmocional" EntitySet="EstadoEmocionals" />
+            <End Role="Sugerencia" EntitySet="Sugerencias" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Objetivo__Usuari__4E88ABD4" Association="Self.FK__Objetivo__Usuari__4E88ABD4">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Objetivo" EntitySet="Objetivoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Preferenc__Usuar__4BAC3F29" Association="Self.FK__Preferenc__Usuar__4BAC3F29">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="PreferenciaAlimenticia" EntitySet="PreferenciaAlimenticias" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Progreso__Usuari__4316F928" Association="Self.FK__Progreso__Usuari__4316F928">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Progreso" EntitySet="Progresoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recordato__Usuar__403A8C7D" Association="Self.FK__Recordato__Usuar__403A8C7D">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Recordatorios" EntitySet="Recordatorios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MacroBalanceModelStoreContainer" CdmEntityContainer="MacroBalanceEntities1">
+          <EntitySetMapping Name="Alimentoes">
+            <EntityTypeMapping TypeName="MacroBalanceModel.Alimento">
+              <MappingFragment StoreEntitySet="Alimento">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Calorias" ColumnName="Calorias" />
+                <ScalarProperty Name="Proteina" ColumnName="Proteina" />
+                <ScalarProperty Name="Carbohidratos" ColumnName="Carbohidratos" />
+                <ScalarProperty Name="Grasas" ColumnName="Grasas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Alimento_Dieta">
+            <EntityTypeMapping TypeName="MacroBalanceModel.Alimento_Dieta">
+              <MappingFragment StoreEntitySet="Alimento_Dieta">
+                <ScalarProperty Name="DietaId" ColumnName="DietaId" />
+                <ScalarProperty Name="AlimentoId" ColumnName="AlimentoId" />
+                <ScalarProperty Name="CantidadDiaria" ColumnName="CantidadDiaria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dietas">
+            <EntityTypeMapping TypeName="MacroBalanceModel.Dieta">
+              <MappingFragment StoreEntitySet="Dieta">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ejercicios">
+            <EntityTypeMapping TypeName="MacroBalanceModel.Ejercicio">
+              <MappingFragment StoreEntitySet="Ejercicio">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CaloriasQuemadas" ColumnName="CaloriasQuemadas" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EjercicioRealizadoes">
+            <EntityTypeMapping TypeName="MacroBalanceModel.EjercicioRealizado">
+              <MappingFragment StoreEntitySet="EjercicioRealizado">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="EjercicioId" ColumnName="EjercicioId" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstadoEmocionals">
+            <EntityTypeMapping TypeName="MacroBalanceModel.EstadoEmocional">
+              <MappingFragment StoreEntitySet="EstadoEmocional">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogErrores">
+            <EntityTypeMapping TypeName="MacroBalanceModel.LogErrore">
+              <MappingFragment StoreEntitySet="LogErrores">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="Modulo" ColumnName="Modulo" />
+                <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+                <ScalarProperty Name="Stacktrace" ColumnName="Stacktrace" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Objetivoes">
+            <EntityTypeMapping TypeName="MacroBalanceModel.Objetivo">
+              <MappingFragment StoreEntitySet="Objetivo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="NombreObjetivo" ColumnName="NombreObjetivo" />
+                <ScalarProperty Name="PesoObjetivo" ColumnName="PesoObjetivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PreferenciaAlimenticias">
+            <EntityTypeMapping TypeName="MacroBalanceModel.PreferenciaAlimenticia">
+              <MappingFragment StoreEntitySet="PreferenciaAlimenticia">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="Preferencia" ColumnName="Preferencia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Progresoes">
+            <EntityTypeMapping TypeName="MacroBalanceModel.Progreso">
+              <MappingFragment StoreEntitySet="Progreso">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Peso" ColumnName="Peso" />
+                <ScalarProperty Name="Cintura" ColumnName="Cintura" />
+                <ScalarProperty Name="Cadera" ColumnName="Cadera" />
+                <ScalarProperty Name="Pecho" ColumnName="Pecho" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recordatorios">
+            <EntityTypeMapping TypeName="MacroBalanceModel.Recordatorio">
+              <MappingFragment StoreEntitySet="Recordatorios">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="Frecuencia" ColumnName="Frecuencia" />
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistroAlimentoes">
+            <EntityTypeMapping TypeName="MacroBalanceModel.RegistroAlimento">
+              <MappingFragment StoreEntitySet="RegistroAlimento">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DietaId" ColumnName="DietaId" />
+                <ScalarProperty Name="AlimentoId" ColumnName="AlimentoId" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sugerencias">
+            <EntityTypeMapping TypeName="MacroBalanceModel.Sugerencia">
+              <MappingFragment StoreEntitySet="Sugerencia">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EstadoId" ColumnName="EstadoId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="MacroBalanceModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="MacroBalanceModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="FotoDePerfilUrl" ColumnName="FotoDePerfilUrl" />
+                <ScalarProperty Name="FechaDeNacimiento" ColumnName="FechaDeNacimiento" />
+                <ScalarProperty Name="Peso" ColumnName="Peso" />
+                <ScalarProperty Name="Altura" ColumnName="Altura" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="NivelActividadFisica" ColumnName="NivelActividadFisica" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
