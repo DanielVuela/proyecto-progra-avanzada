@@ -15,6 +15,8 @@
     <link href="@Url.Content("~/assets/img/apple-touch-icon.png")" rel="apple-touch-icon">
 
 
+
+
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -383,15 +385,18 @@
         <div class="pagetitle">
             <h1>MacroBalance</h1>
             <nav>
-                <li class="breadcrumb-item">
-                    <a href="@Url.Action("Index", "Home")">Inicio</a>
-                </li>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("Index", "Home")">Inicio</a>
+                    </li>
+                </ol>
             </nav>
         </div><!-- End Page Title -->
 
-            @RenderBody()
 
-        </main>
+        @RenderBody()
+
+    </main>
         <!-- ======= Footer ======= -->
         <footer id="footer" class="footer">
             <div class="copyright">

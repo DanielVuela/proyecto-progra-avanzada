@@ -2,30 +2,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Ajustes de Cuenta";
 }
+
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Ajustes de Cuenta</h1>
+        <h1 class="text-success fw-bold">Ajustes de Cuenta</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Inicio</a></li>
                 <li class="breadcrumb-item active">Ajustes de Cuenta</li>
             </ol>
         </nav>
     </div>
+
     <section class="section account-settings">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <div class="card">
+                <div class="card border-start border-4 border-success shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Opciones de Cuenta</h5>
+                        <h5 class="card-title text-success fw-semibold">Opciones de Cuenta</h5>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <a href="@Url.Action("ResetPassword", "Account")" class="text-primary">
-                                    Restablecer Contraseña
+                                <a href="@Url.Action("ResetPassword", "Account")" class="text-success fw-semibold">
+                                    <i class="bi bi-key me-2"></i>Restablecer Contraseña
                                 </a>
                             </li>
-                            <li class="list-group-item">
-                                <span class="text-muted">Otras opciones (por definir)</span>
+                            <li class="list-group-item text-muted">
+                                <i class="bi bi-gear me-2"></i>Otras opciones (por definir)
                             </li>
                         </ul>
                     </div>
