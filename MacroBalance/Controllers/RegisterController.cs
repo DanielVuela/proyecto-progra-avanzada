@@ -8,7 +8,7 @@ namespace MacroBalance.Controllers
 {
     public class RegisterController : Controller
     {
-        public ActionResult Register()
+        public ActionResult Index()
         {
             return View();
         }
