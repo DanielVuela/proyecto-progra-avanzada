@@ -1,0 +1,79 @@
+﻿@model MacroBalance.Database.Usuario
+
+@{
+    ViewBag.Title = "Calcular Calorías";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="pagetitle text-center">
+    <h1>Calcular Calorías</h1>
+    <nav>
+        <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Inicio</a></li>
+            <li class="breadcrumb-item active">Calculadora de Calorías</li>
+        </ol>
+    </nav>
+</div>
+
+<section class="section d-flex justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow p-4">
+            <h5 class="card-title text-center text-success mb-4">Calculadora de Calorías Diarias</h5>
+
+            @using (Html.BeginForm("CalcularCalorias", "Calculadora", FormMethod.Post))
+            {
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.CorreoElectronico, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.CorreoElectronico, new { @class = "form-control", placeholder = "Correo electrónico" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Nombre, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", placeholder = "Nombre" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Apellidos, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Apellidos, new { @class = "form-control", placeholder = "Apellidos" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.FechaDeNacimiento, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.FechaDeNacimiento, new { @class = "form-control", type = "date" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Peso, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Peso, new { @class = "form-control", placeholder = "Peso en kg" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Altura, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Altura, new { @class = "form-control", placeholder = "Altura en cm" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Genero, new { @class = "form-label" })
+                        @Html.DropDownListFor(m => m.Genero,
+                            new SelectList(new[] { "masculino", "femenino" }),
+                            new { @class = "form-select" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.NivelActividadFisica, new { @class = "form-label" })
+                        @Html.DropDownListFor(m => m.NivelActividadFisica,
+                            new SelectList(new[] { "sedentario", "ligero", "moderado", "activo", "muy activo" }),
+                            new { @class = "form-select" })
+                    </div>
+                </div>
+
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-calculator"></i> Calcular y Guardar
+                    </button>
+                </div>
+            }
+
+            @if (ViewBag.TDEE != null)
+            {
+                <div class="alert alert-success mt-4 text-center">
+                    Tu TDEE estimado es: <strong>@ViewBag.TDEE</strong> calorías/día
+                </div>
+            }
+        </div>
+    </div>
+</section>

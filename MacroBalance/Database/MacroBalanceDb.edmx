@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MacroBalanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MacroBalanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Alimento">
           <Key>
             <PropertyRef Name="Id" />
@@ -131,16 +131,6 @@
           <Property Name="EstadoId" Type="int" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
@@ -156,6 +146,7 @@
           <Property Name="Contrasena" Type="nvarchar" MaxLength="255" />
           <Property Name="Rol" Type="nvarchar" MaxLength="50" />
           <Property Name="NivelActividadFisica" Type="nvarchar" MaxLength="50" />
+          <Property Name="Genero" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK__Alimento___Alime__571DF1D5">
           <End Role="Alimento" Type="Self.Alimento" Multiplicity="1" />
@@ -225,6 +216,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="EstadoEmocional">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LogErrore__Usuar__5EBF139D">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="LogErrores" Type="Self.LogErrores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogErrores">
               <PropertyRef Name="UsuarioId" />
             </Dependent>
           </ReferentialConstraint>
@@ -327,7 +330,6 @@
           <EntitySet Name="Recordatorios" EntityType="Self.Recordatorios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegistroAlimento" EntityType="Self.RegistroAlimento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sugerencia" EntityType="Self.Sugerencia" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Alimento___Alime__571DF1D5" Association="Self.FK__Alimento___Alime__571DF1D5">
             <End Role="Alimento" EntitySet="Alimento" />
@@ -352,6 +354,10 @@
           <AssociationSet Name="FK__EstadoEmo__Usuar__3A81B327" Association="Self.FK__EstadoEmo__Usuar__3A81B327">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="EstadoEmocional" EntitySet="EstadoEmocional" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LogErrore__Usuar__5EBF139D" Association="Self.FK__LogErrore__Usuar__5EBF139D">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="LogErrores" EntitySet="LogErrores" />
           </AssociationSet>
           <AssociationSet Name="FK__Objetivo__Usuari__4E88ABD4" Association="Self.FK__Objetivo__Usuari__4E88ABD4">
             <End Role="Usuario" EntitySet="Usuario" />
@@ -382,8 +388,7 @@
             <End Role="Sugerencia" EntitySet="Sugerencia" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MacroBalanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -399,7 +404,7 @@
           <Property Name="Carbohidratos" Type="Decimal" Precision="5" Scale="2" />
           <Property Name="Grasas" Type="Decimal" Precision="5" Scale="2" />
           <NavigationProperty Name="Alimento_Dieta" Relationship="Self.FK__Alimento___Alime__571DF1D5" FromRole="Alimento" ToRole="Alimento_Dieta" />
-          <NavigationProperty Name="RegistroAlimentoes" Relationship="Self.FK__RegistroA__Alime__5AEE82B9" FromRole="Alimento" ToRole="RegistroAlimento" />
+          <NavigationProperty Name="RegistroAlimento" Relationship="Self.FK__RegistroA__Alime__5AEE82B9" FromRole="Alimento" ToRole="RegistroAlimento" />
         </EntityType>
         <EntityType Name="Alimento_Dieta">
           <Key>
@@ -422,7 +427,7 @@
           <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Alimento_Dieta" Relationship="Self.FK__Alimento___Dieta__5629CD9C" FromRole="Dieta" ToRole="Alimento_Dieta" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__Dieta__IdUsuario__5165187F" FromRole="Dieta" ToRole="Usuario" />
-          <NavigationProperty Name="RegistroAlimentoes" Relationship="Self.FK__RegistroA__Dieta__59FA5E80" FromRole="Dieta" ToRole="RegistroAlimento" />
+          <NavigationProperty Name="RegistroAlimento" Relationship="Self.FK__RegistroA__Dieta__59FA5E80" FromRole="Dieta" ToRole="RegistroAlimento" />
         </EntityType>
         <EntityType Name="Ejercicio">
           <Key>
@@ -432,7 +437,7 @@
           <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CaloriasQuemadas" Type="Decimal" Precision="6" Scale="2" />
           <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="EjercicioRealizadoes" Relationship="Self.FK__Ejercicio__Ejerc__48CFD27E" FromRole="Ejercicio" ToRole="EjercicioRealizado" />
+          <NavigationProperty Name="EjercicioRealizado" Relationship="Self.FK__Ejercicio__Ejerc__48CFD27E" FromRole="Ejercicio" ToRole="EjercicioRealizado" />
         </EntityType>
         <EntityType Name="EjercicioRealizado">
           <Key>
@@ -455,9 +460,9 @@
           <Property Name="Estado" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Fecha" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__EstadoEmo__Usuar__3A81B327" FromRole="EstadoEmocional" ToRole="Usuario" />
-          <NavigationProperty Name="Sugerencias" Relationship="Self.FK__Sugerenci__Estad__3D5E1FD2" FromRole="EstadoEmocional" ToRole="Sugerencia" />
+          <NavigationProperty Name="Sugerencia" Relationship="Self.FK__Sugerenci__Estad__3D5E1FD2" FromRole="EstadoEmocional" ToRole="Sugerencia" />
         </EntityType>
-        <EntityType Name="LogErrore">
+        <EntityType Name="LogErrores">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -467,6 +472,7 @@
           <Property Name="Modulo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MensajeError" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Stacktrace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__LogErrore__Usuar__5EBF139D" FromRole="LogErrores" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Objetivo">
           <Key>
@@ -500,7 +506,7 @@
           <Property Name="Pecho" Type="Decimal" Precision="5" Scale="2" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__Progreso__Usuari__4316F928" FromRole="Progreso" ToRole="Usuario" />
         </EntityType>
-        <EntityType Name="Recordatorio">
+        <EntityType Name="Recordatorios">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -532,16 +538,6 @@
           <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="EstadoEmocional" Relationship="Self.FK__Sugerenci__Estad__3D5E1FD2" FromRole="Sugerencia" ToRole="EstadoEmocional" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
@@ -557,13 +553,15 @@
           <Property Name="Contrasena" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Rol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NivelActividadFisica" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Dietas" Relationship="Self.FK__Dieta__IdUsuario__5165187F" FromRole="Usuario" ToRole="Dieta" />
-          <NavigationProperty Name="EjercicioRealizadoes" Relationship="Self.FK__Ejercicio__Usuar__47DBAE45" FromRole="Usuario" ToRole="EjercicioRealizado" />
-          <NavigationProperty Name="EstadoEmocionals" Relationship="Self.FK__EstadoEmo__Usuar__3A81B327" FromRole="Usuario" ToRole="EstadoEmocional" />
-          <NavigationProperty Name="Objetivoes" Relationship="Self.FK__Objetivo__Usuari__4E88ABD4" FromRole="Usuario" ToRole="Objetivo" />
-          <NavigationProperty Name="PreferenciaAlimenticias" Relationship="Self.FK__Preferenc__Usuar__4BAC3F29" FromRole="Usuario" ToRole="PreferenciaAlimenticia" />
-          <NavigationProperty Name="Progresoes" Relationship="Self.FK__Progreso__Usuari__4316F928" FromRole="Usuario" ToRole="Progreso" />
+          <NavigationProperty Name="Dieta" Relationship="Self.FK__Dieta__IdUsuario__5165187F" FromRole="Usuario" ToRole="Dieta" />
+          <NavigationProperty Name="EjercicioRealizado" Relationship="Self.FK__Ejercicio__Usuar__47DBAE45" FromRole="Usuario" ToRole="EjercicioRealizado" />
+          <NavigationProperty Name="EstadoEmocional" Relationship="Self.FK__EstadoEmo__Usuar__3A81B327" FromRole="Usuario" ToRole="EstadoEmocional" />
+          <NavigationProperty Name="LogErrores" Relationship="Self.FK__LogErrore__Usuar__5EBF139D" FromRole="Usuario" ToRole="LogErrores" />
+          <NavigationProperty Name="Objetivo" Relationship="Self.FK__Objetivo__Usuari__4E88ABD4" FromRole="Usuario" ToRole="Objetivo" />
+          <NavigationProperty Name="PreferenciaAlimenticia" Relationship="Self.FK__Preferenc__Usuar__4BAC3F29" FromRole="Usuario" ToRole="PreferenciaAlimenticia" />
+          <NavigationProperty Name="Progreso" Relationship="Self.FK__Progreso__Usuari__4316F928" FromRole="Usuario" ToRole="Progreso" />
           <NavigationProperty Name="Recordatorios" Relationship="Self.FK__Recordato__Usuar__403A8C7D" FromRole="Usuario" ToRole="Recordatorios" />
+          <Property Name="Genero" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__Alimento___Alime__571DF1D5">
           <End Role="Alimento" Type="Self.Alimento" Multiplicity="1" />
@@ -673,6 +671,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__LogErrore__Usuar__5EBF139D">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="LogErrores" Type="Self.LogErrores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogErrores">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Objetivo__Usuari__4E88ABD4">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
           <End Role="Objetivo" Type="Self.Objetivo" Multiplicity="*" />
@@ -711,7 +721,7 @@
         </Association>
         <Association Name="FK__Recordato__Usuar__403A8C7D">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
-          <End Role="Recordatorios" Type="Self.Recordatorio" Multiplicity="*" />
+          <End Role="Recordatorios" Type="Self.Recordatorios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="Id" />
@@ -721,72 +731,75 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MacroBalanceEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Alimentoes" EntityType="Self.Alimento" />
+        <EntityContainer Name="MacroBalanceEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alimento" EntityType="Self.Alimento" />
           <EntitySet Name="Alimento_Dieta" EntityType="Self.Alimento_Dieta" />
-          <EntitySet Name="Dietas" EntityType="Self.Dieta" />
-          <EntitySet Name="Ejercicios" EntityType="Self.Ejercicio" />
-          <EntitySet Name="EjercicioRealizadoes" EntityType="Self.EjercicioRealizado" />
-          <EntitySet Name="EstadoEmocionals" EntityType="Self.EstadoEmocional" />
-          <EntitySet Name="LogErrores" EntityType="Self.LogErrore" />
-          <EntitySet Name="Objetivoes" EntityType="Self.Objetivo" />
-          <EntitySet Name="PreferenciaAlimenticias" EntityType="Self.PreferenciaAlimenticia" />
-          <EntitySet Name="Progresoes" EntityType="Self.Progreso" />
-          <EntitySet Name="Recordatorios" EntityType="Self.Recordatorio" />
-          <EntitySet Name="RegistroAlimentoes" EntityType="Self.RegistroAlimento" />
-          <EntitySet Name="Sugerencias" EntityType="Self.Sugerencia" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <EntitySet Name="Dieta" EntityType="Self.Dieta" />
+          <EntitySet Name="Ejercicio" EntityType="Self.Ejercicio" />
+          <EntitySet Name="EjercicioRealizado" EntityType="Self.EjercicioRealizado" />
+          <EntitySet Name="EstadoEmocional" EntityType="Self.EstadoEmocional" />
+          <EntitySet Name="LogErrores" EntityType="Self.LogErrores" />
+          <EntitySet Name="Objetivo" EntityType="Self.Objetivo" />
+          <EntitySet Name="PreferenciaAlimenticia" EntityType="Self.PreferenciaAlimenticia" />
+          <EntitySet Name="Progreso" EntityType="Self.Progreso" />
+          <EntitySet Name="Recordatorios" EntityType="Self.Recordatorios" />
+          <EntitySet Name="RegistroAlimento" EntityType="Self.RegistroAlimento" />
+          <EntitySet Name="Sugerencia" EntityType="Self.Sugerencia" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
           <AssociationSet Name="FK__Alimento___Alime__571DF1D5" Association="Self.FK__Alimento___Alime__571DF1D5">
-            <End Role="Alimento" EntitySet="Alimentoes" />
+            <End Role="Alimento" EntitySet="Alimento" />
             <End Role="Alimento_Dieta" EntitySet="Alimento_Dieta" />
           </AssociationSet>
           <AssociationSet Name="FK__RegistroA__Alime__5AEE82B9" Association="Self.FK__RegistroA__Alime__5AEE82B9">
-            <End Role="Alimento" EntitySet="Alimentoes" />
-            <End Role="RegistroAlimento" EntitySet="RegistroAlimentoes" />
+            <End Role="Alimento" EntitySet="Alimento" />
+            <End Role="RegistroAlimento" EntitySet="RegistroAlimento" />
           </AssociationSet>
           <AssociationSet Name="FK__Alimento___Dieta__5629CD9C" Association="Self.FK__Alimento___Dieta__5629CD9C">
-            <End Role="Dieta" EntitySet="Dietas" />
+            <End Role="Dieta" EntitySet="Dieta" />
             <End Role="Alimento_Dieta" EntitySet="Alimento_Dieta" />
           </AssociationSet>
           <AssociationSet Name="FK__Dieta__IdUsuario__5165187F" Association="Self.FK__Dieta__IdUsuario__5165187F">
-            <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="Dieta" EntitySet="Dietas" />
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Dieta" EntitySet="Dieta" />
           </AssociationSet>
           <AssociationSet Name="FK__RegistroA__Dieta__59FA5E80" Association="Self.FK__RegistroA__Dieta__59FA5E80">
-            <End Role="Dieta" EntitySet="Dietas" />
-            <End Role="RegistroAlimento" EntitySet="RegistroAlimentoes" />
+            <End Role="Dieta" EntitySet="Dieta" />
+            <End Role="RegistroAlimento" EntitySet="RegistroAlimento" />
           </AssociationSet>
           <AssociationSet Name="FK__Ejercicio__Ejerc__48CFD27E" Association="Self.FK__Ejercicio__Ejerc__48CFD27E">
-            <End Role="Ejercicio" EntitySet="Ejercicios" />
-            <End Role="EjercicioRealizado" EntitySet="EjercicioRealizadoes" />
+            <End Role="Ejercicio" EntitySet="Ejercicio" />
+            <End Role="EjercicioRealizado" EntitySet="EjercicioRealizado" />
           </AssociationSet>
           <AssociationSet Name="FK__Ejercicio__Usuar__47DBAE45" Association="Self.FK__Ejercicio__Usuar__47DBAE45">
-            <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="EjercicioRealizado" EntitySet="EjercicioRealizadoes" />
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="EjercicioRealizado" EntitySet="EjercicioRealizado" />
           </AssociationSet>
           <AssociationSet Name="FK__EstadoEmo__Usuar__3A81B327" Association="Self.FK__EstadoEmo__Usuar__3A81B327">
-            <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="EstadoEmocional" EntitySet="EstadoEmocionals" />
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="EstadoEmocional" EntitySet="EstadoEmocional" />
           </AssociationSet>
           <AssociationSet Name="FK__Sugerenci__Estad__3D5E1FD2" Association="Self.FK__Sugerenci__Estad__3D5E1FD2">
-            <End Role="EstadoEmocional" EntitySet="EstadoEmocionals" />
-            <End Role="Sugerencia" EntitySet="Sugerencias" />
+            <End Role="EstadoEmocional" EntitySet="EstadoEmocional" />
+            <End Role="Sugerencia" EntitySet="Sugerencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LogErrore__Usuar__5EBF139D" Association="Self.FK__LogErrore__Usuar__5EBF139D">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="LogErrores" EntitySet="LogErrores" />
           </AssociationSet>
           <AssociationSet Name="FK__Objetivo__Usuari__4E88ABD4" Association="Self.FK__Objetivo__Usuari__4E88ABD4">
-            <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="Objetivo" EntitySet="Objetivoes" />
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Objetivo" EntitySet="Objetivo" />
           </AssociationSet>
           <AssociationSet Name="FK__Preferenc__Usuar__4BAC3F29" Association="Self.FK__Preferenc__Usuar__4BAC3F29">
-            <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="PreferenciaAlimenticia" EntitySet="PreferenciaAlimenticias" />
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="PreferenciaAlimenticia" EntitySet="PreferenciaAlimenticia" />
           </AssociationSet>
           <AssociationSet Name="FK__Progreso__Usuari__4316F928" Association="Self.FK__Progreso__Usuari__4316F928">
-            <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="Progreso" EntitySet="Progresoes" />
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Progreso" EntitySet="Progreso" />
           </AssociationSet>
           <AssociationSet Name="FK__Recordato__Usuar__403A8C7D" Association="Self.FK__Recordato__Usuar__403A8C7D">
-            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Recordatorios" EntitySet="Recordatorios" />
           </AssociationSet>
         </EntityContainer>
@@ -795,8 +808,8 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MacroBalanceModelStoreContainer" CdmEntityContainer="MacroBalanceEntities1">
-          <EntitySetMapping Name="Alimentoes">
+        <EntityContainerMapping StorageEntityContainer="MacroBalanceModelStoreContainer" CdmEntityContainer="MacroBalanceEntities2">
+          <EntitySetMapping Name="Alimento">
             <EntityTypeMapping TypeName="MacroBalanceModel.Alimento">
               <MappingFragment StoreEntitySet="Alimento">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -818,7 +831,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Dietas">
+          <EntitySetMapping Name="Dieta">
             <EntityTypeMapping TypeName="MacroBalanceModel.Dieta">
               <MappingFragment StoreEntitySet="Dieta">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -828,7 +841,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Ejercicios">
+          <EntitySetMapping Name="Ejercicio">
             <EntityTypeMapping TypeName="MacroBalanceModel.Ejercicio">
               <MappingFragment StoreEntitySet="Ejercicio">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -838,7 +851,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="EjercicioRealizadoes">
+          <EntitySetMapping Name="EjercicioRealizado">
             <EntityTypeMapping TypeName="MacroBalanceModel.EjercicioRealizado">
               <MappingFragment StoreEntitySet="EjercicioRealizado">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -848,7 +861,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="EstadoEmocionals">
+          <EntitySetMapping Name="EstadoEmocional">
             <EntityTypeMapping TypeName="MacroBalanceModel.EstadoEmocional">
               <MappingFragment StoreEntitySet="EstadoEmocional">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -860,7 +873,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LogErrores">
-            <EntityTypeMapping TypeName="MacroBalanceModel.LogErrore">
+            <EntityTypeMapping TypeName="MacroBalanceModel.LogErrores">
               <MappingFragment StoreEntitySet="LogErrores">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
@@ -871,7 +884,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Objetivoes">
+          <EntitySetMapping Name="Objetivo">
             <EntityTypeMapping TypeName="MacroBalanceModel.Objetivo">
               <MappingFragment StoreEntitySet="Objetivo">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -881,7 +894,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PreferenciaAlimenticias">
+          <EntitySetMapping Name="PreferenciaAlimenticia">
             <EntityTypeMapping TypeName="MacroBalanceModel.PreferenciaAlimenticia">
               <MappingFragment StoreEntitySet="PreferenciaAlimenticia">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -890,7 +903,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Progresoes">
+          <EntitySetMapping Name="Progreso">
             <EntityTypeMapping TypeName="MacroBalanceModel.Progreso">
               <MappingFragment StoreEntitySet="Progreso">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -904,7 +917,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Recordatorios">
-            <EntityTypeMapping TypeName="MacroBalanceModel.Recordatorio">
+            <EntityTypeMapping TypeName="MacroBalanceModel.Recordatorios">
               <MappingFragment StoreEntitySet="Recordatorios">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
@@ -914,7 +927,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RegistroAlimentoes">
+          <EntitySetMapping Name="RegistroAlimento">
             <EntityTypeMapping TypeName="MacroBalanceModel.RegistroAlimento">
               <MappingFragment StoreEntitySet="RegistroAlimento">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -925,7 +938,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sugerencias">
+          <EntitySetMapping Name="Sugerencia">
             <EntityTypeMapping TypeName="MacroBalanceModel.Sugerencia">
               <MappingFragment StoreEntitySet="Sugerencia">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -934,20 +947,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="MacroBalanceModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Usuarios">
+          <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="MacroBalanceModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
@@ -976,10 +979,10 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
