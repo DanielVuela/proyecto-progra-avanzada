@@ -16,7 +16,7 @@ namespace MacroBalance.Database
     public partial class MacroBalanceEntities : DbContext
     {
         public MacroBalanceEntities()
-            : base("name=MacroBalanceEntities2")
+            : base("name=MacroBalanceEntities")
         {
         }
     

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using MacroBalance.Database;  
-using MacroBalance.Service;  
+using MacroBalance.Database;
+using MacroBalance.Service;
 
 namespace MacroBalance.Controllers
 {
@@ -11,7 +11,6 @@ namespace MacroBalance.Controllers
         [HttpGet]
         public ActionResult CalcularCalorias()
         {
-           
             return View();
         }
 
@@ -22,18 +21,15 @@ namespace MacroBalance.Controllers
             {
                 using (var db = new MacroBalanceEntities())
                 {
-
                     var usuarioExistente = db.Usuario
                         .FirstOrDefault(u => u.CorreoElectronico == model.CorreoElectronico);
 
                     if (usuarioExistente == null)
                     {
-
                         db.Usuario.Add(model);
                     }
                     else
                     {
-
                         usuarioExistente.Nombre = model.Nombre;
                         usuarioExistente.Apellidos = model.Apellidos;
                         usuarioExistente.FotoDePerfilUrl = model.FotoDePerfilUrl;
@@ -42,12 +38,11 @@ namespace MacroBalance.Controllers
                         usuarioExistente.Altura = model.Altura;
                         usuarioExistente.NivelActividadFisica = model.NivelActividadFisica;
                         usuarioExistente.Genero = model.Genero;
-
                     }
 
                     db.SaveChanges();
 
-
+                    // Calcular edad
                     int edad = 0;
                     if (model.FechaDeNacimiento.HasValue)
                     {
@@ -59,7 +54,6 @@ namespace MacroBalance.Controllers
                     double pesoDouble = (double)(model.Peso ?? 0m);
                     double alturaDouble = (double)(model.Altura ?? 0m) * 100;
 
-
                     double tdee = CalculoCaloriasService.CalcularTDEE(
                         pesoDouble,
                         alturaDouble,
@@ -69,53 +63,15 @@ namespace MacroBalance.Controllers
                     );
 
                     ViewBag.TDEE = tdee;
-                    return View();
-                }
-                else
-                {
-                   
-                    usuarioExistente.Nombre = model.Nombre;
-                    usuarioExistente.Apellidos = model.Apellidos;
-                    usuarioExistente.FotoDePerfilUrl = model.FotoDePerfilUrl;
-                    usuarioExistente.FechaDeNacimiento = model.FechaDeNacimiento;
-                    usuarioExistente.Peso = model.Peso;
-                    usuarioExistente.Altura = model.Altura;
-                    usuarioExistente.NivelActividadFisica = model.NivelActividadFisica;
-                    usuarioExistente.Genero = model.Genero;
-                   
                 }
 
-                db.SaveChanges();
-
-             
-                int edad = 0;
-                if (model.FechaDeNacimiento.HasValue)
-                {
-                    edad = DateTime.Now.Year - model.FechaDeNacimiento.Value.Year;
-                    if (DateTime.Now.DayOfYear < model.FechaDeNacimiento.Value.DayOfYear)
-                        edad--;
-                }
-
-                double pesoDouble = (double)(model.Peso ?? 0m);
-                double alturaDouble = (double)(model.Altura ?? 0m) * 100;
-
-               
-                double tdee = CalculoCaloriasService.CalcularTDEE(
-                    pesoDouble,
-                    alturaDouble,
-                    edad,
-                    model.Genero,
-                    model.NivelActividadFisica 
-                );
-
-                ViewBag.TDEE = tdee;
+                return View();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 ErrorLoggerService.Log(ex, "Calculadora");
                 return View();
             }
-
         }
     }
 }
