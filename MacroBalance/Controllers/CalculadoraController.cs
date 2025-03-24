@@ -19,7 +19,7 @@ namespace MacroBalance.Controllers
         public ActionResult CalcularCalorias(Usuario model)
         {
             
-            using (var db = new MacroBalanceEntities4())
+            using (var db = new MacroBalanceEntities())
             {
                 
                 var usuarioExistente = db.Usuario
@@ -64,7 +64,7 @@ namespace MacroBalance.Controllers
                     alturaDouble,
                     edad,
                     model.Genero,
-                    model.NivelActividadFisica
+                    model.NivelActividadFisica 
                 );
 
                 ViewBag.TDEE = tdee;

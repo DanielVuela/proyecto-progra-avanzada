@@ -9,7 +9,7 @@ namespace MacroBalance.Controllers
 {
     public class ObjetivosSaludController : Controller
     {
-        private MacroBalanceEntities4 db = new MacroBalanceEntities4();
+        private MacroBalanceEntities db = new MacroBalanceEntities();
 
         public ActionResult Index()
         {

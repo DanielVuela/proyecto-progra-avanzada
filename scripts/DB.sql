@@ -16,7 +16,8 @@ CREATE TABLE Usuario (
     CorreoElectronico NVARCHAR(100) UNIQUE,
     Contrasena NVARCHAR(255),
     Rol NVARCHAR(50),
-    NivelActividadFisica NVARCHAR(50)
+    NivelActividadFisica NVARCHAR(50),
+    Genero NVARCHAR(50)
 );
 
 -- Tabla: EstadoEmocional

@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace MacroBalance.Enums
+﻿public static class UserRoles
 {
-    public class UserRole
-    {
-    }
-}
+    public const string Usuario = "Usuario";
+    public const string Administrador = "Administrador";
+}   
