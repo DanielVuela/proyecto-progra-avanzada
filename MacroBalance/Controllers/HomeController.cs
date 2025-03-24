@@ -10,6 +10,10 @@ namespace MacroBalance.Controllers
     {
         public ActionResult Index()
         {
+            if (Session[SessionAtributes.UsuarioId] == null) 
+            {
+                RedirectToAction("Index", "Login");
+            }
             return View();
         }
 

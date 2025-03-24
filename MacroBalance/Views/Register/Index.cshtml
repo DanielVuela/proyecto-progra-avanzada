@@ -1,6 +1,7 @@
 ﻿@model MacroBalance.Models.ViewModels.RegisterViewModel
 @{
     ViewBag.Title = "Registro";
+    Layout = "~/Views/Shared/_LayoutAuth.cshtml";
 }
 
 <h2 class="text-center">Registro</h2>
@@ -8,7 +9,6 @@
 @using (Html.BeginForm("Register", "Register", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-
     <div class="mb-3">
         @Html.LabelFor(m => m.Nombre, new { @class = "form-label" })
         @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
