@@ -126,8 +126,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CalculadoraController.cs" />
+    <Compile Include="Controllers\DietaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ObjetivosSaludController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Database\Alimento.cs">
       <DependentUpon>MacroBalanceDb.tt</DependentUpon>
@@ -676,6 +678,8 @@
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Account\AjustesCuenta.cshtml" />
     <Content Include="Views\Calculadora\CalcularCalorias.cshtml" />
+    <Content Include="Views\ObjetivosSalud\Index.cshtml" />
+    <Content Include="Views\Dieta\DetallesDieta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

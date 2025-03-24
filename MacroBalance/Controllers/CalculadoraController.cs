@@ -19,7 +19,7 @@ namespace MacroBalance.Controllers
         public ActionResult CalcularCalorias(Usuario model)
         {
             
-            using (var db = new MacroBalanceEntities2())
+            using (var db = new MacroBalanceEntities4())
             {
                 
                 var usuarioExistente = db.Usuario

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MacroBalanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="MacroBalanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Alimento">
           <Key>
             <PropertyRef Name="Id" />
@@ -388,7 +388,8 @@
             <End Role="Sugerencia" EntitySet="Sugerencia" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MacroBalanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -553,6 +554,7 @@
           <Property Name="Contrasena" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Rol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NivelActividadFisica" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Genero" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Dieta" Relationship="Self.FK__Dieta__IdUsuario__5165187F" FromRole="Usuario" ToRole="Dieta" />
           <NavigationProperty Name="EjercicioRealizado" Relationship="Self.FK__Ejercicio__Usuar__47DBAE45" FromRole="Usuario" ToRole="EjercicioRealizado" />
           <NavigationProperty Name="EstadoEmocional" Relationship="Self.FK__EstadoEmo__Usuar__3A81B327" FromRole="Usuario" ToRole="EstadoEmocional" />
@@ -561,7 +563,6 @@
           <NavigationProperty Name="PreferenciaAlimenticia" Relationship="Self.FK__Preferenc__Usuar__4BAC3F29" FromRole="Usuario" ToRole="PreferenciaAlimenticia" />
           <NavigationProperty Name="Progreso" Relationship="Self.FK__Progreso__Usuari__4316F928" FromRole="Usuario" ToRole="Progreso" />
           <NavigationProperty Name="Recordatorios" Relationship="Self.FK__Recordato__Usuar__403A8C7D" FromRole="Usuario" ToRole="Recordatorios" />
-          <Property Name="Genero" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__Alimento___Alime__571DF1D5">
           <End Role="Alimento" Type="Self.Alimento" Multiplicity="1" />
@@ -731,7 +732,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MacroBalanceEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MacroBalanceEntities4" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Alimento" EntityType="Self.Alimento" />
           <EntitySet Name="Alimento_Dieta" EntityType="Self.Alimento_Dieta" />
           <EntitySet Name="Dieta" EntityType="Self.Dieta" />
@@ -808,7 +809,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MacroBalanceModelStoreContainer" CdmEntityContainer="MacroBalanceEntities2">
+        <EntityContainerMapping StorageEntityContainer="MacroBalanceModelStoreContainer" CdmEntityContainer="MacroBalanceEntities4">
           <EntitySetMapping Name="Alimento">
             <EntityTypeMapping TypeName="MacroBalanceModel.Alimento">
               <MappingFragment StoreEntitySet="Alimento">
@@ -950,7 +951,6 @@
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="MacroBalanceModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="Genero" ColumnName="Genero" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
@@ -962,6 +962,7 @@
                 <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
                 <ScalarProperty Name="Rol" ColumnName="Rol" />
                 <ScalarProperty Name="NivelActividadFisica" ColumnName="NivelActividadFisica" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

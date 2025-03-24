@@ -1,0 +1,50 @@
+﻿@model MacroBalance.Database.Dieta
+
+@{
+    ViewBag.Title = "Detalles de la Dieta";
+    var alimentos = ViewBag.Alimentos as IEnumerable<dynamic>;
+}
+
+<h2>@Model.Nombre</h2>
+
+<p><strong>Descripción:</strong> @Model.Descripcion</p>
+
+<hr />
+
+<h3>Alimentos incluidos en esta dieta:</h3>
+
+@if (alimentos != null && alimentos.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Calorías</th>
+                <th>Proteína (g)</th>
+                <th>Carbohidratos (g)</th>
+                <th>Grasas (g)</th>
+                <th>Cantidad Diaria</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (MacroBalance.Database.Alimento_Dieta ad in alimentos)
+            {
+                <tr>
+                    <td>@ad.Alimento.Nombre</td>
+                    <td>@ad.Alimento.Descripcion</td>
+                    <td>@ad.Alimento.Calorias</td>
+                    <td>@ad.Alimento.Proteina</td>
+                    <td>@ad.Alimento.Carbohidratos</td>
+                    <td>@ad.Alimento.Grasas</td>
+                    <td>@ad.CantidadDiaria</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}
+else
+{
+    <p><em>No hay alimentos registrados para esta dieta.</em></p>
+}
