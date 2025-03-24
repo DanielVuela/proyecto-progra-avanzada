@@ -2,15 +2,11 @@
 
 namespace MacroBalance.Models.ViewModels
 {
-    public class RegisterViewModel
+    public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Nombre")]
-        public string Nombre { get; set; }
-
-        [Required]
-        [EmailAddress]
         [Display(Name = "Correo Electrónico")]
+        [EmailAddress]
         public string CorreoElectronico { get; set; }
 
         [Required]

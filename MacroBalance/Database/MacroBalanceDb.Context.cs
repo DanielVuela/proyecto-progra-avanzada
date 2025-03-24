@@ -13,10 +13,10 @@ namespace MacroBalance.Database
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MacroBalanceEntities4 : DbContext
+    public partial class MacroBalanceEntities : DbContext
     {
-        public MacroBalanceEntities4()
-            : base("name=MacroBalanceEntities4")
+        public MacroBalanceEntities()
+            : base("name=MacroBalanceEntities")
         {
         }
     

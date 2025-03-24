@@ -124,6 +124,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Constants\SessionAtrributes.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CalculadoraController.cs" />
     <Compile Include="Controllers\DietaController.cs" />
@@ -188,11 +189,15 @@
     <Compile Include="Database\Usuario.cs">
       <DependentUpon>MacroBalanceDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Constants\UserRole.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\RegisterViewModel.cs" />
+    <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\CalculoCaloriasService.cs" />
+    <Compile Include="Service\ErrorLoggerService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\style.css" />
@@ -680,10 +685,10 @@
     <Content Include="Views\Calculadora\CalcularCalorias.cshtml" />
     <Content Include="Views\ObjetivosSalud\Index.cshtml" />
     <Content Include="Views\Dieta\DetallesDieta.cshtml" />
+    <Content Include="Views\Shared\_LayoutAuth.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
