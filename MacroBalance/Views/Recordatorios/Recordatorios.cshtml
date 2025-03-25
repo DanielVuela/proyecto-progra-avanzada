@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Recordatorios";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1 class="text-success fw-bold">Recordatorios</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("AjustesCuenta", "Account")">Ajustes de Cuenta</a></li>
+                <li class="breadcrumb-item active">Recordatorios</li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="section account-settings">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-start border-4 border-success shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-success fw-semibold">Opciones de Recordatorios</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <a href="@Url.Action("CaloriasMaximas", "Recordatorios")" class="text-success fw-semibold">
+                                    <i class="bi bi-pen-fill me-2"></i>Calorías Máximas
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="@Url.Action("Recordatorios", "Account")" class="text-success fw-semibold">
+                                    <i class="bi bi-egg-fried me-2"></i>Registro de comidas
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="@Url.Action("Recordatorios", "Account")" class="text-success fw-semibold">
+                                    <i class="bi bi-person-walking me-2"></i>Ejercicio físico
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

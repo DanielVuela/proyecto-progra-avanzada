@@ -63,5 +63,11 @@ namespace MacroBalance.Controllers
                 return View();
             }
         }
+
+        public ActionResult Recordatorios()
+        {
+            return View();
+        }
+
     }
 }

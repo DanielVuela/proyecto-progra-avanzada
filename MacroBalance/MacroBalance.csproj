@@ -18,7 +18,7 @@
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <IISExpressSSLPort>44324</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -132,6 +132,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ObjetivosSaludController.cs" />
+    <Compile Include="Controllers\RecordatoriosController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Database\Alimento.cs">
       <DependentUpon>MacroBalanceDb.tt</DependentUpon>
@@ -194,6 +195,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Recordatorios.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -692,6 +694,10 @@
     <Content Include="Views\Administrador\Create.cshtml" />
     <Content Include="Views\Administrador\Edit.cshtml" />
     <Content Include="Views\Administrador\Delete.cshtml" />
+    <Content Include="Views\Recordatorios\Recordatorios.cshtml" />
+    <Content Include="Views\Recordatorios\CaloriasMaximas.cshtml" />
+    <Content Include="Views\Recordatorios\RegistroComida.cshtml" />
+    <Content Include="Views\Recordatorios\EjercicioFisico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
