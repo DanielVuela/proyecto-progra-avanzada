@@ -2,10 +2,7 @@
 
 @{
     ViewBag.Title = "Objetivos de Salud";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Objetivos de Salud</h2>
 
 @if (Model != null && Model.Any())
 {
@@ -20,26 +17,24 @@
     (objetivo.NombreObjetivo == "Controlar azúcar en sangre" && d.Nombre.Contains("baja en azúcares"))
 );
 
+<div style="margin-bottom: 25px; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
+    <h4>@objetivo.NombreObjetivo</h4>
+    <p><strong>Peso objetivo:</strong> @objetivo.PesoObjetivo kg</p>
 
-
-        <div style="margin-bottom: 25px; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
-            <h4>@objetivo.NombreObjetivo</h4>
-            <p><strong>Peso objetivo:</strong> @objetivo.PesoObjetivo kg</p>
-
-            @if (dieta != null)
-            {
-                <p><strong>Dieta sugerida:</strong> @dieta.Nombre</p>
-                <p>@dieta.Descripcion</p>
-                <a class="btn btn-success" href="@Url.Action("DetallesDieta", "Dieta", new { id = dieta.Id })">Ver Dieta</a>
-            }
-            else
-            {
-                <p><em>No hay una dieta asociada a este objetivo.</em></p>
-            }
-        </div>
+    @if (dieta != null)
+    {
+        <p><strong>Dieta sugerida:</strong> @dieta.Nombre</p>
+        <p>@dieta.Descripcion</p>
+        <a class="btn btn-success" href="@Url.Action("DetallesDieta", "Dieta", new { id = dieta.Id })">Ver Dieta</a>
     }
+    else
+    {
+        <p><em>No hay una dieta asociada a este objetivo.</em></p>
+    }
+</div>
+}
 }
 else
 {
-    <p>No hay objetivos de salud registrados actualmente.</p>
+<p>No hay objetivos de salud registrados actualmente.</p>
 }

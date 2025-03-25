@@ -9,7 +9,7 @@ namespace MacroBalance.Controllers
 {
     public class LoginController : Controller
     {
-        private MacroBalanceEntities db = new MacroBalanceEntities();
+        private readonly MacroBalanceEntities db = new MacroBalanceEntities();
 
         [HttpGet]
         public ActionResult Index()
@@ -40,7 +40,10 @@ namespace MacroBalance.Controllers
                 Session[SessionAtributes.Nombre] = usuario.Nombre;
                 Session[SessionAtributes.Rol] = usuario.Rol;
 
-                return RedirectToAction("Index", "Home");
+                if (usuario.Rol == "Admin")
+                    return RedirectToAction("Index", "Administrador");
+                else
+                    return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {

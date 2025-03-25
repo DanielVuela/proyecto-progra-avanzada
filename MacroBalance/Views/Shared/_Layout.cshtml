@@ -54,7 +54,7 @@
                             </li>
                             <li>
                                 <a href="@Url.Action("UserProfile", "Account")"
-                                    class="dropdown-item d-flex align-items-center">
+                                   class="dropdown-item d-flex align-items-center">
                                     <i class="bi bi-person"></i><span>Mi Perfil</span>
                                 </a>
                             </li>
@@ -74,6 +74,7 @@
     </header>
 
     <!-- Sidebar -->
+    <!-- Sidebar -->
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
@@ -82,30 +83,26 @@
                 </a>
             </li>
 
-            @if (!string.IsNullOrEmpty(rol))
+            @if (rol == "Admin")
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index", "Administrador")">
+                        <i class="bi bi-people"></i><span>Manejo de Usuarios</span>
+                    </a>
+                </li>
+            }
+            else if (!string.IsNullOrEmpty(rol))
             {
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="@Url.Action("CalcularCalorias", "Calculadora")">
                         <i class="bi bi-activity"></i><span>Calcular Calorías</span>
                     </a>
                 </li>
-
-                @* Ejemplo para mostrar solo si el rol es administrador o nutri *@
-                if (rol == UserRoles.Administrador)
-                {
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="#">
-                            <i class="bi bi-bar-chart"></i><span>Reportes</span>
-                        </a>
-                    </li>
-                }
-
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="@Url.Action("Index", "ObjetivosSalud")">
                         <i class="bi bi-heart-pulse"></i><span>Objetivos de Salud</span>
                     </a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="@Url.Action("Faq", "Home")">
                         <i class="bi bi-question-circle"></i><span>FAQ</span>
@@ -127,6 +124,7 @@
             }
         </ul>
     </aside>
+
 
     <!-- Main -->
     <main id="main" class="main">

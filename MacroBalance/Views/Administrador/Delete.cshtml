@@ -1,0 +1,32 @@
+﻿@model MacroBalance.Database.Usuario
+
+@{
+    ViewBag.Title = "Eliminar Usuario";
+}
+
+<h2>¿Estás seguro de que querés eliminar este usuario?</h2>
+
+<div class="form-horizontal">
+    <hr />
+
+    <dl class="dl-horizontal">
+        <dt>Nombre</dt>
+        <dd>@Model.Nombre</dd>
+
+        <dt>Apellidos</dt>
+        <dd>@Model.Apellidos</dd>
+
+        <dt>Correo Electrónico</dt>
+        <dd>@Model.CorreoElectronico</dd>
+
+        <dt>Rol</dt>
+        <dd>@Model.Rol</dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+    }
+</div>
