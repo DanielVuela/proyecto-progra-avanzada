@@ -13,7 +13,6 @@ namespace MacroBalance.Controllers
     {
         private readonly MacroBalanceEntities db = new MacroBalanceEntities();
 
-        // Acción para mostrar la vista de recordatorios del usuario
         public ActionResult Recordatorios()
         {
             int usuarioId = ObtenerUsuarioActualId();
@@ -28,7 +27,6 @@ namespace MacroBalance.Controllers
             return View(recordatorios);
         }
 
-        // Acción para mostrar la vista de "Calorías Máximas"
         public ActionResult CaloriasMaximas()
         {
             int usuarioId = ObtenerUsuarioActualId();
@@ -45,7 +43,6 @@ namespace MacroBalance.Controllers
             return View(recordatorio);
         }
 
-        // Acción para procesar el formulario de guardado del recordatorio
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult GuardarRecordatorioCalorias(RecordatorioViewModel model)
@@ -107,7 +104,6 @@ namespace MacroBalance.Controllers
             return RedirectToAction("CaloriasMaximas");
         }
 
-        // Método auxiliar para obtener el ID del usuario actual desde la sesión
         private int ObtenerUsuarioActualId()
         {
             if (Session[SessionAtributes.UsuarioId] != null)
@@ -116,5 +112,17 @@ namespace MacroBalance.Controllers
             }
             return -1;
         }
+
+        public ActionResult EjercicioFisico()
+        {
+            return View();
+        }
+
+        public ActionResult RegistroComida()
+        {
+            return View();
+        }
+
+
     }
 }

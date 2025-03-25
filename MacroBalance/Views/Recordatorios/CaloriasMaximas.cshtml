@@ -27,7 +27,6 @@
                             <div class="alert alert-success">@TempData["Mensaje"]</div>
                         }
 
-                        <!-- Formulario para guardar recordatorio -->
                         @using (Html.BeginForm("GuardarRecordatorioCalorias", "Recordatorios", FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()

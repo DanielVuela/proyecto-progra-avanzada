@@ -1,7 +1,38 @@
-﻿
+﻿@model MacroBalance.Database.Recordatorios
+
 @{
-    ViewBag.Title = "EjercicioFisico";
+    ViewBag.Title = "Recordatorio de Ejercicio Físicos";
 }
 
-<h2>EjercicioFisico</h2>
+<main class="main">
+    <div class="pagetitle">
+        <h1 class="text-success fw-bold">Recordatorio de Ejercicio Físico</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Inicio</a></li>
+                <li class="breadcrumb-item active">Recordatorio de Ejercicio Físico</li>
+            </ol>
+        </nav>
+    </div>
 
+    <section class="section account-settings">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-start border-4 border-success shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-success fw-semibold">Configura tu Recordatorio</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                            </li>
+                            <li class="list-group-item">
+                                <a class="text-success fw-semibold">
+                                    <i class="bi bi-wrench-adjustable me-2"></i>Proximamente...
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
