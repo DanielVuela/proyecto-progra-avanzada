@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using MacroBalance.Database;
 using MacroBalance.Models.ViewModels;
 using MacroBalance.Service;
+using Macrobalance.Constants;
 
 namespace MacroBalance.Controllers
 {
@@ -41,7 +42,7 @@ namespace MacroBalance.Controllers
                 Session[SessionAtributes.Rol] = usuario.Rol;
 
                 if (usuario.Rol == UserRoles.Admin)
-                    return RedirectToAction("Index", UserRoles.Admin);
+                    return RedirectToAction("Index", "Administrador");
                 else
                     return RedirectToAction("Index", "Home");
             }

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web.Mvc;
 using MacroBalance.Database;
 using MacroBalance.Models;
-using MacroBalance.Models.ViewModels;
 using MacroBalance.Service;
+using Macrobalance.Constants;
 
 namespace MacroBalance.Controllers
 {

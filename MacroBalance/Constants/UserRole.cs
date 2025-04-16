@@ -1,5 +1,8 @@
-﻿public static class UserRoles
+﻿namespace Macrobalance.Constants
 {
-    public const string Usuario = "Usuario";
-    public const string Admin = "Admin";
-}   
+    public static class UserRoles
+    {
+        public const string Usuario = "Usuario";
+        public const string Admin = "Admin";
+    }
+}

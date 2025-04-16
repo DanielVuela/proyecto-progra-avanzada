@@ -12,12 +12,18 @@ namespace MacroBalance.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class Sugerencia
+    public partial class PerfilDieta
     {
         public int Id { get; set; }
-        public Nullable<int> EstadoId { get; set; }
-        public string Descripcion { get; set; }
+        public int UsuarioId { get; set; }
+        public Nullable<decimal> CaloriasObjetivo { get; set; }
+        public Nullable<decimal> Proteinas { get; set; }
+        public Nullable<decimal> Carbohidratos { get; set; }
+        public Nullable<decimal> Grasas { get; set; }
+        public Nullable<decimal> Agua { get; set; }
+        public Nullable<decimal> Ejercicio { get; set; }
+        public Nullable<System.DateTime> FechaAsignacion { get; set; }
     
-        public virtual EstadoEmocional EstadoEmocional { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

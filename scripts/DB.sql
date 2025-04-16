@@ -145,3 +145,24 @@ CREATE TABLE LogErrores (
     MensajeError NVARCHAR(1000) NOT NULL,
     Stacktrace NVARCHAR(MAX) NULL
 );
+
+
+---------------
+-- cambio para perfil dieta
+---------------
+
+CREATE TABLE PerfilDieta (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    UsuarioId INT NOT NULL,
+    CaloriasObjetivo DECIMAL(6,2),
+    Proteinas DECIMAL(6,2),
+    Carbohidratos DECIMAL(6,2),
+    Grasas DECIMAL(6,2),
+    Agua DECIMAL(6,2),
+    Ejercicio DECIMAL(6,2),
+    FechaAsignacion DATETIME DEFAULT GETDATE()
+);
+
+ALTER TABLE PerfilDieta
+ADD CONSTRAINT FK_PerfilDieta_Usuario
+FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id);

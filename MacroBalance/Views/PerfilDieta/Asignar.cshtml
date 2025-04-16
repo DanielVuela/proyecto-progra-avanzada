@@ -1,0 +1,46 @@
+﻿@model MacroBalance.Models.ViewModels.DietaViewModel
+@{
+    ViewBag.Title = "Asignar Perfil de Dieta";
+}
+
+<h2 class="text-center mb-4">Asignar Perfil de Dieta</h2>
+
+<!-- Dropdown GET para seleccionar usuario -->
+@using (Html.BeginForm("Asignar", "PerfilDieta", FormMethod.Get))
+{
+    <div class="mb-4">
+        <label for="usuarioId" class="form-label">Seleccionar usuario:</label>
+        @Html.DropDownList("usuarioId", Model.Usuarios, "-- Seleccione un usuario --", new
+        {
+            @class = "form-select",
+            onchange = "this.form.submit();"
+        })
+    </div>
+}
+
+@if (Model.UsuarioId != 0)
+{
+    <!-- Formulario principal de edición POST -->
+    using (Html.BeginForm("Asignar", "PerfilDieta", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(m => m.UsuarioId)
+
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(m => m.CaloriasObjetivo)
+                @Html.TextBoxFor(m => m.CaloriasObjetivo, new { @class = "form-control", type = "number", step = "0.1" })
+                @Html.ValidationMessageFor(m => m.CaloriasObjetivo, "", new { @class = "text-danger" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(m => m.Proteinas)
+                @Html.TextBoxFor(m => m.Proteinas, new { @class = "form-control", type = "number", step = "0.1" })
+                @Html.ValidationMessageFor(m => m.Proteinas, "", new { @class = "text-danger" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(m => m.Carbohidratos)
+                @Html.TextBoxFor(m => m.Carbohidratos, new { @class = "form-control", type = "number", step = "0.1" })
+                @Html.ValidationMessageFor(m => m.Carbohidratos, "", new
+                {
+                    @class = "text
