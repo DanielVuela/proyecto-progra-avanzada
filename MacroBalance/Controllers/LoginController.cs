@@ -40,8 +40,8 @@ namespace MacroBalance.Controllers
                 Session[SessionAtributes.Nombre] = usuario.Nombre;
                 Session[SessionAtributes.Rol] = usuario.Rol;
 
-                if (usuario.Rol == "Admin")
-                    return RedirectToAction("Index", "Administrador");
+                if (usuario.Rol == UserRoles.Admin)
+                    return RedirectToAction("Index", UserRoles.Admin);
                 else
                     return RedirectToAction("Index", "Home");
             }

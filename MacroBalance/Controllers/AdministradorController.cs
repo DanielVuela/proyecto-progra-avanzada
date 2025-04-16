@@ -14,7 +14,7 @@ namespace MacroBalance.Controllers
         // GET: Administrador
         public ActionResult Index()
         {
-            if (Session["Rol"]?.ToString() != "Admin")
+            if (Session[SessionAtributes.Rol]?.ToString() != UserRoles.Admin)
                 return RedirectToAction("Index", "Home");
 
             var usuarios = db.Usuario.ToList();
@@ -24,7 +24,7 @@ namespace MacroBalance.Controllers
         // GET: Administrador/Details/5
         public ActionResult Details(int? id)
         {
-            if (Session["Rol"]?.ToString() != "Admin")
+            if (Session[SessionAtributes.Rol]?.ToString() != UserRoles.Admin)
                 return RedirectToAction("Index", "Home");
 
             if (id == null)
@@ -40,7 +40,7 @@ namespace MacroBalance.Controllers
         // GET: Administrador/Create
         public ActionResult Create()
         {
-            if (Session["Rol"]?.ToString() != "Admin")
+            if (Session[SessionAtributes.Rol]?.ToString() != UserRoles.Admin)
                 return RedirectToAction("Index", "Home");
 
             return View();
@@ -51,7 +51,7 @@ namespace MacroBalance.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Nombre,Apellidos,CorreoElectronico,Contrasena,Rol")] Usuario usuario)
         {
-            if (Session["Rol"]?.ToString() != "Admin")
+            if (Session[SessionAtributes.Rol]?.ToString() != UserRoles.Admin)
                 return RedirectToAction("Index", "Home");
 
             // Validar campos vacíos manualmente
@@ -84,7 +84,7 @@ namespace MacroBalance.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Roles = new SelectList(new[] { "User", "Admin" }, usuario.Rol);
+            ViewBag.Roles = new SelectList(new[] { "User", UserRoles.Admin }, usuario.Rol);
             return View(usuario);
         }
 
@@ -93,7 +93,7 @@ namespace MacroBalance.Controllers
         // GET: Administrador/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (Session["Rol"]?.ToString() != "Admin")
+            if (Session[SessionAtributes.Rol]?.ToString() != UserRoles.Admin)
                 return RedirectToAction("Index", "Home");
 
             if (id == null)
@@ -103,7 +103,7 @@ namespace MacroBalance.Controllers
             if (usuario == null)
                 return HttpNotFound();
 
-            ViewBag.Roles = new SelectList(new[] { "User", "Admin" }, usuario.Rol);
+            ViewBag.Roles = new SelectList(new[] { "User", UserRoles.Admin }, usuario.Rol);
             return View(usuario);
         }
 
@@ -112,7 +112,7 @@ namespace MacroBalance.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Nombre,Apellidos,CorreoElectronico,Rol")] Usuario usuario)
         {
-            if (Session["Rol"]?.ToString() != "Admin")
+            if (Session[SessionAtributes.Rol]?.ToString() != UserRoles.Admin)
                 return RedirectToAction("Index", "Home");
 
             var originalUsuario = db.Usuario.Find(usuario.Id);
@@ -149,14 +149,14 @@ namespace MacroBalance.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Roles = new SelectList(new[] { "User", "Admin" }, usuario.Rol);
+            ViewBag.Roles = new SelectList(new[] { "User", UserRoles.Admin }, usuario.Rol);
             return View(usuario);
         }
 
         // GET: Administrador/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (Session["Rol"]?.ToString() != "Admin")
+            if (Session["Rol"]?.ToString() != UserRoles.Admin)
                 return RedirectToAction("Index", "Home");
 
             if (id == null)
@@ -174,7 +174,7 @@ namespace MacroBalance.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            if (Session["Rol"]?.ToString() != "Admin")
+            if (Session["Rol"]?.ToString() != UserRoles.Admin)
                 return RedirectToAction("Index", "Home");
 
             var usuario = db.Usuario.Find(id);
