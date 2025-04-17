@@ -41,6 +41,38 @@
             <div class="col">
                 @Html.LabelFor(m => m.Carbohidratos)
                 @Html.TextBoxFor(m => m.Carbohidratos, new { @class = "form-control", type = "number", step = "0.1" })
-                @Html.ValidationMessageFor(m => m.Carbohidratos, "", new
-                {
-                    @class = "text
+                @Html.ValidationMessageFor(m => m.Carbohidratos, "", new { @class = "text-danger" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(m => m.Grasas)
+                @Html.TextBoxFor(m => m.Grasas, new { @class = "form-control", type = "number", step = "0.1" })
+                @Html.ValidationMessageFor(m => m.Grasas, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                @Html.LabelFor(m => m.Agua)
+                @Html.TextBoxFor(m => m.Agua, new { @class = "form-control", type = "number", step = "0.1" })
+                @Html.ValidationMessageFor(m => m.Agua, "", new { @class = "text-danger" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(m => m.Ejercicio)
+                @Html.TextBoxFor(m => m.Ejercicio, new { @class = "form-control", type = "number", step = "0.1" })
+                @Html.ValidationMessageFor(m => m.Ejercicio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success mt-4 w-100">Guardar Perfil</button>
+    }
+
+    <!-- Mensajes -->
+    if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success mt-3">@TempData["Success"]</div>
+    }
+    else if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger mt-3">@ViewBag.Error</div>
+    }
+}
