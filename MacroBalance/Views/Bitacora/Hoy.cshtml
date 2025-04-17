@@ -1,0 +1,101 @@
+﻿@model MacroBalance.Models.ViewModels.BitacoraHoyViewModel
+
+@{
+    ViewBag.Title = "Mi Día Hoy";
+}
+
+<h2 class="text-center mb-4">Mi Día - @Model.Fecha.ToString("dd MMMM yyyy")</h2>
+
+<!-- 🔥 RESUMEN DE NUTRIENTES -->
+<div class="row g-4">
+    <div class="col-md-6 col-lg-3">
+        <div class="card border-primary">
+            <div class="card-body text-center">
+                <h6>Calorías</h6>
+                <p><strong>@Model.CaloriasConsumidas</strong> / @Model.CaloriasMeta kcal</p>
+                @if (Model.CaloriasMeta.HasValue)
+                {
+                    var pct = (int)(Model.CaloriasConsumidas / Model.CaloriasMeta.Value * 100);
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width:@pct%;" aria-valuenow="@pct" aria-valuemin="0" aria-valuemax="100">@pct%</div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+        <div class="card border-success">
+            <div class="card-body text-center">
+                <h6>Proteínas</h6>
+                <p><strong>@Model.ProteinasConsumidas</strong> / @Model.ProteinasMeta porciones</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+        <div class="card border-warning">
+            <div class="card-body text-center">
+                <h6>Carbohidratos</h6>
+                <p><strong>@Model.CarbohidratosConsumidos</strong> / @Model.CarbohidratosMeta porciones</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+        <div class="card border-danger">
+            <div class="card-body text-center">
+                <h6>Grasas</h6>
+                <p><strong>@Model.GrasasConsumidas</strong> / @Model.GrasasMeta porciones</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="my-4" />
+
+<!-- 🍽️ ALIMENTOS CONSUMIDOS HOY -->
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Alimentos registrados hoy</h5>
+
+        @if (Model.AlimentosConsumidos != null && Model.AlimentosConsumidos.Any())
+        {
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Calorías</th>
+                        <th>Proteína</th>
+                        <th>Carbos</th>
+                        <th>Grasas</th>
+                        <th>Hora</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.AlimentosConsumidos)
+                    {
+                        <tr>
+                            <td>@item.Alimento?.Nombre</td>
+                            <td>@item.Cantidad</td>
+                            <td>@(item.Alimento?.Calorias * item.Cantidad)</td>
+                            <td>@(item.Alimento?.Proteina * item.Cantidad)</td>
+                            <td>@(item.Alimento?.Carbohidratos * item.Cantidad)</td>
+                            <td>@(item.Alimento?.Grasas * item.Cantidad)</td>
+                            <td>@item.Fecha?.ToString("HH:mm")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-muted">Aún no has registrado alimentos para hoy.</p>
+        }
+
+        <a href="@Url.Action("Crear", "RegistroAlimento")" class="btn btn-outline-primary mt-3">
+            ➕ Agregar alimento
+        </a>
+    </div>
+</div>
