@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using MacroBalance;
-using MacroBalance.Database;
+using MacroBalance. Database;
 
 namespace MacroBalance.Controllers
 {
     public class ObjetivosSaludController : Controller
     {
-        private MacroBalanceEntities db = new MacroBalanceEntities();
+        private MacroBalanceEntities1 db = new MacroBalanceEntities1();
 
         public ActionResult Index()
         {

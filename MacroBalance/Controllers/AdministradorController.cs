@@ -10,9 +10,8 @@ namespace MacroBalance.Controllers
 {
     public class AdministradorController : Controller
     {
-        private readonly MacroBalanceEntities db = new MacroBalanceEntities();
+        private readonly MacroBalanceEntities1 db = new MacroBalanceEntities1();
 
-        // GET: Administrador
         public ActionResult Index()
         {
             if (Session[SessionAtributes.Rol]?.ToString() != UserRoles.Admin)

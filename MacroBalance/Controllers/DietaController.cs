@@ -9,7 +9,7 @@ namespace MacroBalance.Controllers
 {
     public class DietaController : Controller
     {
-        private MacroBalanceEntities db = new MacroBalanceEntities();
+        private MacroBalanceEntities1 db = new MacroBalanceEntities1();
 
         public ActionResult DetallesDieta(int id)
         {

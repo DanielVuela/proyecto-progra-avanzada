@@ -10,7 +10,7 @@ namespace MacroBalance.Controllers
 {
     public class PerfilDietaController : Controller
     {
-        private MacroBalanceEntities db = new MacroBalanceEntities();
+        private MacroBalanceEntities1 db = new MacroBalanceEntities1();
 
         [HttpGet]
         public ActionResult Asignar(int? usuarioId)

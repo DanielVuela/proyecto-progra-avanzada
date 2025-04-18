@@ -19,7 +19,7 @@ namespace MacroBalance.Controllers
         {
             try
             {
-                using (var db = new MacroBalanceEntities())
+                using (var db = new MacroBalanceEntities1())
                 {
                     var usuarioExistente = db.Usuario
                         .FirstOrDefault(u => u.CorreoElectronico == model.CorreoElectronico);

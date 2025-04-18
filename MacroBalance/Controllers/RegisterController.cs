@@ -10,7 +10,7 @@ namespace MacroBalance.Controllers
 {
     public class RegisterController : Controller
     {
-        private MacroBalanceEntities db = new MacroBalanceEntities();
+        private MacroBalanceEntities1 db = new MacroBalanceEntities1();
 
         [HttpGet]
         public ActionResult Index()
@@ -46,7 +46,8 @@ namespace MacroBalance.Controllers
                 ErrorLoggerService.Log(e, "Register");
             }
 
-            return RedirectToAction("Login");
+            return RedirectToAction("Index", "Login");
+
         }
     }
 }

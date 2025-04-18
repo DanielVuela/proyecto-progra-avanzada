@@ -140,75 +140,76 @@
     <Compile Include="Constants\UserRole.cs" />
     <Compile Include="Controllers\RegistroAlimentoController.cs" />
     <Compile Include="Database\Alimento.cs">
-      <DependentUpon>MacroBalanceDb.tt</DependentUpon>
+      <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Alimento_Dieta.cs">
-      <DependentUpon>MacroBalanceDb.tt</DependentUpon>
+      <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Dieta.cs">
-      <DependentUpon>MacroBalanceDb.tt</DependentUpon>
+      <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Ejercicio.cs">
-      <DependentUpon>MacroBalanceDb.tt</DependentUpon>
+      <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\EjercicioRealizado.cs">
-      <DependentUpon>MacroBalanceDb.tt</DependentUpon>
+      <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\EstadoEmocional.cs">
-      <DependentUpon>MacroBalanceDb.tt</DependentUpon>
+      <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\LogErrores.cs">
-      <DependentUpon>MacroBalanceDb.tt</DependentUpon>
+      <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\MacroBalanceDb.Context.cs">
+    <Compile Include="Database\MacroBalance.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MacroBalanceDb.Context.tt</DependentUpon>
+      <DependentUpon>MacroBalance.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\MacroBalanceDb.cs">
+    <Compile Include="Database\MacroBalance.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MacroBalanceDb.tt</DependentUpon>
+      <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\MacroBalanceDb.Designer.cs">
+    <Compile Include="Database\MacroBalance.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MacroBalanceDb.edmx</DependentUpon>
+      <DependentUpon>MacroBalance.edmx</DependentUpon>
     </Compile>
     <Compile Include="Database\Objetivo.cs">
-      <DependentUpon>MacroBalanceDb.tt</DependentUpon>
+      <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\PerfilDieta.cs">
-      <DependentUpon>MacroBalanceDb.tt</DependentUpon>
+      <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\PreferenciaAlimenticia.cs">
-      <DependentUpon>MacroBalanceDb.tt</DependentUpon>
+      <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Progreso.cs">
-      <DependentUpon>MacroBalanceDb.tt</DependentUpon>
+      <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Recordatorios.cs">
-      <DependentUpon>MacroBalanceDb.tt</DependentUpon>
+      <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\RegistroAlimento.cs">
-      <DependentUpon>MacroBalanceDb.tt</DependentUpon>
+      <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Sugerencia.cs">
-      <DependentUpon>MacroBalanceDb.tt</DependentUpon>
+      <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Usuario.cs">
-      <DependentUpon>MacroBalanceDb.tt</DependentUpon>
+      <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Recordatorios.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\ViewModels\BitacoraHoyViewModel.cs" />
     <Compile Include="Models\ViewModels\DietaViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\CalculoCaloriasService.cs" />
+    <Compile Include="Service\CorreoService.cs" />
+    <Compile Include="Service\NotificadorService.cs" />
     <Compile Include="Service\PasswordHashe.cs" />
     <Compile Include="Service\ErrorLoggerService.cs" />
   </ItemGroup>
@@ -531,15 +532,15 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="Database\MacroBalanceDb.Context.tt">
+    <Content Include="Database\MacroBalance.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MacroBalanceDb.edmx</DependentUpon>
-      <LastGenOutput>MacroBalanceDb.Context.cs</LastGenOutput>
+      <DependentUpon>MacroBalance.edmx</DependentUpon>
+      <LastGenOutput>MacroBalance.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Database\MacroBalanceDb.tt">
+    <Content Include="Database\MacroBalance.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MacroBalanceDb.edmx</DependentUpon>
-      <LastGenOutput>MacroBalanceDb.cs</LastGenOutput>
+      <DependentUpon>MacroBalance.edmx</DependentUpon>
+      <LastGenOutput>MacroBalance.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -656,14 +657,14 @@
     <Content Include="assets\vendor\tinymce\license.md" />
     <Content Include="assets\vendor\tinymce\package.json" />
     <Content Include="assets\vendor\tinymce\README.md" />
-    <EntityDeploy Include="Database\MacroBalanceDb.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MacroBalanceDb.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Database\MacroBalanceDb.edmx.diagram">
-      <DependentUpon>MacroBalanceDb.edmx</DependentUpon>
-    </Content>
     <Compile Include="Models\ViewModels\RegistroAlimentoViewModel.cs" />
+    <EntityDeploy Include="Database\MacroBalance.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MacroBalance.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Database\MacroBalance.edmx.diagram">
+      <DependentUpon>MacroBalance.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -704,7 +705,7 @@
     <Content Include="Views\Administrador\Create.cshtml" />
     <Content Include="Views\Administrador\Edit.cshtml" />
     <Content Include="Views\Administrador\Delete.cshtml" />
-    <Content Include="Views\Recordatorios\Recordatorios.cshtml" />
+    <Content Include="Views\Recordatorios\Index.cshtml" />
     <Content Include="Views\Recordatorios\CaloriasMaximas.cshtml" />
     <Content Include="Views\Recordatorios\RegistroComida.cshtml" />
     <Content Include="Views\Recordatorios\EjercicioFisico.cshtml" />

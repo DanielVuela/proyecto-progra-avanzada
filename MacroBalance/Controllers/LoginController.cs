@@ -10,7 +10,7 @@ namespace MacroBalance.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly MacroBalanceEntities db = new MacroBalanceEntities();
+        private readonly MacroBalanceEntities1 db = new MacroBalanceEntities1();
 
         [HttpGet]
         public ActionResult Index()

@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Recordatorio de Calorías Máximas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <main class="main">
@@ -22,29 +23,43 @@
                     <div class="card-body">
                         <h5 class="card-title text-success fw-semibold">Configura tu Recordatorio</h5>
 
-                        @if (TempData["Mensaje"] != null)
+                        @if (TempData["SuccessMessage"] != null)
                         {
-                            <div class="alert alert-success">@TempData["Mensaje"]</div>
+                            <div class="alert alert-success">@TempData["SuccessMessage"]</div>
                         }
 
-                        @using (Html.BeginForm("GuardarRecordatorioCalorias", "Recordatorios", FormMethod.Post))
+                        @if (TempData["ErrorMessage"] != null)
+                        {
+                            <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+                        }
+
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-warning">
+                                Por favor revisa los datos ingresados.
+                            </div>
+                        }
+
+                        @using (Html.BeginForm("CaloriasMaximas", "Recordatorios", FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Frecuencia</label>
-                                <select name="frecuencia" class="form-control">
-                                    <option value="Diario" @(Model?.Frecuencia == "Diario" ? "selected" : "")>Diario</option>
-                                    <option value="Semanal" @(Model?.Frecuencia == "Semanal" ? "selected" : "")>Semanal</option>
-                                </select>
+                                @Html.DropDownListFor(m => m.Frecuencia,
+                                    new SelectList(new[] { "Diario", "Semanal" }, Model.Frecuencia),
+                                    "Selecciona una opción",
+                                    new { @class = "form-control" })
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Hora</label>
-                                <input type="time" name="hora" class="form-control" value="@Model?.Hora.ToString(" HH:mm")" required />
+                                @Html.TextBoxFor(m => m.Hora,
+                                    "{0:hh\\:mm}",
+                                    new { @class = "form-control", type = "time", required = "required" })
                             </div>
 
-                            <button type="submit" class="btn btn-success">Guardar Recordatorio</button>
+                            <button type="submit" class="btn btn-success w-100">Guardar Recordatorio</button>
                         }
                     </div>
                 </div>

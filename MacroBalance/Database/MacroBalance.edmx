@@ -234,6 +234,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__LogErrore__Usuar__5EBF139D">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="LogErrores" Type="Self.LogErrores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogErrores">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Objetivo__Usuari__4E88ABD4">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
           <End Role="Objetivo" Type="Self.Objetivo" Multiplicity="*" />
@@ -370,6 +382,10 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="EstadoEmocional" EntitySet="EstadoEmocional" />
           </AssociationSet>
+          <AssociationSet Name="FK__LogErrore__Usuar__5EBF139D" Association="Self.FK__LogErrore__Usuar__5EBF139D">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="LogErrores" EntitySet="LogErrores" />
+          </AssociationSet>
           <AssociationSet Name="FK__Objetivo__Usuari__4E88ABD4" Association="Self.FK__Objetivo__Usuari__4E88ABD4">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Objetivo" EntitySet="Objetivo" />
@@ -488,6 +504,7 @@
           <Property Name="Modulo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MensajeError" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Stacktrace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__LogErrore__Usuar__5EBF139D" FromRole="LogErrores" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Objetivo">
           <Key>
@@ -587,6 +604,7 @@
           <NavigationProperty Name="Dieta" Relationship="Self.FK__Dieta__IdUsuario__5165187F" FromRole="Usuario" ToRole="Dieta" />
           <NavigationProperty Name="EjercicioRealizado" Relationship="Self.FK__Ejercicio__Usuar__47DBAE45" FromRole="Usuario" ToRole="EjercicioRealizado" />
           <NavigationProperty Name="EstadoEmocional" Relationship="Self.FK__EstadoEmo__Usuar__3A81B327" FromRole="Usuario" ToRole="EstadoEmocional" />
+          <NavigationProperty Name="LogErrores" Relationship="Self.FK__LogErrore__Usuar__5EBF139D" FromRole="Usuario" ToRole="LogErrores" />
           <NavigationProperty Name="Objetivo" Relationship="Self.FK__Objetivo__Usuari__4E88ABD4" FromRole="Usuario" ToRole="Objetivo" />
           <NavigationProperty Name="PerfilDieta" Relationship="Self.FK_PerfilDieta_Usuario" FromRole="Usuario" ToRole="PerfilDieta" />
           <NavigationProperty Name="PreferenciaAlimenticia" Relationship="Self.FK__Preferenc__Usuar__4BAC3F29" FromRole="Usuario" ToRole="PreferenciaAlimenticia" />
@@ -701,6 +719,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__LogErrore__Usuar__5EBF139D">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="LogErrores" Type="Self.LogErrores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogErrores">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Objetivo__Usuari__4E88ABD4">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
           <End Role="Objetivo" Type="Self.Objetivo" Multiplicity="*" />
@@ -761,7 +791,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MacroBalanceEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MacroBalanceEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Alimento" EntityType="Self.Alimento" />
           <EntitySet Name="Alimento_Dieta" EntityType="Self.Alimento_Dieta" />
           <EntitySet Name="Dieta" EntityType="Self.Dieta" />
@@ -813,6 +843,10 @@
             <End Role="EstadoEmocional" EntitySet="EstadoEmocional" />
             <End Role="Sugerencia" EntitySet="Sugerencia" />
           </AssociationSet>
+          <AssociationSet Name="FK__LogErrore__Usuar__5EBF139D" Association="Self.FK__LogErrore__Usuar__5EBF139D">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="LogErrores" EntitySet="LogErrores" />
+          </AssociationSet>
           <AssociationSet Name="FK__Objetivo__Usuari__4E88ABD4" Association="Self.FK__Objetivo__Usuari__4E88ABD4">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Objetivo" EntitySet="Objetivo" />
@@ -839,7 +873,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MacroBalanceModelStoreContainer" CdmEntityContainer="MacroBalanceEntities">
+        <EntityContainerMapping StorageEntityContainer="MacroBalanceModelStoreContainer" CdmEntityContainer="MacroBalanceEntities1">
           <EntitySetMapping Name="Alimento">
             <EntityTypeMapping TypeName="MacroBalanceModel.Alimento">
               <MappingFragment StoreEntitySet="Alimento">
@@ -1028,7 +1062,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
