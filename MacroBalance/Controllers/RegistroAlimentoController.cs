@@ -17,7 +17,7 @@ namespace MacroBalance.Controllers
         {
             int usuarioId = (int)Session[SessionAtributes.UsuarioId];
 
-            using (var db = new MacroBalanceEntities1())
+            using (var db = new MacroBalanceEntities())
             {
                 // Obtener la dieta más reciente del usuario
                 var dieta = db.Dieta
@@ -51,7 +51,7 @@ namespace MacroBalance.Controllers
         {
             if (!ModelState.IsValid)
             {
-                using (var db = new MacroBalanceEntities1())
+                using (var db = new MacroBalanceEntities())
                 {
                     model.Alimentos = db.Alimento
                         .Select(a => new SelectListItem
@@ -65,7 +65,7 @@ namespace MacroBalance.Controllers
 
             try
             {
-                using (var db = new MacroBalanceEntities1())
+                using (var db = new MacroBalanceEntities())
                 {
                     var nuevo = new RegistroAlimento
                     {

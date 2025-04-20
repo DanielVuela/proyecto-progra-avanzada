@@ -18,7 +18,7 @@ namespace MacroBalance.Controllers
             int usuarioId = (int)Session[SessionAtributes.UsuarioId];
             DateTime hoy = DateTime.Today;
 
-            using (var db = new MacroBalanceEntities1())
+            using (var db = new MacroBalanceEntities())
             {
                 var dietaIds = db.Dieta
                     .Where(d => d.IdUsuario == usuarioId)

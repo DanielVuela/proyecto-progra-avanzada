@@ -130,6 +130,7 @@
     <Compile Include="Controllers\AdministradorController.cs" />
     <Compile Include="Controllers\BitacoraController.cs" />
     <Compile Include="Controllers\CalculadoraController.cs" />
+    <Compile Include="Controllers\CicloMenstrualController.cs" />
     <Compile Include="Controllers\DietaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -194,6 +195,9 @@
       <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Sugerencia.cs">
+      <DependentUpon>MacroBalance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\SugerenciaCicloMenstrual.cs">
       <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Usuario.cs">
@@ -712,6 +716,7 @@
     <Content Include="Views\PerfilDieta\Asignar.cshtml" />
     <Content Include="Views\Bitacora\Hoy.cshtml" />
     <Content Include="Views\RegistroAlimento\Crear.cshtml" />
+    <Content Include="Views\CicloMenstrual\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

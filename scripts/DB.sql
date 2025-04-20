@@ -166,3 +166,41 @@ CREATE TABLE PerfilDieta (
 ALTER TABLE PerfilDieta
 ADD CONSTRAINT FK_PerfilDieta_Usuario
 FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id);
+
+--------sugerencias de alimentos en el ciclo menstrual-----
+---tabla--
+
+CREATE TABLE SugerenciaCicloMenstrual (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Fase NVARCHAR(100),
+    AlimentosRecomendados NVARCHAR(MAX),
+    Beneficios NVARCHAR(MAX),
+    SintomasRelacioandos NVARCHAR(MAX)
+);
+
+----inserts de sugerencias ciclo mentrual---
+
+INSERT INTO SugerenciaCicloMenstrual (Fase, AlimentosRecomendados, Beneficios, SintomasRelacioandos)
+VALUES
+('Fase Menstrual',
+ 'Verduras de hoja verde, lentejas, hígado, frutas con vitamina C',
+ 'Ayuda a reponer hierro, combatir la fatiga y regular el estado de ánimo',
+ 'Fatiga, cólicos, cambios de humor'),
+
+('Fase Folicular',
+ 'Avena, plátano, salmón, semillas de chía',
+ 'Favorece la energía, regula hormonas, mejora el enfoque',
+ 'Baja energía, niebla mental'),
+
+('Ovulación',
+ 'Huevos, vegetales crucíferos, bayas, nueces',
+ 'Optimiza la ovulación, antioxidantes, equilibrio hormonal',
+ 'Sensibilidad mamaria, irritabilidad'),
+
+('Fase Lútea',
+ 'Chocolate negro, semillas de girasol, pavo, batata',
+ 'Reduce antojos, ayuda a estabilizar el estado de ánimo',
+ 'Síntomas premenstruales, antojos, ansiedad');
+
+
+

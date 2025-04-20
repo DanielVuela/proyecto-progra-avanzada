@@ -10,7 +10,7 @@ namespace MacroBalance.Controllers
 {
     public class RecordatoriosController : Controller
     {
-        private readonly MacroBalanceEntities1 db = new MacroBalanceEntities1();
+        private readonly MacroBalanceEntities db = new MacroBalanceEntities();
 
         private int ObtenerUsuarioActualId()
         {

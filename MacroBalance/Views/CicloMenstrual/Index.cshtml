@@ -1,0 +1,28 @@
+﻿@model List<MacroBalance.Database.SugerenciaCicloMenstrual>
+
+@{
+    ViewBag.Title = "Sugerencias durante el Ciclo Menstrual";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="pagetitle text-center">
+    <h1 class="text-success fw-bold">Alimentos según el Ciclo Menstrual</h1>
+</div>
+
+<section class="section">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card border-start border-4 border-success shadow-sm">
+                    <div class="card-body">
+                        <h5 class="text-success fw-bold">@item.Fase</h5>
+                        <p><strong>Alimentos:</strong> @item.AlimentosRecomendados</p>
+                        <p><strong>Beneficios:</strong> @item.Beneficios</p>
+                        <p><strong>Síntomas:</strong> @item.SintomasRelacioandos</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>

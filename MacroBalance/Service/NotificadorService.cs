@@ -7,7 +7,7 @@ public static class NotificadorService
 {
     public static void EjecutarNotificaciones()
     {
-        using (var db = new MacroBalanceEntities1())
+        using (var db = new MacroBalanceEntities())
         {
             var ahora = DateTime.Now.TimeOfDay;
 

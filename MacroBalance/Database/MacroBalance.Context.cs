@@ -13,10 +13,10 @@ namespace MacroBalance.Database
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MacroBalanceEntities1 : DbContext
+    public partial class MacroBalanceEntities : DbContext
     {
-        public MacroBalanceEntities1()
-            : base("name=MacroBalanceEntities1")
+        public MacroBalanceEntities()
+            : base("name=MacroBalanceEntities")
         {
         }
     
@@ -39,6 +39,7 @@ namespace MacroBalance.Database
         public virtual DbSet<Recordatorios> Recordatorios { get; set; }
         public virtual DbSet<RegistroAlimento> RegistroAlimento { get; set; }
         public virtual DbSet<Sugerencia> Sugerencia { get; set; }
+        public virtual DbSet<SugerenciaCicloMenstrual> SugerenciaCicloMenstrual { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
     }
 }

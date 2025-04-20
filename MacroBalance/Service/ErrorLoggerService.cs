@@ -11,7 +11,7 @@ namespace MacroBalance.Service
         {
             try
             {
-                using (var db = new MacroBalanceEntities1())
+                using (var db = new MacroBalanceEntities())
                 {
                     var log = new LogErrores
                     {
@@ -36,7 +36,7 @@ namespace MacroBalance.Service
         {
             try
             {
-                using (var db = new MacroBalanceEntities1())
+                using (var db = new MacroBalanceEntities())
                 {
                     var log = new LogErrores
                     {

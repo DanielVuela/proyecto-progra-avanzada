@@ -17,7 +17,7 @@ namespace MacroBalance.Controllers
                 return RedirectToAction("Login", "Login");
             }
 
-            using (var db = new MacroBalanceEntities1())
+            using (var db = new MacroBalanceEntities())
             {
                 var usuario = db.Usuario.FirstOrDefault(u => u.Id == usuarioId);
                 if (usuario == null)
@@ -40,7 +40,7 @@ namespace MacroBalance.Controllers
                     return RedirectToAction("Login", "Login");
                 }
 
-                using (var db = new MacroBalanceEntities1())
+                using (var db = new MacroBalanceEntities())
                 {
                     var usuario = db.Usuario.FirstOrDefault(u => u.Id == usuarioId);
                     if (usuario == null)
