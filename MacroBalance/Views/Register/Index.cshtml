@@ -1,31 +1,51 @@
 ﻿@model MacroBalance.Models.ViewModels.RegisterViewModel
+
 @{
     ViewBag.Title = "Registro";
     Layout = "~/Views/Shared/_LayoutAuth.cshtml";
 }
 
-<h2 class="text-center">Registro</h2>
+<section class="vh-100 d-flex align-items-center justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-lg border-start border-4 border-success">
+            <div class="card-body p-4">
+                <h3 class="text-center text-success fw-bold mb-4">
+                    <i class="bi bi-person-plus me-2"></i>Registro
+                </h3>
 
-@using (Html.BeginForm("Register", "Register", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    <div class="mb-3">
-        @Html.LabelFor(m => m.Nombre, new { @class = "form-label" })
-        @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Nombre)
+                @using (Html.BeginForm("Register", "Register", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Nombre, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", placeholder = "Nombre completo" })
+                        @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.CorreoElectronico, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.CorreoElectronico, new { @class = "form-control", type = "email", placeholder = "correo@ejemplo.com" })
+                        @Html.ValidationMessageFor(m => m.CorreoElectronico, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Contrasena, new { @class = "form-label" })
+                        @Html.PasswordFor(m => m.Contrasena, new { @class = "form-control", placeholder = "Contraseña segura" })
+                        @Html.ValidationMessageFor(m => m.Contrasena, "", new { @class = "text-danger" })
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100 fw-semibold">
+                        <i class="bi bi-check-circle me-1"></i>Registrar
+                    </button>
+                }
+
+                <div class="mt-4 text-center">
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1"></i> Volver al Inicio
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="mb-3">
-        @Html.LabelFor(m => m.CorreoElectronico, new { @class = "form-label" })
-        @Html.TextBoxFor(m => m.CorreoElectronico, new { @class = "form-control", type = "email" })
-        @Html.ValidationMessageFor(m => m.CorreoElectronico)
-    </div>
-
-    <div class="mb-3">
-        @Html.LabelFor(m => m.Contrasena, new { @class = "form-label" })
-        @Html.PasswordFor(m => m.Contrasena, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Contrasena)
-    </div>
-
-    <button type="submit" class="btn btn-primary w-100">Registrar</button>
-}
+</section>

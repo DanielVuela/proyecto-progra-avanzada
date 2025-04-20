@@ -24,39 +24,30 @@
             {
                 <div class="row g-3">
                     <div class="col-md-6">
-                        @Html.LabelFor(m => m.CorreoElectronico, new { @class = "form-label" })
-                        @Html.TextBoxFor(m => m.CorreoElectronico, new { @class = "form-control", placeholder = "Correo electrónico" })
-                    </div>
-                    <div class="col-md-6">
-                        @Html.LabelFor(m => m.Nombre, new { @class = "form-label" })
-                        @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", placeholder = "Nombre" })
-                    </div>
-                    <div class="col-md-6">
-                        @Html.LabelFor(m => m.Apellidos, new { @class = "form-label" })
-                        @Html.TextBoxFor(m => m.Apellidos, new { @class = "form-control", placeholder = "Apellidos" })
-                    </div>
-                    <div class="col-md-6">
                         @Html.LabelFor(m => m.FechaDeNacimiento, new { @class = "form-label" })
-                        @Html.TextBoxFor(m => m.FechaDeNacimiento, new { @class = "form-control", type = "date" })
+                        <input type="date"
+                               name="FechaDeNacimiento"
+                               class="form-control"
+                               value="@(Model.FechaDeNacimiento?.ToString("yyyy-MM-dd"))" />
                     </div>
                     <div class="col-md-6">
                         @Html.LabelFor(m => m.Peso, new { @class = "form-label" })
-                        @Html.TextBoxFor(m => m.Peso, new { @class = "form-control", placeholder = "Peso en kg" })
+                        @Html.TextBoxFor(m => m.Peso, new { @class = "form-control", placeholder = "Peso en kg", type = "number", step = "0.01" })
                     </div>
                     <div class="col-md-6">
                         @Html.LabelFor(m => m.Altura, new { @class = "form-label" })
-                        @Html.TextBoxFor(m => m.Altura, new { @class = "form-control", placeholder = "Altura en cm" })
+                        @Html.TextBoxFor(m => m.Altura, new { @class = "form-control", placeholder = "Altura en cm", type = "number", step = "0.01" })
                     </div>
                     <div class="col-md-6">
                         @Html.LabelFor(m => m.Genero, new { @class = "form-label" })
                         @Html.DropDownListFor(m => m.Genero,
-                            new SelectList(new[] { "masculino", "femenino" }),
+                            new SelectList(new[] { "masculino", "femenino" }, Model.Genero),
                             new { @class = "form-select" })
                     </div>
                     <div class="col-md-6">
                         @Html.LabelFor(m => m.NivelActividadFisica, new { @class = "form-label" })
                         @Html.DropDownListFor(m => m.NivelActividadFisica,
-                            new SelectList(new[] { "sedentario", "ligero", "moderado", "activo", "muy activo" }),
+                            new SelectList(new[] { "sedentario", "ligero", "moderado", "activo", "muy activo" }, Model.NivelActividadFisica),
                             new { @class = "form-select" })
                     </div>
                 </div>

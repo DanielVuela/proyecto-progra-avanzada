@@ -2,6 +2,8 @@
 @{
     var nombre = Session["Nombre"] as string;
     var rol = Session["Rol"] as string;
+    var foto = Session["FotoPerfil"] as string;
+    var rutaFoto = !string.IsNullOrEmpty(foto) ? foto : "~/assets/img/profile-img.jpg";
 }
 
 <!DOCTYPE html>
@@ -25,7 +27,7 @@
 </head>
 
 <body>
-    <!-- Header -->
+
     <header id="header" class="header fixed-top d-flex align-items-center">
         <div class="d-flex align-items-center justify-content-between">
             <a href="@Url.Action("Index", "Home")" class="logo d-flex align-items-center">
@@ -37,12 +39,11 @@
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
-
                 @if (!string.IsNullOrEmpty(nombre))
                 {
                     <li class="nav-item dropdown pe-3">
                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                            <img src="@Url.Content("~/assets/img/profile-img.jpg")" class="rounded-circle" alt="Profile" />
+                            <img src="@Url.Content(rutaFoto)" class="rounded-circle" alt="Foto de perfil" />
                             <span class="d-none d-md-block dropdown-toggle ps-2">@nombre</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -54,8 +55,7 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a href="@Url.Action("UserProfile", "Account")"
-                                   class="dropdown-item d-flex align-items-center">
+                                <a href="@Url.Action("UserProfile", "Account")" class="dropdown-item d-flex align-items-center">
                                     <i class="bi bi-person"></i><span>Mi Perfil</span>
                                 </a>
                             </li>
@@ -74,7 +74,6 @@
         </nav>
     </header>
 
-    <!-- Sidebar -->
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
@@ -110,7 +109,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="@Url.Action("Hoy", "Bitacora")">
-                        <i class="bi bi-clipboard2-check"></i><span>Bitacora de hoy</span>
+                        <i class="bi bi-clipboard2-check"></i><span>Bitácora de hoy</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -135,20 +134,16 @@
         </ul>
     </aside>
 
-
-    <!-- Main -->
     <main id="main" class="main">
         @RenderBody()
     </main>
 
-    <!-- Footer -->
     <footer id="footer" class="footer text-center mt-4">
         <div class="copyright">
             &copy; @DateTime.Now.Year - Grupo 6. Todos los derechos reservados.
         </div>
     </footer>
 
-    <!-- JS Files -->
     <script src="@Url.Content("~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js")"></script>
     <script src="@Url.Content("~/assets/js/main.js")"></script>
 </body>

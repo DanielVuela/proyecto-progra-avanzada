@@ -11,7 +11,22 @@ namespace MacroBalance.Controllers
         [HttpGet]
         public ActionResult CalcularCalorias()
         {
-            return View();
+            int? usuarioId = Session["UsuarioId"] as int?;
+            if (usuarioId == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            using (var db = new MacroBalanceEntities1())
+            {
+                var usuario = db.Usuario.FirstOrDefault(u => u.Id == usuarioId);
+                if (usuario == null)
+                {
+                    return RedirectToAction("Login", "Login");
+                }
+
+                return View(usuario); 
+            }
         }
 
         [HttpPost]
@@ -19,53 +34,51 @@ namespace MacroBalance.Controllers
         {
             try
             {
+                int? usuarioId = Session["UsuarioId"] as int?;
+                if (usuarioId == null)
+                {
+                    return RedirectToAction("Login", "Login");
+                }
+
                 using (var db = new MacroBalanceEntities1())
                 {
-                    var usuarioExistente = db.Usuario
-                        .FirstOrDefault(u => u.CorreoElectronico == model.CorreoElectronico);
+                    var usuario = db.Usuario.FirstOrDefault(u => u.Id == usuarioId);
+                    if (usuario == null)
+                    {
+                        return RedirectToAction("Login", "Login");
+                    }
 
-                    if (usuarioExistente == null)
-                    {
-                        db.Usuario.Add(model);
-                    }
-                    else
-                    {
-                        usuarioExistente.Nombre = model.Nombre;
-                        usuarioExistente.Apellidos = model.Apellidos;
-                        usuarioExistente.FotoDePerfilUrl = model.FotoDePerfilUrl;
-                        usuarioExistente.FechaDeNacimiento = model.FechaDeNacimiento;
-                        usuarioExistente.Peso = model.Peso;
-                        usuarioExistente.Altura = model.Altura;
-                        usuarioExistente.NivelActividadFisica = model.NivelActividadFisica;
-                        usuarioExistente.Genero = model.Genero;
-                    }
+                    usuario.FechaDeNacimiento = model.FechaDeNacimiento;
+                    usuario.Peso = model.Peso;
+                    usuario.Altura = model.Altura;
+                    usuario.NivelActividadFisica = model.NivelActividadFisica;
+                    usuario.Genero = model.Genero;
 
                     db.SaveChanges();
 
-                    // Calcular edad
                     int edad = 0;
-                    if (model.FechaDeNacimiento.HasValue)
+                    if (usuario.FechaDeNacimiento.HasValue)
                     {
-                        edad = DateTime.Now.Year - model.FechaDeNacimiento.Value.Year;
-                        if (DateTime.Now.DayOfYear < model.FechaDeNacimiento.Value.DayOfYear)
+                        edad = DateTime.Now.Year - usuario.FechaDeNacimiento.Value.Year;
+                        if (DateTime.Now.DayOfYear < usuario.FechaDeNacimiento.Value.DayOfYear)
                             edad--;
                     }
 
-                    double pesoDouble = (double)(model.Peso ?? 0m);
-                    double alturaDouble = (double)(model.Altura ?? 0m) * 100;
+                    double pesoDouble = (double)(usuario.Peso ?? 0m);
+                    double alturaDouble = (double)(usuario.Altura ?? 0m) * 100;
 
                     double tdee = CalculoCaloriasService.CalcularTDEE(
                         pesoDouble,
                         alturaDouble,
                         edad,
-                        model.Genero,
-                        model.NivelActividadFisica
+                        usuario.Genero,
+                        usuario.NivelActividadFisica
                     );
 
                     ViewBag.TDEE = tdee;
-                }
 
-                return View();
+                    return View(usuario); 
+                }
             }
             catch (Exception ex)
             {

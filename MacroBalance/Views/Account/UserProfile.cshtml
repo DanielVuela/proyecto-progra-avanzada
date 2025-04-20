@@ -1,4 +1,6 @@
-﻿@{
+﻿@model MacroBalance.Database.Usuario
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Perfil de Usuario";
 }
@@ -14,16 +16,21 @@
         </nav>
     </div>
 
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
     <section class="section profile">
         <div class="row">
-
             <div class="col-lg-4 mb-4">
                 <div class="card shadow-sm border-start border-4 border-success">
                     <div class="card-body text-center">
-                        <img src="@Url.Content("~/assets/img/profile-img.jpg")" alt="Imagen de perfil"
+                        <img src="@Url.Content(Model.FotoDePerfilUrl ?? "~/assets/img/profile-img.jpg")"
+                             alt="Imagen de perfil"
                              class="rounded-circle shadow-sm mb-3" width="120">
-                        <h5 class="card-title text-success fw-semibold">Kevin Anderson</h5>
-                        <p class="text-muted">Diseñador Web</p>
+                        <h5 class="card-title text-success fw-semibold">@Model.Nombre @Model.Apellidos</h5>
+                        <p class="text-muted">@Model.CorreoElectronico</p>
                     </div>
                 </div>
             </div>
@@ -33,22 +40,60 @@
                     <div class="card-body">
                         <h5 class="card-title text-success fw-semibold mb-4">Información Personal</h5>
 
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <p><strong>Nombre:</strong> Kevin Anderson</p>
-                                <p><strong>Email:</strong> kevin.anderson@example.com</p>
+                        @using (Html.BeginForm("UserProfile", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    @Html.LabelFor(m => m.Nombre)
+                                    @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.LabelFor(m => m.Apellidos)
+                                    @Html.TextBoxFor(m => m.Apellidos, new { @class = "form-control" })
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <p><strong>Teléfono:</strong> +123 456 7890</p>
-                                <p><strong>Dirección:</strong> 1234 Main St, Ciudad</p>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="FechaDeNacimiento" class="form-label">Fecha de Nacimiento</label>
+                                    <input type="date"
+                                           name="FechaDeNacimiento"
+                                           class="form-control"
+                                           value="@(Model.FechaDeNacimiento?.ToString("yyyy-MM-dd"))" />
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.LabelFor(m => m.Genero)
+                                    @Html.DropDownListFor(m => m.Genero,
+                                        new SelectList(new[] { "masculino", "femenino" }, Model.Genero),
+                                        new { @class = "form-select" })
+                                </div>
                             </div>
-                        </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    @Html.LabelFor(m => m.Peso)
+                                    @Html.TextBoxFor(m => m.Peso, new { @class = "form-control", type = "number", step = "0.01" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.LabelFor(m => m.Altura)
+                                    @Html.TextBoxFor(m => m.Altura, new { @class = "form-control", type = "number", step = "0.01" })
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                @Html.Label("Foto de Perfil (opcional)")
+                                <input type="file" name="foto" class="form-control" accept="image/*" />
+                            </div>
 
-                        <div class="d-grid">
-                            <a href="@Url.Action("AjustesCuenta", "Account")" class="btn btn-success fw-semibold">
-                                <i class="bi bi-pencil-square me-1"></i>Editar Perfil
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success fw-semibold">
+                                    <i class="bi bi-save me-1"></i> Guardar Cambios
+                                </button>
+                            </div>
+                        }
+                        <div class="d-grid mt-3">
+                            <a href="@Url.Action("AjustesCuenta", "Account")" class="btn btn-outline-success fw-semibold">
+                                <i class="bi bi-gear me-1"></i> Ajustes de Cuenta
                             </a>
                         </div>
+
                     </div>
                 </div>
             </div>

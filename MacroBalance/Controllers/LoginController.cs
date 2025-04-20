@@ -28,7 +28,7 @@ namespace MacroBalance.Controllers
             {
                 var usuario = db.Usuario.FirstOrDefault(u =>
                     u.CorreoElectronico == model.CorreoElectronico &&
-                    u.Contrasena == model.Contrasena 
+                    u.Contrasena == model.Contrasena
                 );
 
                 if (usuario == null)
@@ -40,6 +40,7 @@ namespace MacroBalance.Controllers
                 Session[SessionAtributes.UsuarioId] = usuario.Id;
                 Session[SessionAtributes.Nombre] = usuario.Nombre;
                 Session[SessionAtributes.Rol] = usuario.Rol;
+                Session["FotoPerfil"] = usuario.FotoDePerfilUrl; 
 
                 if (usuario.Rol == UserRoles.Admin)
                     return RedirectToAction("Index", "Administrador");
@@ -53,14 +54,13 @@ namespace MacroBalance.Controllers
                 return View(model);
             }
         }
+
         [HttpGet]
         public ActionResult Logout()
         {
-            Session.Clear(); 
+            Session.Clear();
             Session.Abandon();
-
             return RedirectToAction("Index", "Login");
         }
     }
 }
- 

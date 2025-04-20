@@ -1,70 +1,74 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using MacroBalance.Database;
 
 namespace MacroBalance.Controllers
 {
     public class AccountController : Controller
     {
-        // Acción para mostrar la vista del perfil de usuario
+        private MacroBalanceEntities1 db = new MacroBalanceEntities1();
+
         public ActionResult UserProfile()
         {
-            // cargar los datos del usuario desde la base de datos
-            // Ejemplo:
-            // var user = UserService.GetUserById(User.Identity.Name);
-            // return View(user);
+            int? userId = Session["UsuarioId"] as int?;
+            if (userId == null)
+                return RedirectToAction("Login", "Login");
 
-            return View();
+            var usuario = db.Usuario.Find(userId);
+            return View(usuario);
         }
 
-        // Acción para mostrar la vista de reinicio de contraseña
-        public ActionResult ResetPassword()
-        {
-            return View();
-        }
-
-        // Acción para mostrar la vista de  ajustes de cuenta
-        public ActionResult AjustesCuenta()
-        {
-            return View();
-        }
-
-        // Acción para procesar el formulario de reinicio de contraseña
         [HttpPost]
-        public ActionResult ResetPassword(string newPassword, string confirmPassword)
+        public ActionResult UserProfile(Usuario model, HttpPostedFileBase foto)
         {
-            if (string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmPassword))
+            int? userId = Session["UsuarioId"] as int?;
+            if (userId == null)
+                return RedirectToAction("Login", "Login");
+
+            var usuario = db.Usuario.Find(userId);
+            if (usuario == null)
+                return HttpNotFound();
+
+            usuario.Nombre = model.Nombre;
+            usuario.Apellidos = model.Apellidos;
+            usuario.FechaDeNacimiento = model.FechaDeNacimiento;
+            usuario.Peso = model.Peso;
+            usuario.Altura = model.Altura;
+            usuario.NivelActividadFisica = model.NivelActividadFisica;
+            usuario.Genero = model.Genero;
+
+            if (foto != null && foto.ContentLength > 0)
             {
-                TempData["ErrorMessage"] = "Los campos de contraseña no pueden estar vacíos.";
-                return View();
+                var nombreArchivo = $"perfil_{userId}_{Path.GetFileName(foto.FileName)}";
+                var rutaDirectorio = Server.MapPath("~/assets/img/perfiles");
+
+                if (!Directory.Exists(rutaDirectorio))
+                {
+                    Directory.CreateDirectory(rutaDirectorio);
+                }
+
+                var rutaGuardar = Path.Combine(rutaDirectorio, nombreArchivo);
+                foto.SaveAs(rutaGuardar);
+
+                usuario.FotoDePerfilUrl = $"/assets/img/perfiles/{nombreArchivo}";
             }
 
-            if (newPassword != confirmPassword)
-            {
-                TempData["ErrorMessage"] = "Las contraseñas no coinciden.";
-                return View();
-            }
+            db.SaveChanges();
 
-            try
-            {
-                // Lógica para actualizar la contraseña en la base de datos
-                // Ejemplo:
-                // UserService.UpdatePassword(User.Identity.Name, newPassword);
+            Session["FotoPerfil"] = usuario.FotoDePerfilUrl;
+            Session["Nombre"] = usuario.Nombre;
 
-                TempData["SuccessMessage"] = "Contraseña actualizada correctamente.";
-                return RedirectToAction("Profile");
-            }
-            catch (Exception ex)
-            {
-                // Manejo de errores
-                TempData["ErrorMessage"] = "Ocurrió un error al actualizar la contraseña: " + ex.Message;
-                return View();
-            }
+            TempData["SuccessMessage"] = "Perfil actualizado correctamente.";
+            return RedirectToAction("UserProfile");
         }
 
-        public ActionResult Recordatorios()
-        {
-            return View();
-        }
+        public ActionResult ResetPassword() => View();
 
+        public ActionResult AjustesCuenta() => View();
+
+        public ActionResult Recordatorios() => View();
     }
 }
