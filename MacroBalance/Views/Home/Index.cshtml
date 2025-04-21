@@ -2,7 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 
-<link href="@Url.Content("~/assets/css/style.css")" rel="stylesheet"/>
+<link href="@Url.Content("~/assets/css/style.css")" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-dW5t9bwnZT8Huy9z1hfFQF7INn1CMmq3CvbdxgdNnK3i3+y8P3rPIQ8WzEzv7V9mI+FKvX+klJ2+aWTaZdF0WQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <div class="welcome-container">
@@ -10,25 +10,34 @@
     <p class="subtitle">Tu compañero para una alimentación saludable y balanceada.</p>
 
     <div class="feature-section">
-        <div class="feature-card">
+
+        <!-- CONTADOR DE CALORÍAS con link funcional -->
+        <a href="@Url.Action("CalcularCalorias", "Calculadora")" class="feature-card text-decoration-none text-dark">
             <i class="fas fa-utensils icon"></i>
             <h3>Contador de Calorías</h3>
             <p>Llevá un control diario de lo que consumís y alcanzá tus metas.</p>
-        </div>
+        </a>
+
+        <!-- CONSEJOS PERSONALIZADOS -->
         <div class="feature-card">
             <i class="fas fa-heartbeat icon"></i>
             <h3>Consejos Personalizados</h3>
             <p>Recomendaciones según tus emociones, estado físico o ciclo menstrual.</p>
         </div>
-        <div class="feature-card">
+
+        <!-- HISTORIAL DE PROGRESO con link funcional -->
+        <a href="@Url.Action("Index", "Progreso")" class="feature-card text-decoration-none text-dark">
             <i class="fas fa-chart-line icon"></i>
             <h3>Historial de Progreso</h3>
             <p>Visualizá tu avance con reportes.</p>
-        </div>
+        </a>
+
+        <!-- SUGERENCIAS DE ALIMENTOS -->
         <div class="feature-card">
             <i class="fas fa-apple-alt icon"></i>
             <h3>Sugerencias de Alimentos</h3>
             <p>Inspiración y creatividad diaria para mantener una alimentación variada.</p>
         </div>
+
     </div>
 </div>

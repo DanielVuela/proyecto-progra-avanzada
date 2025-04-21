@@ -14,7 +14,7 @@ namespace MacroBalance.Controllers
             int? usuarioId = Session["UsuarioId"] as int?;
             if (usuarioId == null)
             {
-                return RedirectToAction("Login", "Login");
+                return RedirectToAction("Index", "Login");
             }
 
             using (var db = new MacroBalanceEntities())
@@ -22,10 +22,10 @@ namespace MacroBalance.Controllers
                 var usuario = db.Usuario.FirstOrDefault(u => u.Id == usuarioId);
                 if (usuario == null)
                 {
-                    return RedirectToAction("Login", "Login");
+                    return RedirectToAction("Index", "Login");
                 }
 
-                return View(usuario); 
+                return View(usuario);
             }
         }
 

@@ -131,6 +131,7 @@
     <Compile Include="Controllers\BitacoraController.cs" />
     <Compile Include="Controllers\CalculadoraController.cs" />
     <Compile Include="Controllers\CicloMenstrualController.cs" />
+    <Compile Include="Controllers\ProgresoController.cs" />
     <Compile Include="Controllers\DietaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -717,6 +718,7 @@
     <Content Include="Views\Bitacora\Hoy.cshtml" />
     <Content Include="Views\RegistroAlimento\Crear.cshtml" />
     <Content Include="Views\CicloMenstrual\Index.cshtml" />
+    <Content Include="Views\Progreso\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

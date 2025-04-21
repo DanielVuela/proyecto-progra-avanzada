@@ -1,0 +1,122 @@
+﻿@model List<MacroBalance.Database.Progreso>
+
+@{
+    ViewBag.Title = "Historial de Progreso";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-4">Historial de Progreso</h2>
+
+<!-- Filtro de fechas -->
+<form method="get" class="mb-4">
+    <label for="filtro" class="form-label">Filtrar por rango de tiempo:</label>
+    <select name="filtro" id="filtro" class="form-select w-auto d-inline-block" onchange="this.form.submit()">
+        <option value="Todo" @(ViewBag.FiltroSeleccionado == "Todo" ? "selected" : "")>Todo</option>
+        <option value="Semana" @(ViewBag.FiltroSeleccionado == "Semana" ? "selected" : "")>Última Semana</option>
+        <option value="Mes" @(ViewBag.FiltroSeleccionado == "Mes" ? "selected" : "")>Último Mes</option>
+        <option value="SeisMeses" @(ViewBag.FiltroSeleccionado == "SeisMeses" ? "selected" : "")>Últimos 6 Meses</option>
+        <option value="Anio" @(ViewBag.FiltroSeleccionado == "Anio" ? "selected" : "")>Último Año</option>
+    </select>
+</form>
+
+<!-- Tabla de progreso -->
+<table class="table table-bordered table-hover">
+    <thead class="table-success">
+        <tr>
+            <th>Fecha (Año-Mes-Día)</th>
+            <th>Peso (kg)</th>
+            <th>Cintura (cm)</th>
+            <th>Cadera (cm)</th>
+            <th>Pecho (cm)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(item.Fecha.HasValue ? item.Fecha.Value.ToString("yyyy-MM-dd") : "")</td>
+                <td>@item.Peso</td>
+                <td>@item.Cintura</td>
+                <td>@item.Cadera</td>
+                <td>@item.Pecho</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<!-- Gráficos separados -->
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <h5>Peso (kg)</h5>
+        <canvas id="graficoPeso"></canvas>
+    </div>
+    <div class="col-md-6 mb-4">
+        <h5>Cintura (cm)</h5>
+        <canvas id="graficoCintura"></canvas>
+    </div>
+    <div class="col-md-6 mb-4">
+        <h5>Cadera (cm)</h5>
+        <canvas id="graficoCadera"></canvas>
+    </div>
+    <div class="col-md-6 mb-4">
+        <h5>Pecho (cm)</h5>
+        <canvas id="graficoPecho"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const fechas = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Fecha.HasValue ? x.Fecha.Value.ToString("yyyy-MM-dd") : "")));
+    const peso = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Peso)));
+    const cintura = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Cintura)));
+    const cadera = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Cadera)));
+    const pecho = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Pecho)));
+
+    function crearGrafico(idCanvas, etiqueta, datos, color) {
+        new Chart(document.getElementById(idCanvas).getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: fechas,
+                datasets: [{
+                    label: etiqueta,
+                    data: datos,
+                    borderColor: color,
+                    backgroundColor: color + '33',
+                    tension: 0.3,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Fecha'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Medida'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    crearGrafico('graficoPeso', 'Peso (kg)', peso, 'green');
+    crearGrafico('graficoCintura', 'Cintura (cm)', cintura, 'blue');
+    crearGrafico('graficoCadera', 'Cadera (cm)', cadera, 'orange');
+    crearGrafico('graficoPecho', 'Pecho (cm)', pecho, 'purple');
+</script>

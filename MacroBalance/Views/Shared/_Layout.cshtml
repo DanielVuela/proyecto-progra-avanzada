@@ -98,28 +98,32 @@
             else if (!string.IsNullOrEmpty(rol))
             {
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="@Url.Action("CalcularCalorias", "Calculadora")">
-                        <i class="bi bi-activity"></i><span>Calcular Calorías</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="@Url.Action("Index", "ObjetivosSalud")">
-                        <i class="bi bi-heart-pulse"></i><span>Objetivos de Salud</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="@Url.Action("Hoy", "Bitacora")">
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "Bitacora" ? "" : "collapsed")" href="@Url.Action("Hoy", "Bitacora")">
                         <i class="bi bi-clipboard2-check"></i><span>Bitácora de hoy</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("Index", "CicloMenstrual")">
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "Calculadora" ? "" : "collapsed")" href="@Url.Action("CalcularCalorias", "Calculadora")">
+                        <i class="bi bi-activity"></i><span>Calcular Calorías</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "CicloMenstrual" ? "" : "collapsed")" href="@Url.Action("Index", "CicloMenstrual")">
                         <i class="bi bi-flower1"></i> <span>Ciclo Menstrual</span>
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="@Url.Action("Faq", "Home")">
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "Progreso" ? "" : "collapsed")" href="@Url.Action("Index", "Progreso")">
+                        <i class="bi bi-graph-up-arrow"></i><span>Historial de Progreso</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "ObjetivosSalud" ? "" : "collapsed")" href="@Url.Action("Index", "ObjetivosSalud")">
+                        <i class="bi bi-heart-pulse"></i><span>Objetivos de Salud</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "Faq" ? "" : "collapsed")" href="@Url.Action("Faq", "Home")">
                         <i class="bi bi-question-circle"></i><span>FAQ</span>
                     </a>
                 </li>
