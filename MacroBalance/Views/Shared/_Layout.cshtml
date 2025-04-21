@@ -112,16 +112,19 @@
                         <i class="bi bi-flower1"></i> <span>Ciclo Menstrual</span>
                     </a>
                 </li>
+               
+                <li class="nav-item">
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "EstadoEmocional" ? "" : "collapsed")" href="@Url.Action("Index", "EstadoEmocional")">
+                        <i class="bi bi-emoji-smile"></i><span>Mis Estados Emocionales</span>
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "Progreso" ? "" : "collapsed")" href="@Url.Action("Index", "Progreso")">
                         <i class="bi bi-graph-up-arrow"></i><span>Historial de Progreso</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "ObjetivosSalud" ? "" : "collapsed")" href="@Url.Action("Index", "ObjetivosSalud")">
-                        <i class="bi bi-heart-pulse"></i><span>Objetivos de Salud</span>
-                    </a>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "Faq" ? "" : "collapsed")" href="@Url.Action("Faq", "Home")">
                         <i class="bi bi-question-circle"></i><span>FAQ</span>
