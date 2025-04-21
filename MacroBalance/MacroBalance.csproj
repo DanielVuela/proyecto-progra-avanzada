@@ -131,17 +131,16 @@
     <Compile Include="Controllers\BitacoraController.cs" />
     <Compile Include="Controllers\CalculadoraController.cs" />
     <Compile Include="Controllers\CicloMenstrualController.cs" />
-    <Compile Include="Controllers\EstadoEmocionalController.cs" />
     <Compile Include="Controllers\ProgresoController.cs" />
     <Compile Include="Controllers\DietaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ObjetivosSaludController.cs" />
     <Compile Include="Controllers\PerfilDietaController.cs" />
     <Compile Include="Controllers\RecordatoriosController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Constants\UserRole.cs" />
     <Compile Include="Controllers\RegistroAlimentoController.cs" />
-    <Compile Include="Controllers\SugerenciasController.cs" />
     <Compile Include="Database\Alimento.cs">
       <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
@@ -199,9 +198,6 @@
     <Compile Include="Database\Sugerencia.cs">
       <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\SugerenciaBase.cs">
-      <DependentUpon>MacroBalance.tt</DependentUpon>
-    </Compile>
     <Compile Include="Database\SugerenciaCicloMenstrual.cs">
       <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
@@ -213,9 +209,10 @@
     </Compile>
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\ViewModels\BitacoraHoyViewModel.cs" />
+    <Compile Include="Models\ViewModels\DietaConAlimentosViewModel.cs" />
+    <Compile Include="Models\ViewModels\DietaConObjetivoViewModel.cs" />
     <Compile Include="Models\ViewModels\DietaViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
-    <Compile Include="Models\ViewModels\SugerenciaEmocionalViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\CalculoCaloriasService.cs" />
     <Compile Include="Service\CorreoService.cs" />
@@ -708,6 +705,7 @@
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Account\AjustesCuenta.cshtml" />
     <Content Include="Views\Calculadora\CalcularCalorias.cshtml" />
+    <Content Include="Views\ObjetivosSalud\Index.cshtml" />
     <Content Include="Views\Dieta\DetallesDieta.cshtml" />
     <Content Include="Views\Shared\_LayoutAuth.cshtml" />
     <Content Include="Views\Administrador\Index.cshtml" />
@@ -723,13 +721,12 @@
     <Content Include="Views\RegistroAlimento\Crear.cshtml" />
     <Content Include="Views\CicloMenstrual\Index.cshtml" />
     <Content Include="Views\Progreso\Index.cshtml" />
-    <Content Include="Views\EstadoEmocional\Index.cshtml" />
-    <Content Include="Views\EstadoEmocional\Create.cshtml" />
-    <Content Include="Views\EstadoEmocional\Grafico.cshtml" />
-    <Content Include="Views\EstadoEmocional\Detalles.cshtml" />
+    <Content Include="Views\ObjetivosSalud\DetallesObjetivo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\DietaConAlimentoViewModel\" />
+    <Folder Include="Views\DietaConObjetivoViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

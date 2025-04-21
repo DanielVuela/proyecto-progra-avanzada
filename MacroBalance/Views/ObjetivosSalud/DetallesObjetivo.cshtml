@@ -1,0 +1,45 @@
+﻿@model MacroBalance.Models.ViewModels.DietaConAlimentosViewModel
+
+@{
+    ViewBag.Title = Model.NombreDieta;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1 class="text-success fw-bold">@Model.NombreDieta</h1>
+        <p><strong>Descripción:</strong> @Model.DescripcionDieta</p>
+    </div>
+
+    <section class="section">
+        <h3>Alimentos incluidos en esta dieta:</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Calorías</th>
+                    <th>Proteína (g)</th>
+                    <th>Carbohidratos (g)</th>
+                    <th>Grasas (g)</th>
+                    <th>Cantidad Diaria</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var alimento in Model.Alimentos)
+                {
+                    <tr>
+                        <td>@alimento.Nombre</td>
+                        <td>@alimento.Descripcion</td>
+                        <td>@alimento.Calorias</td>
+                        <td>@alimento.Proteina</td>
+                        <td>@alimento.Carbohidratos</td>
+                        <td>@alimento.Grasas</td>
+                        <td>@alimento.CantidadDiaria</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</main>
+
