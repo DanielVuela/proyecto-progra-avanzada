@@ -18,7 +18,8 @@
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>false</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
     <IISExpressSSLPort>44324</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -142,7 +143,11 @@
     <Compile Include="Constants\UserRole.cs" />
     <Compile Include="Controllers\RegistroAlimentoController.cs" />
     <Compile Include="Controllers\SugerenciasController.cs" />
+    <Compile Include="Controllers\TipoRecetasController.cs" />
     <Compile Include="Database\Alimento.cs">
+      <DependentUpon>MacroBalance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\AlimentoTipoReceta.cs">
       <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Alimento_Dieta.cs">
@@ -205,6 +210,9 @@
     <Compile Include="Database\SugerenciaCicloMenstrual.cs">
       <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\TipoReceta.cs">
+      <DependentUpon>MacroBalance.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\Usuario.cs">
       <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
@@ -216,6 +224,7 @@
     <Compile Include="Models\ViewModels\DietaViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Models\ViewModels\SugerenciaEmocionalViewModel.cs" />
+    <Compile Include="Models\ViewModels\TipoRecetaConAlimentosViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\CalculoCaloriasService.cs" />
     <Compile Include="Service\CorreoService.cs" />
@@ -728,6 +737,7 @@
     <Content Include="Views\EstadoEmocional\Grafico.cshtml" />
     <Content Include="Views\EstadoEmocional\Detalles.cshtml" />
     <Content Include="Views\EtiquetasNutricionales\EtiquetasNutri.cshtml" />
+    <Content Include="Views\TipoRecetas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

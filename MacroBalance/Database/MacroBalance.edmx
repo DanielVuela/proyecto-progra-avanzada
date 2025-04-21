@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MacroBalanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MacroBalanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Alimento">
           <Key>
             <PropertyRef Name="Id" />
@@ -26,6 +26,14 @@
           <Property Name="AlimentoId" Type="int" Nullable="false" />
           <Property Name="CantidadDiaria" Type="decimal" Precision="5" Scale="2" />
         </EntityType>
+        <EntityType Name="AlimentoTipoReceta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AlimentoId" Type="int" Nullable="false" />
+          <Property Name="TipoRecetaId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Dieta">
           <Key>
             <PropertyRef Name="Id" />
@@ -34,6 +42,7 @@
           <Property Name="IdUsuario" Type="int" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+          <Property Name="ObjetivoId" Type="int" />
         </EntityType>
         <EntityType Name="Ejercicio">
           <Key>
@@ -163,6 +172,14 @@
           <Property Name="Beneficios" Type="nvarchar(max)" />
           <Property Name="SintomasRelacioandos" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="TipoReceta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
@@ -201,6 +218,30 @@
             </Principal>
             <Dependent Role="Alimento_Dieta">
               <PropertyRef Name="DietaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AlimentoT__Alime__2DE6D218">
+          <End Role="Alimento" Type="Self.Alimento" Multiplicity="1" />
+          <End Role="AlimentoTipoReceta" Type="Self.AlimentoTipoReceta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alimento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AlimentoTipoReceta">
+              <PropertyRef Name="AlimentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AlimentoT__TipoR__2EDAF651">
+          <End Role="TipoReceta" Type="Self.TipoReceta" Multiplicity="1" />
+          <End Role="AlimentoTipoReceta" Type="Self.AlimentoTipoReceta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoReceta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AlimentoTipoReceta">
+              <PropertyRef Name="TipoRecetaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -348,6 +389,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Dieta_Objetivo">
+          <End Role="Objetivo" Type="Self.Objetivo" Multiplicity="0..1" />
+          <End Role="Dieta" Type="Self.Dieta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Objetivo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Dieta">
+              <PropertyRef Name="ObjetivoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PerfilDieta_Usuario">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="PerfilDieta" Type="Self.PerfilDieta" Multiplicity="*" />
@@ -363,6 +416,7 @@
         <EntityContainer Name="MacroBalanceModelStoreContainer">
           <EntitySet Name="Alimento" EntityType="Self.Alimento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Alimento_Dieta" EntityType="Self.Alimento_Dieta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AlimentoTipoReceta" EntityType="Self.AlimentoTipoReceta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dieta" EntityType="Self.Dieta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ejercicio" EntityType="Self.Ejercicio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EjercicioRealizado" EntityType="Self.EjercicioRealizado" Schema="dbo" store:Type="Tables" />
@@ -377,6 +431,7 @@
           <EntitySet Name="Sugerencia" EntityType="Self.Sugerencia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SugerenciaBase" EntityType="Self.SugerenciaBase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SugerenciaCicloMenstrual" EntityType="Self.SugerenciaCicloMenstrual" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoReceta" EntityType="Self.TipoReceta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Alimento___Alime__571DF1D5" Association="Self.FK__Alimento___Alime__571DF1D5">
             <End Role="Alimento" EntitySet="Alimento" />
@@ -385,6 +440,14 @@
           <AssociationSet Name="FK__Alimento___Dieta__5629CD9C" Association="Self.FK__Alimento___Dieta__5629CD9C">
             <End Role="Dieta" EntitySet="Dieta" />
             <End Role="Alimento_Dieta" EntitySet="Alimento_Dieta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AlimentoT__Alime__2DE6D218" Association="Self.FK__AlimentoT__Alime__2DE6D218">
+            <End Role="Alimento" EntitySet="Alimento" />
+            <End Role="AlimentoTipoReceta" EntitySet="AlimentoTipoReceta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AlimentoT__TipoR__2EDAF651" Association="Self.FK__AlimentoT__TipoR__2EDAF651">
+            <End Role="TipoReceta" EntitySet="TipoReceta" />
+            <End Role="AlimentoTipoReceta" EntitySet="AlimentoTipoReceta" />
           </AssociationSet>
           <AssociationSet Name="FK__Dieta__IdUsuario__5165187F" Association="Self.FK__Dieta__IdUsuario__5165187F">
             <End Role="Usuario" EntitySet="Usuario" />
@@ -434,13 +497,16 @@
             <End Role="EstadoEmocional" EntitySet="EstadoEmocional" />
             <End Role="Sugerencia" EntitySet="Sugerencia" />
           </AssociationSet>
+          <AssociationSet Name="FK_Dieta_Objetivo" Association="Self.FK_Dieta_Objetivo">
+            <End Role="Objetivo" EntitySet="Objetivo" />
+            <End Role="Dieta" EntitySet="Dieta" />
+          </AssociationSet>
           <AssociationSet Name="FK_PerfilDieta_Usuario" Association="Self.FK_PerfilDieta_Usuario">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="PerfilDieta" EntitySet="PerfilDieta" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MacroBalanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -457,6 +523,7 @@
           <Property Name="Grasas" Type="Decimal" Precision="5" Scale="2" />
           <NavigationProperty Name="Alimento_Dieta" Relationship="Self.FK__Alimento___Alime__571DF1D5" FromRole="Alimento" ToRole="Alimento_Dieta" />
           <NavigationProperty Name="RegistroAlimento" Relationship="Self.FK__RegistroA__Alime__5AEE82B9" FromRole="Alimento" ToRole="RegistroAlimento" />
+          <NavigationProperty Name="AlimentoTipoReceta" Relationship="MacroBalanceModel.FK__AlimentoT__Alime__2DE6D218" FromRole="Alimento" ToRole="AlimentoTipoReceta" />
         </EntityType>
         <EntityType Name="Alimento_Dieta">
           <Key>
@@ -480,6 +547,8 @@
           <NavigationProperty Name="Alimento_Dieta" Relationship="Self.FK__Alimento___Dieta__5629CD9C" FromRole="Dieta" ToRole="Alimento_Dieta" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__Dieta__IdUsuario__5165187F" FromRole="Dieta" ToRole="Usuario" />
           <NavigationProperty Name="RegistroAlimento" Relationship="Self.FK__RegistroA__Dieta__59FA5E80" FromRole="Dieta" ToRole="RegistroAlimento" />
+          <Property Name="ObjetivoId" Type="Int32" />
+          <NavigationProperty Name="Objetivo" Relationship="MacroBalanceModel.FK_Dieta_Objetivo" FromRole="Dieta" ToRole="Objetivo" />
         </EntityType>
         <EntityType Name="Ejercicio">
           <Key>
@@ -535,6 +604,7 @@
           <Property Name="NombreObjetivo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PesoObjetivo" Type="Decimal" Precision="5" Scale="2" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__Objetivo__Usuari__4E88ABD4" FromRole="Objetivo" ToRole="Usuario" />
+          <NavigationProperty Name="Dieta" Relationship="MacroBalanceModel.FK_Dieta_Objetivo" FromRole="Objetivo" ToRole="Dieta" />
         </EntityType>
         <EntityType Name="PerfilDieta">
           <Key>
@@ -907,7 +977,76 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Recordatorios" EntitySet="Recordatorios" />
           </AssociationSet>
+          <EntitySet Name="AlimentoTipoReceta" EntityType="MacroBalanceModel.AlimentoTipoReceta" />
+          <EntitySet Name="TipoReceta" EntityType="MacroBalanceModel.TipoReceta" />
+          <AssociationSet Name="FK__AlimentoT__Alime__2DE6D218" Association="MacroBalanceModel.FK__AlimentoT__Alime__2DE6D218">
+            <End Role="Alimento" EntitySet="Alimento" />
+            <End Role="AlimentoTipoReceta" EntitySet="AlimentoTipoReceta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AlimentoT__TipoR__2EDAF651" Association="MacroBalanceModel.FK__AlimentoT__TipoR__2EDAF651">
+            <End Role="TipoReceta" EntitySet="TipoReceta" />
+            <End Role="AlimentoTipoReceta" EntitySet="AlimentoTipoReceta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dieta_Objetivo" Association="MacroBalanceModel.FK_Dieta_Objetivo">
+            <End Role="Objetivo" EntitySet="Objetivo" />
+            <End Role="Dieta" EntitySet="Dieta" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="AlimentoTipoReceta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AlimentoId" Type="Int32" Nullable="false" />
+          <Property Name="TipoRecetaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Alimento" Relationship="MacroBalanceModel.FK__AlimentoT__Alime__2DE6D218" FromRole="AlimentoTipoReceta" ToRole="Alimento" />
+          <NavigationProperty Name="TipoReceta" Relationship="MacroBalanceModel.FK__AlimentoT__TipoR__2EDAF651" FromRole="AlimentoTipoReceta" ToRole="TipoReceta" />
+        </EntityType>
+        <EntityType Name="TipoReceta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AlimentoTipoReceta" Relationship="MacroBalanceModel.FK__AlimentoT__TipoR__2EDAF651" FromRole="TipoReceta" ToRole="AlimentoTipoReceta" />
+        </EntityType>
+        <Association Name="FK__AlimentoT__Alime__2DE6D218">
+          <End Type="MacroBalanceModel.Alimento" Role="Alimento" Multiplicity="1" />
+          <End Type="MacroBalanceModel.AlimentoTipoReceta" Role="AlimentoTipoReceta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alimento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AlimentoTipoReceta">
+              <PropertyRef Name="AlimentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AlimentoT__TipoR__2EDAF651">
+          <End Type="MacroBalanceModel.TipoReceta" Role="TipoReceta" Multiplicity="1" />
+          <End Type="MacroBalanceModel.AlimentoTipoReceta" Role="AlimentoTipoReceta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoReceta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AlimentoTipoReceta">
+              <PropertyRef Name="TipoRecetaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dieta_Objetivo">
+          <End Type="MacroBalanceModel.Objetivo" Role="Objetivo" Multiplicity="0..1" />
+          <End Type="MacroBalanceModel.Dieta" Role="Dieta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Objetivo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Dieta">
+              <PropertyRef Name="ObjetivoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -939,6 +1078,7 @@
           <EntitySetMapping Name="Dieta">
             <EntityTypeMapping TypeName="MacroBalanceModel.Dieta">
               <MappingFragment StoreEntitySet="Dieta">
+                <ScalarProperty Name="ObjetivoId" ColumnName="ObjetivoId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -1102,6 +1242,24 @@
                 <ScalarProperty Name="Rol" ColumnName="Rol" />
                 <ScalarProperty Name="NivelActividadFisica" ColumnName="NivelActividadFisica" />
                 <ScalarProperty Name="Genero" ColumnName="Genero" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlimentoTipoReceta">
+            <EntityTypeMapping TypeName="MacroBalanceModel.AlimentoTipoReceta">
+              <MappingFragment StoreEntitySet="AlimentoTipoReceta">
+                <ScalarProperty Name="TipoRecetaId" ColumnName="TipoRecetaId" />
+                <ScalarProperty Name="AlimentoId" ColumnName="AlimentoId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoReceta">
+            <EntityTypeMapping TypeName="MacroBalanceModel.TipoReceta">
+              <MappingFragment StoreEntitySet="TipoReceta">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

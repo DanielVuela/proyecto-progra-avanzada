@@ -12,21 +12,19 @@ namespace MacroBalance.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class Objetivo
+    public partial class TipoReceta
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Objetivo()
+        public TipoReceta()
         {
-            this.Dieta = new HashSet<Dieta>();
+            this.AlimentoTipoReceta = new HashSet<AlimentoTipoReceta>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> UsuarioId { get; set; }
-        public string NombreObjetivo { get; set; }
-        public Nullable<decimal> PesoObjetivo { get; set; }
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
     
-        public virtual Usuario Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Dieta> Dieta { get; set; }
+        public virtual ICollection<AlimentoTipoReceta> AlimentoTipoReceta { get; set; }
     }
 }

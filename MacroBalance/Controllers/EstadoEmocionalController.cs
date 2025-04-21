@@ -12,7 +12,6 @@ namespace MacroBalance.Controllers
     {
         private MacroBalanceEntities db = new MacroBalanceEntities();
 
-        // GET: EstadoEmocional
         public ActionResult Index(DateTime? fechaInicio, DateTime? fechaFin)
         {
             if (Session["UsuarioId"] == null)
@@ -33,7 +32,6 @@ namespace MacroBalance.Controllers
             return View(estados.ToList());
         }
 
-        // GET: EstadoEmocional/Create
         public ActionResult Create()
         {
             if (Session["UsuarioId"] == null)
@@ -47,7 +45,6 @@ namespace MacroBalance.Controllers
             return View();
         }
 
-        // POST: EstadoEmocional/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Estado,Descripcion,Fecha")] EstadoEmocional estadoEmocional)
@@ -72,7 +69,7 @@ namespace MacroBalance.Controllers
             return View(estadoEmocional);
         }
 
-        // GET: EstadoEmocional/Detalles/{id}
+
         public ActionResult Detalles(int? id)
         {
             if (id == null || Session["UsuarioId"] == null)
@@ -96,7 +93,7 @@ namespace MacroBalance.Controllers
             return View(estado);
         }
 
-        // ✅ GET: EstadoEmocional/Grafico
+
         public ActionResult Grafico()
         {
             if (Session["UsuarioId"] == null)

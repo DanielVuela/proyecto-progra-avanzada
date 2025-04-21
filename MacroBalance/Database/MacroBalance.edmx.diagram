@@ -37,6 +37,11 @@
         <AssociationConnector Association="MacroBalanceModel.FK__Preferenc__Usuar__4BAC3F29" ManuallyRouted="false" />
         <AssociationConnector Association="MacroBalanceModel.FK__Progreso__Usuari__4316F928" ManuallyRouted="false" />
         <AssociationConnector Association="MacroBalanceModel.FK__Recordato__Usuar__403A8C7D" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MacroBalanceModel.AlimentoTipoReceta" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MacroBalanceModel.TipoReceta" Width="1.5" PointX="2.5" PointY="35.875" />
+        <AssociationConnector Association="MacroBalanceModel.FK__AlimentoT__Alime__2DE6D218" />
+        <AssociationConnector Association="MacroBalanceModel.FK__AlimentoT__TipoR__2EDAF651" />
+        <AssociationConnector Association="MacroBalanceModel.FK_Dieta_Objetivo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

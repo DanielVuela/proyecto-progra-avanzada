@@ -19,6 +19,7 @@ namespace MacroBalance.Database
         {
             this.Alimento_Dieta = new HashSet<Alimento_Dieta>();
             this.RegistroAlimento = new HashSet<RegistroAlimento>();
+            this.AlimentoTipoReceta = new HashSet<AlimentoTipoReceta>();
         }
     
         public int Id { get; set; }
@@ -33,5 +34,7 @@ namespace MacroBalance.Database
         public virtual ICollection<Alimento_Dieta> Alimento_Dieta { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RegistroAlimento> RegistroAlimento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AlimentoTipoReceta> AlimentoTipoReceta { get; set; }
     }
 }

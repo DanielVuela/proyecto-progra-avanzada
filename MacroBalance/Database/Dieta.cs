@@ -25,11 +25,13 @@ namespace MacroBalance.Database
         public Nullable<int> IdUsuario { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
+        public Nullable<int> ObjetivoId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Alimento_Dieta> Alimento_Dieta { get; set; }
         public virtual Usuario Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RegistroAlimento> RegistroAlimento { get; set; }
+        public virtual Objetivo Objetivo { get; set; }
     }
 }
