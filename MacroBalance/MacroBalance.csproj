@@ -18,8 +18,7 @@
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>
-    </Use64BitIISExpress>
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <IISExpressSSLPort>44324</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -132,6 +131,7 @@
     <Compile Include="Controllers\CalculadoraController.cs" />
     <Compile Include="Controllers\CicloMenstrualController.cs" />
     <Compile Include="Controllers\EstadoEmocionalController.cs" />
+    <Compile Include="Controllers\EtiquetasNutricionalesController.cs" />
     <Compile Include="Controllers\ProgresoController.cs" />
     <Compile Include="Controllers\DietaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -727,6 +727,7 @@
     <Content Include="Views\EstadoEmocional\Create.cshtml" />
     <Content Include="Views\EstadoEmocional\Grafico.cshtml" />
     <Content Include="Views\EstadoEmocional\Detalles.cshtml" />
+    <Content Include="Views\EtiquetasNutricionales\EtiquetasNutri.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
