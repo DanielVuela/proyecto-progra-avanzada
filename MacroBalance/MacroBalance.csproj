@@ -209,6 +209,8 @@
     </Compile>
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\ViewModels\BitacoraHoyViewModel.cs" />
+    <Compile Include="Models\ViewModels\DietaConAlimentosViewModel.cs" />
+    <Compile Include="Models\ViewModels\DietaConObjetivoViewModel.cs" />
     <Compile Include="Models\ViewModels\DietaViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -719,9 +721,12 @@
     <Content Include="Views\RegistroAlimento\Crear.cshtml" />
     <Content Include="Views\CicloMenstrual\Index.cshtml" />
     <Content Include="Views\Progreso\Index.cshtml" />
+    <Content Include="Views\ObjetivosSalud\DetallesObjetivo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\DietaConAlimentoViewModel\" />
+    <Folder Include="Views\DietaConObjetivoViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

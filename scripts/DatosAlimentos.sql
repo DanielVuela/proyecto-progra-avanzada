@@ -38,13 +38,68 @@ VALUES (NULL, 'Dieta rica en carbohidratos', 'Ideal para aumentar la resistencia
 INSERT INTO Dieta (IdUsuario, Nombre, Descripcion)
 VALUES (NULL, 'Dieta baja en azúcares simples', 'Recomendada para controlar los niveles de azúcar en sangre con alimentos de bajo índice glucémico.');
 
+---pasos arreglo--
+UPDATE Dieta SET ObjetivoId = NULL WHERE ObjetivoId NOT IN (SELECT Id FROM Objetivo);
+
+----------aqui se asocia cada dieta al objetivo correspondiente------
+
+
+---ver si hay duplicados--
+
+DELETE FROM Objetivo 
+WHERE NombreObjetivo = 'Ganar masa muscular' AND Id <> 14;
+
+DELETE FROM Objetivo 
+WHERE NombreObjetivo = 'Mantener peso saludable' AND Id <> 16;
+
+DELETE FROM Objetivo 
+WHERE NombreObjetivo = 'Aumentar resistencia' AND Id <> 17;
+
+DELETE FROM Objetivo 
+WHERE NombreObjetivo = 'Controlar azúcar en sangre' AND Id <> 19;
+
+
+
+DELETE FROM Alimento_Dieta WHERE DietaId = 15;
+DELETE FROM Alimento_Dieta WHERE DietaId = 16;
+DELETE FROM Alimento_Dieta WHERE DietaId = 17;
+DELETE FROM Alimento_Dieta WHERE DietaId = 18;
+DELETE FROM Alimento_Dieta WHERE DietaId = 19;
+
+-----enlazar las dietas con los objetivos actualizados -
+-- "Dieta alta en proteínas" ? "Ganar masa muscular"
+UPDATE Dieta
+SET ObjetivoId = 14
+WHERE Nombre = 'Dieta alta en proteínas';
+
+-- "Dieta equilibrada" ? "Mantener peso saludable"
+UPDATE Dieta
+SET ObjetivoId = 16
+WHERE Nombre = 'Dieta equilibrada';
+
+-- "Dieta rica en omega 3" ? "Aumentar resistencia"
+UPDATE Dieta
+SET ObjetivoId = 17
+WHERE Nombre = 'Dieta rica en omega 3';
+
+-- "Dieta rica en carbohidratos" ? "Aumentar resistencia"
+UPDATE Dieta
+SET ObjetivoId = 17
+WHERE Nombre = 'Dieta rica en carbohidratos';
+
+-- "Dieta baja en azúcares simples" ? "Controlar azúcar en sangre"
+UPDATE Dieta
+SET ObjetivoId = 19
+WHERE Nombre = 'Dieta baja en azúcares simples';
+
+
 ----Alimento_dieta alta en proteinas---
 INSERT INTO Alimento_Dieta (DietaId, AlimentoId, CantidadDiaria) VALUES 
-(15, 4, 200),   -- Pechuga de pollo
-(15, 5, 100),   -- Huevo
-(15, 6, 150),   -- Arroz integral
-(15, 7, 100),   -- Brócoli
-(15, 8, 200);   -- Yogur griego
+(14, 4, 200),   -- Pechuga de pollo
+(14, 5, 100),   -- Huevo
+(14, 6, 150),   -- Arroz integral
+(14, 7, 100),   -- Brócoli
+(14, 8, 200);   -- Yogur griego
 
 ----Alimento alta en proteinas---
 INSERT INTO Alimento (Nombre, Descripcion, Calorias, Proteina, Carbohidratos, Grasas) VALUES
@@ -54,6 +109,7 @@ INSERT INTO Alimento (Nombre, Descripcion, Calorias, Proteina, Carbohidratos, Gr
 ('Brócoli', 'Brócoli cocido al vapor', 55, 3.7, 11.0, 0.6),
 ('Yogur griego', 'Yogur griego natural sin azúcar', 59, 10.0, 3.6, 0.4);
 
+DELETE FROM Alimento_Dieta WHERE DietaId = 16;
 
 ----Alimento_dieta equilibrada---
 INSERT INTO Alimento_Dieta (DietaId, AlimentoId, CantidadDiaria) VALUES 
@@ -77,8 +133,8 @@ INSERT INTO Alimento (Nombre, Descripcion, Calorias, Proteina, Carbohidratos, Gr
 
 ----Alimento_dieta rica en carbohidratos---
 INSERT INTO Alimento_Dieta (DietaId, AlimentoId, CantidadDiaria) VALUES 
-(18, 6, 200),   -- Arroz integral
-(18, 13, 200);  -- Pan integral
+(17, 6, 200),   -- Arroz integral
+(17, 13, 200);  -- Pan integral
 
 ----Alimento rica en carbohidratos---
 INSERT INTO Alimento (Nombre, Descripcion, Calorias, Proteina, Carbohidratos, Grasas) VALUES
@@ -92,6 +148,8 @@ INSERT INTO Alimento_Dieta (DietaId, AlimentoId, CantidadDiaria) VALUES
 ----Alimento baja en azucares---
 INSERT INTO Alimento (Nombre, Descripcion, Calorias, Proteina, Carbohidratos, Grasas) VALUES
 ('Frijoles negros', 'Frijoles negros cocidos', 132, 8.9, 23.7, 0.5);
+
+
 
 
 

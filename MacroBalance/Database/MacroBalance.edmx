@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MacroBalanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MacroBalanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Alimento">
           <Key>
             <PropertyRef Name="Id" />
@@ -34,6 +34,7 @@
           <Property Name="IdUsuario" Type="int" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+          <Property Name="ObjetivoId" Type="int" />
         </EntityType>
         <EntityType Name="Ejercicio">
           <Key>
@@ -340,6 +341,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Dieta_Objetivo">
+          <End Role="Objetivo" Type="Self.Objetivo" Multiplicity="0..1" />
+          <End Role="Dieta" Type="Self.Dieta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Objetivo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Dieta">
+              <PropertyRef Name="ObjetivoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PerfilDieta_Usuario">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="PerfilDieta" Type="Self.PerfilDieta" Multiplicity="*" />
@@ -425,13 +438,16 @@
             <End Role="EstadoEmocional" EntitySet="EstadoEmocional" />
             <End Role="Sugerencia" EntitySet="Sugerencia" />
           </AssociationSet>
+          <AssociationSet Name="FK_Dieta_Objetivo" Association="Self.FK_Dieta_Objetivo">
+            <End Role="Objetivo" EntitySet="Objetivo" />
+            <End Role="Dieta" EntitySet="Dieta" />
+          </AssociationSet>
           <AssociationSet Name="FK_PerfilDieta_Usuario" Association="Self.FK_PerfilDieta_Usuario">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="PerfilDieta" EntitySet="PerfilDieta" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MacroBalanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -468,9 +484,11 @@
           <Property Name="IdUsuario" Type="Int32" />
           <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ObjetivoId" Type="Int32" />
           <NavigationProperty Name="Alimento_Dieta" Relationship="Self.FK__Alimento___Dieta__5629CD9C" FromRole="Dieta" ToRole="Alimento_Dieta" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__Dieta__IdUsuario__5165187F" FromRole="Dieta" ToRole="Usuario" />
           <NavigationProperty Name="RegistroAlimento" Relationship="Self.FK__RegistroA__Dieta__59FA5E80" FromRole="Dieta" ToRole="RegistroAlimento" />
+          <NavigationProperty Name="Objetivo" Relationship="Self.FK_Dieta_Objetivo" FromRole="Dieta" ToRole="Objetivo" />
         </EntityType>
         <EntityType Name="Ejercicio">
           <Key>
@@ -525,6 +543,7 @@
           <Property Name="UsuarioId" Type="Int32" />
           <Property Name="NombreObjetivo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PesoObjetivo" Type="Decimal" Precision="5" Scale="2" />
+          <NavigationProperty Name="Dieta" Relationship="Self.FK_Dieta_Objetivo" FromRole="Objetivo" ToRole="Dieta" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__Objetivo__Usuari__4E88ABD4" FromRole="Objetivo" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="PerfilDieta">
@@ -692,6 +711,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Dieta_Objetivo">
+          <End Role="Objetivo" Type="Self.Objetivo" Multiplicity="0..1" />
+          <End Role="Dieta" Type="Self.Dieta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Objetivo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Dieta">
+              <PropertyRef Name="ObjetivoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Ejercicio__Ejerc__48CFD27E">
           <End Role="Ejercicio" Type="Self.Ejercicio" Multiplicity="0..1" />
           <End Role="EjercicioRealizado" Type="Self.EjercicioRealizado" Multiplicity="*" />
@@ -849,6 +880,10 @@
             <End Role="Dieta" EntitySet="Dieta" />
             <End Role="RegistroAlimento" EntitySet="RegistroAlimento" />
           </AssociationSet>
+          <AssociationSet Name="FK_Dieta_Objetivo" Association="Self.FK_Dieta_Objetivo">
+            <End Role="Objetivo" EntitySet="Objetivo" />
+            <End Role="Dieta" EntitySet="Dieta" />
+          </AssociationSet>
           <AssociationSet Name="FK__Ejercicio__Ejerc__48CFD27E" Association="Self.FK__Ejercicio__Ejerc__48CFD27E">
             <End Role="Ejercicio" EntitySet="Ejercicio" />
             <End Role="EjercicioRealizado" EntitySet="EjercicioRealizado" />
@@ -925,6 +960,7 @@
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="ObjetivoId" ColumnName="ObjetivoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

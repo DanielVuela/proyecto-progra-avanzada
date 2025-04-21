@@ -14,11 +14,19 @@ namespace MacroBalance.Database
     
     public partial class Objetivo
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Objetivo()
+        {
+            this.Dieta = new HashSet<Dieta>();
+        }
+    
         public int Id { get; set; }
         public Nullable<int> UsuarioId { get; set; }
         public string NombreObjetivo { get; set; }
         public Nullable<decimal> PesoObjetivo { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Dieta> Dieta { get; set; }
         public virtual Usuario Usuario { get; set; }
     }
 }

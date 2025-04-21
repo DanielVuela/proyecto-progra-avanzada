@@ -1,40 +1,38 @@
-﻿@model List<MacroBalance.Database.Objetivo>
+﻿@model IEnumerable<MacroBalance.Models.ViewModels.DietaConObjetivoViewModel>
 
 @{
     ViewBag.Title = "Objetivos de Salud";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Model != null && Model.Any())
-{
-    foreach (var objetivo in Model)
-    {
-        MacroBalance.Database.Dieta dieta = objetivo.Usuario?.Dieta
-        .FirstOrDefault(d =>
-    (objetivo.NombreObjetivo == "Perder peso" && d.Nombre.Contains("baja en calorías")) ||
-    (objetivo.NombreObjetivo == "Ganar masa muscular" && d.Nombre.Contains("alta en proteínas")) ||
-    (objetivo.NombreObjetivo == "Mantener peso saludable" && d.Nombre.Contains("equilibrada")) ||
-    (objetivo.NombreObjetivo == "Aumentar resistencia" && d.Nombre.Contains("rica en carbohidratos")) ||
-    (objetivo.NombreObjetivo == "Controlar azúcar en sangre" && d.Nombre.Contains("baja en azúcares"))
-);
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1 class="text-success fw-bold">Objetivos de Salud</h1>
+    </div>
 
-<div style="margin-bottom: 25px; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
-    <h4>@objetivo.NombreObjetivo</h4>
-    <p><strong>Peso objetivo:</strong> @objetivo.PesoObjetivo kg</p>
+    <section class="section">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="card border-start border-4 border-success shadow-sm h-100">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="text-success fw-bold">@item.NombreObjetivo</h5>
+                            <p><strong>Dieta:</strong> @item.NombreDieta</p>
+                            <p>@item.DescripcionDieta</p>
 
-    @if (dieta != null)
-    {
-        <p><strong>Dieta sugerida:</strong> @dieta.Nombre</p>
-        <p>@dieta.Descripcion</p>
-        <a class="btn btn-success" href="@Url.Action("DetallesDieta", "Dieta", new { id = dieta.Id })">Ver Dieta</a>
-    }
-    else
-    {
-        <p><em>No hay una dieta asociada a este objetivo.</em></p>
-    }
-</div>
-}
-}
-else
-{
-<p>No hay objetivos de salud registrados actualmente.</p>
-}
+                            <div class="mt-auto">
+                                <a href="@Url.Action("DetallesObjetivo", "ObjetivosSalud", new { dietaId = item.IdDieta })"
+                                   class="btn btn-outline-success">
+                                    <i class="bi bi-eye me-1"></i> Ver detalles
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+
+</main>
+
