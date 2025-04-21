@@ -39,6 +39,7 @@ namespace MacroBalance.Database
         public virtual DbSet<Recordatorios> Recordatorios { get; set; }
         public virtual DbSet<RegistroAlimento> RegistroAlimento { get; set; }
         public virtual DbSet<Sugerencia> Sugerencia { get; set; }
+        public virtual DbSet<SugerenciaBase> SugerenciaBase { get; set; }
         public virtual DbSet<SugerenciaCicloMenstrual> SugerenciaCicloMenstrual { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
     }

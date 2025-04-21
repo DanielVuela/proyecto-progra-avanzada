@@ -12,13 +12,10 @@ namespace MacroBalance.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class Objetivo
+    public partial class SugerenciaBase
     {
         public int Id { get; set; }
-        public Nullable<int> UsuarioId { get; set; }
-        public string NombreObjetivo { get; set; }
-        public Nullable<decimal> PesoObjetivo { get; set; }
-    
-        public virtual Usuario Usuario { get; set; }
+        public string EstadoRelacionado { get; set; }
+        public string Descripcion { get; set; }
     }
 }

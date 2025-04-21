@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Gráfico de Estados Emocionales";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var estados = ViewBag.Estados as List<string>;
+    var cantidades = ViewBag.Cantidades as List<int>;
+
+    int maxCantidad = cantidades?.Any() == true ? cantidades.Max() : 1; 
+}
+
+<main class="main container mt-4">
+    <div class="pagetitle mb-4 d-flex justify-content-between align-items-center">
+        <div>
+            <h2 class="text-success fw-bold"> Frecuencia de Estados Emocionales</h2>
+            <p class="text-muted">Visualización de cuántas veces registraste cada emoción.</p>
+        </div>
+        <a href="@Url.Action("Index", "EstadoEmocional")" class="btn btn-outline-success">
+            <i class="bi bi-arrow-left me-1"></i> Volver
+        </a>
+    </div>
+
+    @if (estados != null && cantidades != null && estados.Count == cantidades.Count)
+    {
+        <div class="card shadow-sm p-4 border-start border-4 border-success">
+            <h5 class="text-success fw-semibold mb-3"> Resultado:</h5>
+
+            @for (int i = 0; i < estados.Count; i++)
+            {
+                var porcentaje = (cantidades[i] * 100) / maxCantidad;
+                <div class="mb-3">
+                    <strong>@estados[i]</strong> (@cantidades[i])
+                    <div class="progress mt-1" style="height: 20px;">
+                        <div class="progress-bar bg-success"
+                             role="progressbar"
+                             style="width: @porcentaje%;"
+                             aria-valuenow="@cantidades[i]"
+                             aria-valuemin="0"
+                             aria-valuemax="@maxCantidad">
+                            @cantidades[i]
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center shadow-sm">
+            <i class="bi bi-info-circle"></i> No hay datos suficientes para mostrar el gráfico.
+        </div>
+    }
+</main>

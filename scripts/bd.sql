@@ -203,4 +203,40 @@ VALUES
  'Síntomas premenstruales, antojos, ansiedad');
 
 
+ -- Tabla: SugerenciaBase
+CREATE TABLE SugerenciaBase (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    EstadoRelacionado NVARCHAR(100) NOT NULL, 
+    Descripcion NVARCHAR(500) NOT NULL
+);
 
+
+INSERT INTO SugerenciaBase (EstadoRelacionado, Descripcion)
+VALUES
+-- Ansiedad
+('Ansiedad', 'Consumí alimentos ricos en magnesio como nueces, espinaca o chocolate negro.'),
+('Ansiedad', 'Evitá bebidas con cafeína y preferí infusiones relajantes como manzanilla o lavanda.'),
+
+-- Tristeza
+('Tristeza', 'Comé alimentos ricos en triptófano como plátano, avena o huevos.'),
+('Tristeza', 'Aumentá el consumo de omega-3 mediante salmón, semillas de lino o nueces.'),
+
+-- Felicidad
+('Felicidad', 'Mantené una dieta balanceada para prolongar tu bienestar.'),
+('Felicidad', 'Incorporá frutas frescas y agua para sostener tu energía positiva.'),
+
+-- Estrés
+('Estrés', 'Consumí avena, frutos secos y vegetales verdes para estabilizar el sistema nervioso.'),
+('Estrés', 'Tomá agua en abundancia y evitá azúcar refinada.'),
+
+-- Irritabilidad
+('Irritabilidad', 'Reducí alimentos ultraprocesados y aumentá vegetales frescos.'),
+('Irritabilidad', 'Comé chocolate oscuro (mínimo 70%) y magnesio para mejorar el ánimo.'),
+
+-- Calma
+('Calma', 'Mantené una dieta rica en fibra, agua y grasas saludables.'),
+('Calma', 'Elegí alimentos integrales y livianos que te mantengan en equilibrio.'),
+
+-- Motivación
+('Motivación', 'Incluí proteínas magras, cereales integrales y frutas para sostener tu energía.'),
+('Motivación', 'Tomá agua frecuentemente y evitá el exceso de carbohidratos simples.');
