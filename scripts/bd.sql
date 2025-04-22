@@ -357,22 +357,21 @@ INSERT INTO AlimentoTipoReceta (AlimentoId, TipoRecetaId) VALUES
 
 CREATE TABLE EtiquetaNutricional (
     Id INT PRIMARY KEY IDENTITY(1,1),
-    Nombre NVARCHAR(100) NOT NULL,     -- Nombre de la etiqueta o del producto
-	Imagen NVARCHAR(255),
-	AlimentoId INT NOT NULL,
-    TamanoPorcion NVARCHAR(100),       -- Ejemplo: "100g", "1 taza"
-	Calorias DECIMAL(5,2),
-    PorcionesPorEnvase DECIMAL(4,2),
-    Sodio DECIMAL(6,2),                -- en mg
-    Azucares DECIMAL(5,2),             -- en g
-    FibraDietetica DECIMAL(5,2),       -- en g
-    VitaminaA DECIMAL(5,2),            -- en % del valor diario
-    VitaminaC DECIMAL(5,2),            -- en % del valor diario
-    Calcio DECIMAL(5,2),               -- en % del valor diario
-    Hierro DECIMAL(5,2),               -- en % del valor diario
+    Nombre NVARCHAR(100) NOT NULL,
+    Imagen NVARCHAR(255),
+    AlimentoId INT NOT NULL,
+    TamanoPorcion NVARCHAR(100),
+    Calorias DECIMAL(5,2) NULL, -- Permite null
+    PorcionesPorEnvase DECIMAL(4,2) NULL, -- Permite null
+    Sodio DECIMAL(6,2) NULL, -- Permite null
+    Azucares DECIMAL(5,2) NULL, -- Permite null
+    FibraDietetica DECIMAL(5,2) NULL, -- Permite null
+    VitaminaA DECIMAL(5,2) NULL, -- Permite null
+    VitaminaC DECIMAL(5,2) NULL, -- Permite null
+    Calcio DECIMAL(5,2) NULL, -- Permite null
+    Hierro DECIMAL(5,2) NULL, -- Permite null
     FOREIGN KEY (AlimentoId) REFERENCES Alimento(Id)
 );
-
 
 ------Inserts Etiquetas 
 INSERT INTO EtiquetaNutricional (

@@ -37,15 +37,15 @@ namespace MacroBalance.Controllers
                         Nombre = etiqueta.Nombre,
                         Imagen = etiqueta.Imagen,
                         TamanoPorcion = etiqueta.TamanoPorcion,
-                        Calorias = etiqueta.Calorias ?? 0, // Reemplaza null con 0
-                        PorcionesPorEnvase = etiqueta.PorcionesPorEnvase ?? 0, // Reemplaza null con 0
-                        Sodio = etiqueta.Sodio ?? 0, // Reemplaza null con 0
-                        Azucares = etiqueta.Azucares ?? 0, // Reemplaza null con 0
-                        FibraDietetica = etiqueta.FibraDietetica ?? 0, // Reemplaza null con 0
-                        VitaminaA = etiqueta.VitaminaA ?? 0, // Reemplaza null con 0
-                        VitaminaC = etiqueta.VitaminaC ?? 0, // Reemplaza null con 0
-                        Calcio = etiqueta.Calcio ?? 0, // Reemplaza null con 0
-                        Hierro = etiqueta.Hierro ?? 0 // Reemplaza null con 0
+                        Calorias = etiqueta.Calorias,
+                        PorcionesPorEnvase = etiqueta.PorcionesPorEnvase,
+                        Sodio = etiqueta.Sodio,
+                        Azucares = etiqueta.Azucares,
+                        FibraDietetica = etiqueta.FibraDietetica,
+                        VitaminaA = etiqueta.VitaminaA,
+                        VitaminaC = etiqueta.VitaminaC,
+                        Calcio = etiqueta.Calcio,
+                        Hierro = etiqueta.Hierro
                     };
                 }
             }
@@ -60,3 +60,4 @@ namespace MacroBalance.Controllers
             return RedirectToAction("Index", new { alimentoId = alimentoId });
         }
     }
+}

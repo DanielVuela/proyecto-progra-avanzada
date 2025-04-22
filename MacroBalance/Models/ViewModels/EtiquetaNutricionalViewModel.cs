@@ -9,17 +9,13 @@ namespace MacroBalance.Models.ViewModels
 {
     public class EtiquetaNutricionalViewModel
     {
-        // Para cargar la lista de alimentos en el dropdown
         public List<SelectListItem> Alimentos { get; set; }
 
-        // ID del alimento seleccionado para poder mostrar la etiqueta nutricional
         public int AlimentoIdSeleccionado { get; set; }
 
-        // Detalles de la etiqueta nutricional, en caso de que se seleccione un alimento
         public EtiquetaNutricionalDetalleViewModel EtiquetaNutricional { get; set; }
     }
 
-    // Este es el ViewModel para los detalles de la etiqueta nutricional, que se pasará a la vista
     public class EtiquetaNutricionalDetalleViewModel
     {
         public string Nombre { get; set; }

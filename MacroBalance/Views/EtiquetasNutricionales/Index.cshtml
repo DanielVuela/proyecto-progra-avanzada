@@ -45,20 +45,22 @@
                 <div class="col-md-8">
                     <h4 class="fw-bold">@Model.EtiquetaNutricional.Nombre</h4>
                     <p><strong>Tamaño porción:</strong> @Model.EtiquetaNutricional.TamanoPorcion</p>
-                    <p><strong>Porciones por envase:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.PorcionesPorEnvase) ? "No disponible" : Model.EtiquetaNutricional.PorcionesPorEnvase)</p>
+                    <p><strong>Porciones por envase:</strong> @(Model.EtiquetaNutricional.PorcionesPorEnvase.HasValue ? Model.EtiquetaNutricional.PorcionesPorEnvase.Value.ToString() : "No disponible")</p>
+
                     <hr />
                     <div class="row">
                         <div class="col-sm-6">
-                            <p><strong>Calorías:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.Calorias) ? "No disponible" : Model.EtiquetaNutricional.Calorias)</p>
-                            <p><strong>Sodio:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.Sodio) ? "No disponible" : Model.EtiquetaNutricional.Sodio) mg</p>
-                            <p><strong>Azúcares:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.Azucares) ? "No disponible" : Model.EtiquetaNutricional.Azucares) g</p>
-                            <p><strong>Fibra dietética:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.FibraDietetica) ? "No disponible" : Model.EtiquetaNutricional.FibraDietetica) g</p>
+                            <p><strong>Calorías:</strong> @(Model.EtiquetaNutricional.Calorias.HasValue ? Model.EtiquetaNutricional.Calorias.Value.ToString() : "No disponible")</p>
+                            <p><strong>Sodio:</strong> @(Model.EtiquetaNutricional.Sodio.HasValue ? Model.EtiquetaNutricional.Sodio.Value + " mg" : "No disponible")</p>
+                            <p><strong>Azúcares:</strong> @(Model.EtiquetaNutricional.Azucares.HasValue ? Model.EtiquetaNutricional.Azucares.Value + " g" : "No disponible")</p>
+                            <p><strong>Fibra dietética:</strong> @(Model.EtiquetaNutricional.FibraDietetica.HasValue ? Model.EtiquetaNutricional.FibraDietetica.Value + " g" : "No disponible")</p>
+
                         </div>
                         <div class="col-sm-6">
-                            <p><strong>Vitamina A:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.VitaminaA) ? "No disponible" : Model.EtiquetaNutricional.VitaminaA) %</p>
-                            <p><strong>Vitamina C:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.VitaminaC) ? "No disponible" : Model.EtiquetaNutricional.VitaminaC) %</p>
-                            <p><strong>Calcio:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.Calcio) ? "No disponible" : Model.EtiquetaNutricional.Calcio) %</p>
-                            <p><strong>Hierro:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.Hierro) ? "No disponible" : Model.EtiquetaNutricional.Hierro) %</p>
+                            <p><strong>Vitamina A:</strong> @(Model.EtiquetaNutricional.VitaminaA.HasValue ? Model.EtiquetaNutricional.VitaminaA.Value + " %" : "No disponible")</p>
+                            <p><strong>Vitamina C:</strong> @(Model.EtiquetaNutricional.VitaminaC.HasValue ? Model.EtiquetaNutricional.VitaminaC.Value + " %" : "No disponible")</p>
+                            <p><strong>Calcio:</strong> @(Model.EtiquetaNutricional.Calcio.HasValue ? Model.EtiquetaNutricional.Calcio.Value + " %" : "No disponible")</p>
+                            <p><strong>Hierro:</strong> @(Model.EtiquetaNutricional.Hierro.HasValue ? Model.EtiquetaNutricional.Hierro.Value + " %" : "No disponible")</p>
                         </div>
                     </div>
                 </div>
