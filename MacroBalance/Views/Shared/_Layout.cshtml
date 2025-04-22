@@ -2,8 +2,6 @@
 @{
     var nombre = Session["Nombre"] as string;
     var rol = Session["Rol"] as string;
-    var foto = Session["FotoPerfil"] as string;
-    var rutaFoto = !string.IsNullOrEmpty(foto) ? foto : "~/assets/img/profile-img.jpg";
 }
 
 <!DOCTYPE html>
@@ -43,7 +41,6 @@
                 {
                     <li class="nav-item dropdown pe-3">
                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                            <img src="@Url.Content(rutaFoto)" class="rounded-circle" alt="Foto de perfil" />
                             <span class="d-none d-md-block dropdown-toggle ps-2">@nombre</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
