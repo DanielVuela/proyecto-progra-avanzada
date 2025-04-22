@@ -361,19 +361,19 @@ CREATE TABLE EtiquetaNutricional (
     Imagen NVARCHAR(255),
     AlimentoId INT NOT NULL,
     TamanoPorcion NVARCHAR(100),
-    Calorias DECIMAL(5,2) NULL, -- Permite null
-    PorcionesPorEnvase DECIMAL(4,2) NULL, -- Permite null
-    Sodio DECIMAL(6,2) NULL, -- Permite null
-    Azucares DECIMAL(5,2) NULL, -- Permite null
-    FibraDietetica DECIMAL(5,2) NULL, -- Permite null
-    VitaminaA DECIMAL(5,2) NULL, -- Permite null
-    VitaminaC DECIMAL(5,2) NULL, -- Permite null
-    Calcio DECIMAL(5,2) NULL, -- Permite null
-    Hierro DECIMAL(5,2) NULL, -- Permite null
+    Calorias DECIMAL(5,2) NULL, 
+    PorcionesPorEnvase DECIMAL(4,2) NULL,
+    Sodio DECIMAL(6,2) NULL, 
+    Azucares DECIMAL(5,2) NULL, 
+    FibraDietetica DECIMAL(5,2) NULL, 
+    VitaminaA DECIMAL(5,2) NULL, 
+    VitaminaC DECIMAL(5,2) NULL, 
+    Calcio DECIMAL(5,2) NULL,
+    Hierro DECIMAL(5,2) NULL,
     FOREIGN KEY (AlimentoId) REFERENCES Alimento(Id)
 );
 
-------Inserts Etiquetas 
+------Inserts Etiquetas -----------------
 INSERT INTO EtiquetaNutricional (
     Nombre, Imagen, AlimentoId, TamanoPorcion, Calorias, PorcionesPorEnvase, Sodio, Azucares,
     FibraDietetica, VitaminaA, VitaminaC, Calcio, Hierro

@@ -14,7 +14,6 @@ namespace MacroBalance.Controllers
         {
             var viewModel = new EtiquetaNutricionalViewModel();
 
-            // Cargar alimentos desde la tabla EtiquetaNutricional
             viewModel.Alimentos = db.EtiquetaNutricional
                 .Select(e => new SelectListItem
                 {
@@ -23,7 +22,6 @@ namespace MacroBalance.Controllers
                 })
                 .ToList();
 
-            // Si hay un alimento seleccionado, cargar sus detalles
             if (alimentoId.HasValue)
             {
                 var etiqueta = db.EtiquetaNutricional
@@ -51,13 +49,6 @@ namespace MacroBalance.Controllers
             }
 
             return View(viewModel);
-        }
-
-
-        // Acción opcional si decidís usar una vista parcial o navegación separada
-        public ActionResult DetalleEtiqueta(int alimentoId)
-        {
-            return RedirectToAction("Index", new { alimentoId = alimentoId });
         }
     }
 }
