@@ -19,7 +19,6 @@ namespace MacroBalance.Controllers
 
             using (var db = new MacroBalanceEntities())
             {
-                // Obtener la dieta más reciente del usuario
                 var dieta = db.Dieta
                     .Where(d => d.IdUsuario == usuarioId)
                     .OrderByDescending(d => d.Id)
@@ -35,11 +34,13 @@ namespace MacroBalance.Controllers
                 {
                     DietaId = dieta.Id,
                     Alimentos = db.Alimento
+                        .OrderBy(a => a.Nombre)
                         .Select(a => new SelectListItem
                         {
                             Value = a.Id.ToString(),
                             Text = a.Nombre
-                        }).ToList()
+                        })
+                        .ToList()
                 };
 
                 return View(model);
@@ -72,7 +73,7 @@ namespace MacroBalance.Controllers
                         DietaId = model.DietaId,
                         AlimentoId = model.AlimentoId,
                         Cantidad = model.Cantidad,
-                        Fecha = DateTime.Today
+                        Fecha = DateTime.Now
                     };
 
                     db.RegistroAlimento.Add(nuevo);

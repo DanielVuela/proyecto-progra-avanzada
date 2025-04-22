@@ -16,7 +16,8 @@ namespace MacroBalance.Controllers
         public ActionResult Hoy()
         {
             int usuarioId = (int)Session[SessionAtributes.UsuarioId];
-            DateTime hoy = DateTime.Today;
+            DateTime inicioHoy = DateTime.Today;
+            DateTime inicioManana = DateTime.Today.AddDays(1);
 
             using (var db = new MacroBalanceEntities())
             {
@@ -25,13 +26,12 @@ namespace MacroBalance.Controllers
                     .Select(d => d.Id)
                     .ToList();
 
-                // Cargar alimentos registrados hoy
                 var alimentosHoy = db.RegistroAlimento
                     .Include("Alimento")
-                    .Where(ra => dietaIds.Contains((int)ra.DietaId) && ra.Fecha == hoy)
+                    .Where(ra => dietaIds.Contains((int)ra.DietaId) && ra.Fecha >= inicioHoy && ra.Fecha < inicioManana)
                     .ToList();
 
-                // Sumar nutrientes
+                // sumar nutrientes
                 decimal totalCalorias = 0, totalProteinas = 0, totalCarbohidratos = 0, totalGrasas = 0;
 
                 foreach (var registro in alimentosHoy)
@@ -45,7 +45,7 @@ namespace MacroBalance.Controllers
                     }
                 }
 
-                // Obtener metas del perfil
+                // cargar metas del perfil
                 var perfil = db.PerfilDieta
                     .Where(p => p.UsuarioId == usuarioId)
                     .OrderByDescending(p => p.FechaAsignacion)
@@ -54,7 +54,7 @@ namespace MacroBalance.Controllers
                 var model = new BitacoraHoyViewModel
                 {
                     UsuarioId = usuarioId,
-                    Fecha = hoy,
+                    Fecha = inicioHoy,
                     AlimentosConsumidos = alimentosHoy,
 
                     CaloriasConsumidas = totalCalorias,

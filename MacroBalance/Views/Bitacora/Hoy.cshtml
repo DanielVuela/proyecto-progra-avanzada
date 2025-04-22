@@ -77,13 +77,15 @@
                     @foreach (var item in Model.AlimentosConsumidos)
                     {
                         <tr>
-                            <td>@item.Alimento?.Nombre</td>
+                            <td>@item.Alimento.Nombre</td>
                             <td>@item.Cantidad</td>
                             <td>@(item.Alimento?.Calorias * item.Cantidad)</td>
                             <td>@(item.Alimento?.Proteina * item.Cantidad)</td>
                             <td>@(item.Alimento?.Carbohidratos * item.Cantidad)</td>
                             <td>@(item.Alimento?.Grasas * item.Cantidad)</td>
-                            <td>@item.Fecha?.ToString("HH:mm")</td>
+                            <td>
+                                @(item.Fecha != null ? item.Fecha.Value.ToString("hh:mm tt") : "")
+                            </td>
                         </tr>
                     }
                 </tbody>
