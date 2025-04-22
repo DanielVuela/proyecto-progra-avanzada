@@ -18,8 +18,7 @@
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>
-    </Use64BitIISExpress>
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <IISExpressSSLPort>44324</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -165,6 +164,9 @@
     <Compile Include="Database\EstadoEmocional.cs">
       <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\EtiquetaNutricional.cs">
+      <DependentUpon>MacroBalance.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\LogErrores.cs">
       <DependentUpon>MacroBalance.tt</DependentUpon>
     </Compile>
@@ -222,6 +224,7 @@
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\ViewModels\BitacoraHoyViewModel.cs" />
     <Compile Include="Models\ViewModels\DietaViewModel.cs" />
+    <Compile Include="Models\ViewModels\EtiquetaNutricionalViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Models\ViewModels\SugerenciaEmocionalViewModel.cs" />
     <Compile Include="Models\ViewModels\TipoRecetaConAlimentosViewModel.cs" />
@@ -736,7 +739,7 @@
     <Content Include="Views\EstadoEmocional\Create.cshtml" />
     <Content Include="Views\EstadoEmocional\Grafico.cshtml" />
     <Content Include="Views\EstadoEmocional\Detalles.cshtml" />
-    <Content Include="Views\EtiquetasNutricionales\EtiquetasNutri.cshtml" />
+    <Content Include="Views\EtiquetasNutricionales\Index.cshtml" />
     <Content Include="Views\TipoRecetas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

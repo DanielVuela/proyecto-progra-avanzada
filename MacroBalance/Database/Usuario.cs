@@ -20,7 +20,6 @@ namespace MacroBalance.Database
             this.Dieta = new HashSet<Dieta>();
             this.EjercicioRealizado = new HashSet<EjercicioRealizado>();
             this.EstadoEmocional = new HashSet<EstadoEmocional>();
-            this.LogErrores = new HashSet<LogErrores>();
             this.Objetivo = new HashSet<Objetivo>();
             this.PerfilDieta = new HashSet<PerfilDieta>();
             this.PreferenciaAlimenticia = new HashSet<PreferenciaAlimenticia>();
@@ -47,8 +46,6 @@ namespace MacroBalance.Database
         public virtual ICollection<EjercicioRealizado> EjercicioRealizado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EstadoEmocional> EstadoEmocional { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LogErrores> LogErrores { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Objetivo> Objetivo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

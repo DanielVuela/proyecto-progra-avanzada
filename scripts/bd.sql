@@ -125,17 +125,6 @@ CREATE TABLE RegistroAlimento (
     Cantidad DECIMAL(5,2)
 );
 
-CREATE TABLE LogErrores (
-    Id INT PRIMARY KEY IDENTITY(1,1),
-    FechaHora DATETIME DEFAULT GETDATE(),
-    UsuarioId INT NULL, -- Puede ser NULL si el error ocurre antes del login
-    Modulo NVARCHAR(100) NOT NULL, -- Ej: 'Login', 'RegistroAlimento', 'API/Dieta'
-    MensajeError NVARCHAR(1000) NOT NULL,
-    Stacktrace NVARCHAR(MAX) NULL,
-    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id)
-);
-
-
 -- Tabla: LogErrores
 CREATE TABLE LogErrores (
     Id INT PRIMARY KEY IDENTITY(1,1),
@@ -365,3 +354,68 @@ INSERT INTO AlimentoTipoReceta (AlimentoId, TipoRecetaId) VALUES
 (19, 2), -- Frijoles 
 (20, 2), -- Pan integral 
 (20, 4); -- Pan integral 
+
+CREATE TABLE EtiquetaNutricional (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Nombre NVARCHAR(100) NOT NULL,     -- Nombre de la etiqueta o del producto
+	Imagen NVARCHAR(255),
+	AlimentoId INT NOT NULL,
+    TamanoPorcion NVARCHAR(100),       -- Ejemplo: "100g", "1 taza"
+	Calorias DECIMAL(5,2),
+    PorcionesPorEnvase DECIMAL(4,2),
+    Sodio DECIMAL(6,2),                -- en mg
+    Azucares DECIMAL(5,2),             -- en g
+    FibraDietetica DECIMAL(5,2),       -- en g
+    VitaminaA DECIMAL(5,2),            -- en % del valor diario
+    VitaminaC DECIMAL(5,2),            -- en % del valor diario
+    Calcio DECIMAL(5,2),               -- en % del valor diario
+    Hierro DECIMAL(5,2),               -- en % del valor diario
+    FOREIGN KEY (AlimentoId) REFERENCES Alimento(Id)
+);
+
+
+------Inserts Etiquetas 
+INSERT INTO EtiquetaNutricional (
+    Nombre, Imagen, AlimentoId, TamanoPorcion, Calorias, PorcionesPorEnvase, Sodio, Azucares,
+    FibraDietetica, VitaminaA, VitaminaC, Calcio, Hierro
+)
+VALUES
+('Mantequilla de Maní',
+ 'https://karayfoods.com/wp-content/uploads/2021/02/tabla-nutricional-mantequilla-de-mani-001.jpg',
+ 1, '32g', 190.00, 1, 140.00, 3.00, 2.00, 0.00, 0.00, 0.00, 1.00),
+
+('Cereal de Maíz',
+ 'https://th.bing.com/th/id/OIP.L5BfZYsdR224SqdFMJP23wAAAA?w=445&h=445&rs=1&pid=ImgDetMain',
+ 2, '100g', 370.00, 1, 150.00, 10.00, 5.00, 0.00, 0.00, 0.00, 20.00),
+
+('Leche Descremada',
+ 'https://th.bing.com/th/id/OIP.NbPgN1L7r6iU8k6lpPmHAAHaHa?rs=1&pid=ImgDetMain',
+ 3, '1 taza (240ml)', 90.00, 1, 100.00, 12.00, 0.00, 10.00, 2.00, 10.00, 10.00),
+
+('Galletas de Avena',
+ 'https://hebmx.vtexassets.com/arquivos/ids/787065/327048_3-1679016940.jpg?v=638243501181300000',
+ 4, '1 galleta (30g)', 150.00, 10, 100.00, 5.00, 2.00, 1.00, 5.00, 3.00, 3.00),
+
+('Yogur Natural',
+ 'https://th.bing.com/th/id/OIP.kz2IDBzF1DjsWazE-HshJQHaHr?w=1000&h=1037&rs=1&pid=ImgDetMain',
+ 5, '125g', 80.00, 1, 50.00, 4.00, 0.00, 5.00, 0.00, 170.00, 4.00),
+
+('Jugo de Naranja',
+ 'https://res.cloudinary.com/walmart-labs/image/upload/d_default.jpg/w_960,dpr_auto,f_auto,q_auto:best/gr/images/product-images/img_large/00750105241446L1.jpg?odnHeight=80&odnWidth=80&odnBg=FFFFFF',
+ 6, '1 taza (240ml)', 306.00, 1, 2.00, 23.00, 0.00, 0.00, 60.00, 0.00, 4.00),
+
+('Pan Integral',
+ 'https://th.bing.com/th/id/OIP.iDHhBIDf8u7XinE3lvIWWgHaH5?rs=1&pid=ImgDetMain',
+ 7, '1 rebanada (40g)', 90.00, 1, 150.00, 2.00, 4.00, 1.00, 4.00, 0.00, 1.50),
+
+('Atún en Agua',
+ 'https://th.bing.com/th/id/OIP.7HBZxjeHwar0yyJPsfBLowHaHa?rs=1&pid=ImgDetMain',
+ 8, '1 lata (140g)', 160.00, 1, 100.00, 0.00, 35.00, 0.00, 0.00, 0.00, 6.00),
+
+('Sopa de Verduras',
+ 'https://th.bing.com/th/id/OIP.92xprT20ZhQe1sPdW1oJxwAAAA?rs=1&pid=ImgDetMain',
+ 9, '1 taza (240ml)', 100.00, 1, 800.00, 5.00, 3.00, 1.00, 2.00, 3.00, 5.00),
+
+('Chocolate Oscuro',
+ 'https://th.bing.com/th/id/OIP.VA7uhWZ7CXD59mjkwGt9GgAAAA?rs=1&pid=ImgDetMain',
+ 10, '30g', 170.00, 1, 10.00, 15.00, 13.00, 0.00, 2.00, 5.00, 1.00);

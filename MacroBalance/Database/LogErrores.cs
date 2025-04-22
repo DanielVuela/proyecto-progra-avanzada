@@ -20,7 +20,5 @@ namespace MacroBalance.Database
         public string Modulo { get; set; }
         public string MensajeError { get; set; }
         public string Stacktrace { get; set; }
-    
-        public virtual Usuario Usuario { get; set; }
     }
 }

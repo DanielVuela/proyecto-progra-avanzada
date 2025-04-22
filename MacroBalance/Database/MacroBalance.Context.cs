@@ -27,10 +27,12 @@ namespace MacroBalance.Database
     
         public virtual DbSet<Alimento> Alimento { get; set; }
         public virtual DbSet<Alimento_Dieta> Alimento_Dieta { get; set; }
+        public virtual DbSet<AlimentoTipoReceta> AlimentoTipoReceta { get; set; }
         public virtual DbSet<Dieta> Dieta { get; set; }
         public virtual DbSet<Ejercicio> Ejercicio { get; set; }
         public virtual DbSet<EjercicioRealizado> EjercicioRealizado { get; set; }
         public virtual DbSet<EstadoEmocional> EstadoEmocional { get; set; }
+        public virtual DbSet<EtiquetaNutricional> EtiquetaNutricional { get; set; }
         public virtual DbSet<LogErrores> LogErrores { get; set; }
         public virtual DbSet<Objetivo> Objetivo { get; set; }
         public virtual DbSet<PerfilDieta> PerfilDieta { get; set; }
@@ -41,8 +43,7 @@ namespace MacroBalance.Database
         public virtual DbSet<Sugerencia> Sugerencia { get; set; }
         public virtual DbSet<SugerenciaBase> SugerenciaBase { get; set; }
         public virtual DbSet<SugerenciaCicloMenstrual> SugerenciaCicloMenstrual { get; set; }
-        public virtual DbSet<Usuario> Usuario { get; set; }
-        public virtual DbSet<AlimentoTipoReceta> AlimentoTipoReceta { get; set; }
         public virtual DbSet<TipoReceta> TipoReceta { get; set; }
+        public virtual DbSet<Usuario> Usuario { get; set; }
     }
 }

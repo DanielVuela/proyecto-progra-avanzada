@@ -18,8 +18,9 @@ namespace MacroBalance.Database
         public Alimento()
         {
             this.Alimento_Dieta = new HashSet<Alimento_Dieta>();
-            this.RegistroAlimento = new HashSet<RegistroAlimento>();
             this.AlimentoTipoReceta = new HashSet<AlimentoTipoReceta>();
+            this.EtiquetaNutricional = new HashSet<EtiquetaNutricional>();
+            this.RegistroAlimento = new HashSet<RegistroAlimento>();
         }
     
         public int Id { get; set; }
@@ -33,8 +34,10 @@ namespace MacroBalance.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Alimento_Dieta> Alimento_Dieta { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RegistroAlimento> RegistroAlimento { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlimentoTipoReceta> AlimentoTipoReceta { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EtiquetaNutricional> EtiquetaNutricional { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RegistroAlimento> RegistroAlimento { get; set; }
     }
 }

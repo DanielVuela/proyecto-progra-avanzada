@@ -1,0 +1,74 @@
+﻿@model MacroBalance.Models.ViewModels.EtiquetaNutricionalViewModel
+
+@{
+    ViewBag.Title = "Etiqueta Nutricional";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="main container mt-4">
+    <div class="pagetitle text-center mb-4">
+        <h2 class="text-success fw-bold">🥗 Información Nutricional por Alimento</h2>
+        <p class="text-muted">Selecciona un alimento para ver su etiqueta nutricional.</p>
+    </div>
+
+    <div class="card p-4 shadow-sm border-start border-4 border-success mb-4">
+        @using (Html.BeginForm("Index", "EtiquetasNutricionales", FormMethod.Get))
+        {
+            <div class="row g-3 align-items-end">
+                <div class="col-md-10">
+                    <label class="form-label fw-semibold">Seleccionar alimento:</label>
+                    <select name="alimentoId" class="form-select">
+                        <option value="">-- Selecciona una opción --</option>
+                        @foreach (var item in Model.Alimentos)
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-success w-100">
+                        <i class="bi bi-search"></i> Buscar
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (Model.EtiquetaNutricional != null)
+    {
+        <div class="card shadow-sm p-4 mb-4">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img src="@Url.Content(Model.EtiquetaNutricional.Imagen)" alt="@Model.EtiquetaNutricional.Nombre" class="img-fluid rounded shadow-sm" />
+                    <h6 class="text-dark fw-bold">Imagen de Referencia (modo ilustrativo)</h6>
+                </div>
+                <div class="col-md-8">
+                    <h4 class="fw-bold">@Model.EtiquetaNutricional.Nombre</h4>
+                    <p><strong>Tamaño porción:</strong> @Model.EtiquetaNutricional.TamanoPorcion</p>
+                    <p><strong>Porciones por envase:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.PorcionesPorEnvase) ? "No disponible" : Model.EtiquetaNutricional.PorcionesPorEnvase)</p>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p><strong>Calorías:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.Calorias) ? "No disponible" : Model.EtiquetaNutricional.Calorias)</p>
+                            <p><strong>Sodio:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.Sodio) ? "No disponible" : Model.EtiquetaNutricional.Sodio) mg</p>
+                            <p><strong>Azúcares:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.Azucares) ? "No disponible" : Model.EtiquetaNutricional.Azucares) g</p>
+                            <p><strong>Fibra dietética:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.FibraDietetica) ? "No disponible" : Model.EtiquetaNutricional.FibraDietetica) g</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p><strong>Vitamina A:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.VitaminaA) ? "No disponible" : Model.EtiquetaNutricional.VitaminaA) %</p>
+                            <p><strong>Vitamina C:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.VitaminaC) ? "No disponible" : Model.EtiquetaNutricional.VitaminaC) %</p>
+                            <p><strong>Calcio:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.Calcio) ? "No disponible" : Model.EtiquetaNutricional.Calcio) %</p>
+                            <p><strong>Hierro:</strong> @(string.IsNullOrEmpty(Model.EtiquetaNutricional.Hierro) ? "No disponible" : Model.EtiquetaNutricional.Hierro) %</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (Model.AlimentoIdSeleccionado != 0)
+    {
+        <div class="alert alert-warning text-center shadow-sm">
+            <i class="bi bi-info-circle"></i> No se encontró información nutricional para el alimento seleccionado.
+        </div>
+    }
+</main>
